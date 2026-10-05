@@ -21,6 +21,8 @@ sys.path.insert(0, APP_DIR)
 from modules.enrichment import clean_phone_for_whatsapp, generate_whatsapp_url
 from modules.map_generator import generate_interactive_map
 from modules.pitch_generator import generate_pitch_document
+from modules.scoring import calculate_propfit_score
+from modules.decision_maker_hunter import find_decision_makers, generate_confidential_teaser
 from google_maps_lead_harvester import scrape_google_maps_places, export_to_excel, load_config
 
 import openpyxl
@@ -67,7 +69,7 @@ def load_leads_from_excel():
                 except Exception:
                     dist_float = None
                     
-                leads.append({
+                lead_obj = {
                     "kurum_adi": name,
                     "ana_kategori": ws.cell(row=r, column=3).value or "",
                     "is_kolu": ws.cell(row=r, column=4).value or "Kurumsal",
@@ -84,7 +86,15 @@ def load_leads_from_excel():
                     "oncelik": ws.cell(row=r, column=14).value or "B+",
                     "maps_url": ws.cell(row=r, column=15).value or "#",
                     "tarih": ws.cell(row=r, column=16).value or ""
-                })
+                }
+                scoring = calculate_propfit_score(lead_obj)
+                lead_obj.update(scoring)
+                leads.append(lead_obj)
+                
+        # Sort by PropFit score descending
+        leads = sorted(leads, key=lambda x: x.get("propfit_score", 0), reverse=True)
+        for idx, item in enumerate(leads):
+            item["index"] = idx
     except Exception as e:
         print(f"Excel okunurken hata: {e}")
         
@@ -98,6 +108,13 @@ def compute_stats(leads):
     dental_count = sum(1 for l in leads if any(k in (l.get("is_kolu") or "").lower() for k in ["diş", "estetik", "cerrahi"]))
     aplus_count = sum(1 for l in leads if l.get("oncelik") == "A+")
     
+    tier1_count = sum(1 for l in leads if "Tier 1" in l.get("tier", ""))
+    tier2_count = sum(1 for l in leads if "Tier 2" in l.get("tier", ""))
+    tier3_count = sum(1 for l in leads if "Tier 3" in l.get("tier", ""))
+    
+    valid_scores = [l.get("propfit_score", 0) for l in leads]
+    avg_propfit = round(sum(valid_scores) / len(valid_scores), 1) if valid_scores else 0.0
+    
     valid_dists = [l["mesafe_km"] for l in leads if l.get("mesafe_km") is not None]
     avg_dist = round(sum(valid_dists) / len(valid_dists), 1) if valid_dists else 0.0
     
@@ -107,6 +124,10 @@ def compute_stats(leads):
         "edu_count": edu_count,
         "dental_count": dental_count,
         "aplus_count": aplus_count,
+        "tier1_count": tier1_count,
+        "tier2_count": tier2_count,
+        "tier3_count": tier3_count,
+        "avg_propfit": avg_propfit,
         "avg_distance": avg_dist
     }
 
@@ -155,6 +176,34 @@ def api_generate_all_pitches():
         "status": "success",
         "message": f"Toplam {count} adet kurum için kişiselleştirilmiş Word (.docx) teklif mektubu '{PROPOSALS_DIR}' klasörüne başarıyla üretildi!"
     })
+
+@app.route("/api/generate_teaser/<int:lead_index>")
+def api_generate_teaser(lead_index):
+    leads = load_leads_from_excel()
+    if 0 <= lead_index < len(leads):
+        lead = leads[lead_index]
+        teaser_text = generate_confidential_teaser(lead)
+        return jsonify({
+            "status": "success",
+            "kurum_adi": lead.get("kurum_adi"),
+            "teaser": teaser_text
+        })
+    return jsonify({"error": "Kurum bulunamadı"}), 404
+
+@app.route("/api/hunt_executives/<int:lead_index>")
+def api_hunt_executives(lead_index):
+    leads = load_leads_from_excel()
+    if 0 <= lead_index < len(leads):
+        lead = leads[lead_index]
+        website = lead.get("web_sitesi")
+        execs = find_decision_makers(website)
+        return jsonify({
+            "status": "success",
+            "kurum_adi": lead.get("kurum_adi"),
+            "executives": execs
+        })
+    return jsonify({"error": "Kurum bulunamadı"}), 404
+
 
 @app.route("/api/scan", methods=["POST"])
 def api_start_scan():

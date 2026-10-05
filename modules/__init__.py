@@ -6,14 +6,19 @@ NexaScout Core Modules
 - pitch_generator: AI-powered personalized investment proposal generation (DOCX)
 """
 
-from .enrichment import clean_phone_for_whatsapp, generate_whatsapp_url, enrich_lead_contacts
+from .enrichment import clean_phone_for_whatsapp, generate_whatsapp_url, enrich_from_website
 from .map_generator import generate_interactive_map
 from .pitch_generator import generate_pitch_document
+from .scoring import calculate_propfit_score
+from .decision_maker_hunter import find_decision_makers, generate_confidential_teaser
 
 __all__ = [
     "clean_phone_for_whatsapp",
     "generate_whatsapp_url",
-    "enrich_lead_contacts",
+    "enrich_from_website",
     "generate_interactive_map",
-    "generate_pitch_document"
+    "generate_pitch_document",
+    "calculate_propfit_score",
+    "find_decision_makers",
+    "generate_confidential_teaser"
 ]
