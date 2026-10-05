@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İncek LÖSANTE Karşısı Ticari Mülk - B2B Pazarlama & Harita Yönetim Paneli</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy-dark: #1B365D;
+            --navy-light: #2C3E50;
+            --gold: #C5A059;
+            --accent-blue: #0284C7;
+            --bg-light: #F8FAFC;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: #1E293B;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .bg-navy {
+            background-color: var(--navy-dark) !important;
+        }
+        .kpi-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .kpi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .badge-aplus {
+            background-color: #FEE2E2;
+            color: #991B1B;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+        .badge-a {
+            background-color: #FEF3C7;
+            color: #92400E;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+        .badge-bplus {
+            background-color: #E0F2FE;
+            color: #075985;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+        .btn-wa {
+            background-color: #25D366;
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .btn-wa:hover {
+            background-color: #1EBE5D;
+            color: white;
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--navy-dark);
+            color: white;
+            font-weight: 600;
+        }
+        .nav-pills .nav-link {
+            color: var(--navy-light);
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
+        .map-container {
+            width: 100%;
+            height: 750px;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .table-responsive {
+            border-radius: 12px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-navy py-3 shadow">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fa-solid fa-building-circle-check text-warning me-3 fa-lg"></i>
+                <div>
+                    <div style="font-size: 16px;">COLDWELL BANKER VIP REAL</div>
+                    <div style="font-size: 12px; font-weight: normal; color: #CBD5E1;">İncek LÖSANTE Karşısı Ticari Mülk B2B Pazarlama ve Veri Otomasyonu</div>
+                </div>
+            </a>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-warning text-dark px-3 py-2 fw-bold">
+                    <i class="fa-solid fa-certificate me-1"></i> Tescilli Ticari YKB (C278DFHU)
+                </span>
+                <span class="badge bg-danger px-3 py-2 fw-bold">
+                    <i class="fa-solid fa-lock me-1"></i> %100 Off-Market (Branda Yok)
+                </span>
+                <button class="btn btn-outline-light btn-sm ms-2" onclick="location.reload()">
+                    <i class="fa-solid fa-rotate me-1"></i> Yenile
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid px-4 py-4">
+
+        <!-- Property Highlight Header Banner -->
+        <div class="card mb-4 border-0 shadow-sm" style="background: linear-gradient(135deg, #1B365D 0%, #2C3E50 100%); color: white; border-radius: 14px;">
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-light text-dark fw-bold">Ada 119464 Parsel 13</span>
+                            <span class="badge bg-success fw-bold">Bölgedeki Tek Ticari Ruhsat</span>
+                            <span class="badge bg-info text-dark fw-bold">LÖSANTE Karşısı</span>
+                        </div>
+                        <h3 class="fw-bold mb-2">Ankara İncek / LÖSANTE Karşısı 4 Katlı Tescilli Ticari Malikâne</h3>
+                        <p class="mb-0 text-light" style="font-size: 14px; opacity: 0.9;">
+                            398 m² Köşe Arsa • ~420 m² Brüt Kapalı Alan • 8-11 Bağımsız Oda • 2 Büyük Salon (Şömineli) • Kesintisiz Asansör Şaftı • 10 Ton Su Deposu • Çift Giriş • 15 Araçlık Otopark
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                        <div style="font-size: 12px; color: #C5A059; font-weight: bold; text-transform: uppercase;">Hedef Satış Değeri</div>
+                        <h2 class="fw-bold text-warning mb-1">76.500.000 - 78.000.000 TL</h2>
+                        <div style="font-size: 12px; color: #E2E8F0;">
+                            <i class="fa-regular fa-calendar-check me-1"></i> Gösterim: Salı & Çarşamba 17:00 (KYC & NDA ile)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Metrics Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-primary bg-opacity-10 text-primary me-3">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">Toplam Kurum</div>
+                            <h4 class="fw-bold mb-0" id="kpi-total">{{ stats.total_leads }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-danger bg-opacity-10 text-danger me-3">
+                            <i class="fa-solid fa-hospital"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">Sağlık & Medikal</div>
+                            <h4 class="fw-bold mb-0 text-danger" id="kpi-health">{{ stats.health_count }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-success bg-opacity-10 text-success me-3">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">Kolej & Eğitim</div>
+                            <h4 class="fw-bold mb-0 text-success" id="kpi-edu">{{ stats.edu_count }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-info bg-opacity-10 text-info me-3">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">Diş & Estetik</div>
+                            <h4 class="fw-bold mb-0 text-info" id="kpi-dental">{{ stats.dental_count }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-warning bg-opacity-10 text-warning me-3">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">A+ Öncelikli</div>
+                            <h4 class="fw-bold mb-0 text-danger" id="kpi-aplus">{{ stats.aplus_count }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card kpi-card p-3 bg-white">
+                    <div class="d-flex align-items-center">
+                        <div class="kpi-icon bg-secondary bg-opacity-10 text-secondary me-3">
+                            <i class="fa-solid fa-route"></i>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 11px;">Ortalama Mesafe</div>
+                            <h4 class="fw-bold mb-0 text-primary">{{ stats.avg_distance }} km</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-pills mb-4 gap-2 bg-white p-2 rounded-3 shadow-sm" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-table-tab" data-bs-toggle="pill" data-bs-target="#pills-table" type="button" role="tab">
+                    <i class="fa-solid fa-table-list me-2"></i> Hedef Kurumlar ve B2B Aday Listesi ({{ stats.total_leads }})
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-map-tab" data-bs-toggle="pill" data-bs-target="#pills-map" type="button" role="tab">
+                    <i class="fa-solid fa-map-marked-alt me-2"></i> İnteraktif GIS Haritası & Yarıçap Çemberleri
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-scan-tab" data-bs-toggle="pill" data-bs-target="#pills-scan" type="button" role="tab">
+                    <i class="fa-solid fa-magnifying-glass-location me-2"></i> Canlı Google Maps Taraması Başlat
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-export-tab" data-bs-toggle="pill" data-bs-target="#pills-export" type="button" role="tab">
+                    <i class="fa-solid fa-file-export me-2"></i> Excel İndir & Raporlama
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="pills-tabContent">
+
+            <!-- TAB 1: DATA TABLE -->
+            <div class="tab-pane fade show active" id="pills-table" role="tabpanel">
+                <div class="table-responsive">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0 text-navy">
+                            <i class="fa-solid fa-database text-primary me-2"></i> Taranan ve Eşleştirilen Kurumsal Adaylar
+                        </h5>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-success btn-sm fw-bold" onclick="generateAllPitches()">
+                                <i class="fa-solid fa-file-word me-1"></i> Tüm Kurumlara Word Teklif Üret (.docx)
+                            </button>
+                            <a href="/download/master_excel" class="btn btn-outline-success btn-sm fw-bold">
+                                <i class="fa-solid fa-file-excel me-1"></i> Excel İndir
+                            </a>
+                        </div>
+                    </div>
+
+                    <table id="leadsTable" class="table table-hover align-middle table-striped" style="width:100%">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="width: 5%;">Sıra</th>
+                                <th style="width: 20%;">Kurum / İşletme Adı</th>
+                                <th style="width: 12%;">İş Kolu</th>
+                                <th style="width: 18%;">Adres & Plus Kodu</th>
+                                <th style="width: 10%;">Telefon</th>
+                                <th style="width: 12%;">E-Posta</th>
+                                <th style="width: 6%;">Mesafe</th>
+                                <th style="width: 6%;">Öncelik</th>
+                                <th style="width: 11%;">Hızlı İletişim & Aksiyon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for lead in leads %}
+                            <tr>
+                                <td class="text-center fw-bold">{{ loop.index }}</td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ lead.kurum_adi }}</div>
+                                    <small class="text-muted">{{ lead.ana_kategori }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ lead.is_kolu }}</span>
+                                </td>
+                                <td>
+                                    <div style="font-size: 11px; max-width: 250px;">{{ lead.adres }}</div>
+                                    {% if lead.plus_kodu and lead.plus_kodu != 'N/A' %}
+                                    <span class="badge bg-light text-dark border" style="font-size: 10px;">{{ lead.plus_kodu }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if lead.telefon and lead.telefon != 'N/A' %}
+                                    <a href="tel:{{ lead.telefon }}" class="text-decoration-none fw-bold text-primary">
+                                        <i class="fa-solid fa-phone me-1"></i>{{ lead.telefon }}
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">N/A</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if lead.eposta and lead.eposta != 'N/A' %}
+                                    <a href="mailto:{{ lead.eposta }}" class="text-decoration-none text-dark" style="font-size: 11px;">
+                                        <i class="fa-solid fa-envelope me-1 text-danger"></i>{{ lead.eposta }}
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted" style="font-size: 11px;">N/A</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="fw-bold {% if lead.mesafe_km and lead.mesafe_km <= 3.5 %}text-danger{% else %}text-primary{% endif %}">
+                                        {{ lead.mesafe_km }} km
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    {% if lead.oncelik == 'A+' %}
+                                    <span class="badge-aplus">A+</span>
+                                    {% elif lead.oncelik == 'A' %}
+                                    <span class="badge-a">A</span>
+                                    {% else %}
+                                    <span class="badge-bplus">B+</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        {% if lead.telefon and lead.telefon != 'N/A' %}
+                                        <a href="https://wa.me/{{ lead.telefon_wa }}?text=Merhaba%20{{ lead.kurum_adi }}%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20müstakil%20ticari%20mülkümüz%20için%20özel%20yatırım%20dosyamızı%20paylaşmak%20isteriz." target="_blank" class="btn btn-wa" title="WhatsApp Mesajı Başlat">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                        </a>
+                                        {% endif %}
+                                        <a href="/api/generate_pitch/{{ loop.index - 1 }}" class="btn btn-primary" title="Kişiselleştirilmiş Word Teklif İndir (.docx)">
+                                            <i class="fa-solid fa-file-word"></i>
+                                        </a>
+                                        {% if lead.maps_url and lead.maps_url != 'N/A' %}
+                                        <a href="{{ lead.maps_url }}" target="_blank" class="btn btn-outline-secondary" title="Google Maps'te Aç">
+                                            <i class="fa-solid fa-location-arrow"></i>
+                                        </a>
+                                        {% endif %}
+                                        {% if lead.web_sitesi and lead.web_sitesi != 'N/A' %}
+                                        <a href="{{ lead.web_sitesi }}" target="_blank" class="btn btn-outline-info" title="Web Sitesi">
+                                            <i class="fa-solid fa-globe"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: INTERACTIVE GIS MAP -->
+            <div class="tab-pane fade" id="pills-map" role="tabpanel">
+                <div class="card border-0 shadow-sm p-3 bg-white rounded-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="fw-bold mb-0 text-navy">
+                            <i class="fa-solid fa-map text-primary me-2"></i> İncek LÖSANTE Karşısı Ticari Mülk Etki Alanı ve Hedef Kurumlar Haritası
+                        </h5>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-primary" onclick="refreshMap()">
+                                <i class="fa-solid fa-arrows-rotate me-1"></i> Haritayı Yeniden Oluştur
+                            </button>
+                            <a href="/map" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                <i class="fa-solid fa-up-right-from-square me-1"></i> Tam Sayfa Aç
+                            </a>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <iframe id="mapFrame" src="/map" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: SCANNER & HARVESTER -->
+            <div class="tab-pane fade" id="pills-scan" role="tabpanel">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm p-4 bg-white rounded-3">
+                            <h5 class="fw-bold mb-3 text-navy">
+                                <i class="fa-solid fa-compass text-danger me-2"></i> Canlı Google Maps Taraması Başlat
+                            </h5>
+                            <p class="text-muted" style="font-size: 13px;">
+                                İncek LÖSANTE koordinatları (39.8245, 32.7485) merkez alınarak seçilen sektördeki kurumlar taranır, adres, plus kodu, telefon ve e-postaları çekilerek otomatik olarak veri tabanına eklenir.
+                            </p>
+                            
+                            <form id="scanForm" onsubmit="startScan(event)">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold" style="font-size: 13px;">Hedef Sektör Kategorisi:</label>
+                                    <select class="form-select" id="scanCategory">
+                                        <option value="all">Tüm Önerilen Sektörler (Sağlık, Eğitim, Savunma, Hukuk, Diplomatik)</option>
+                                        <option value="saglik">Sağlık & Medikal (Tıp Merkezleri, Poliklinikler, Diş, Fizik Tedavi)</option>
+                                        <option value="egitim">Özel Eğitim Kurumları & Kolejler (Kolej, Anaokulu)</option>
+                                        <option value="savunma_teknoloji">Savunma Sanayii & Teknoloji AR-GE</option>
+                                        <option value="hukuk_denetim">Prestij Hukuk Büroları & YMM Bağımsız Denetim</option>
+                                        <option value="diplomatik">Diplomatik Misyonlar, Elçilik & Ataşelikler</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold" style="font-size: 13px;">Veya Özel Arama Kelimesi Giriniz (İsteğe Bağlı):</label>
+                                    <input type="text" class="form-control" id="customQuery" placeholder="Örn: 'implant diş kliniği Çayyolu', 'estetik cerrahi İncek'">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold" style="font-size: 13px;">Arama Başına Çekilecek Kurum Limiti:</label>
+                                    <input type="number" class="form-control" id="maxPlaces" value="6" min="2" max="25">
+                                </div>
+
+                                <button type="submit" class="btn btn-navy w-100 py-2 fw-bold text-white bg-navy" id="btnStartScan">
+                                    <i class="fa-solid fa-play me-2"></i> Taramayı Başlat
+                                </button>
+                            </form>
+
+                            <!-- Progress Indicator -->
+                            <div id="scanProgress" class="mt-4 d-none">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                    <span class="fw-bold text-navy" id="scanStatusText">Google Maps taranıyor, lütfen bekleyiniz...</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm p-4 bg-white rounded-3">
+                            <h5 class="fw-bold mb-3 text-navy">
+                                <i class="fa-solid fa-circle-info text-info me-2"></i> Otomasyon Nasıl Çalışıyor?
+                            </h5>
+                            <div class="timeline" style="font-size: 13px; line-height: 1.6; color: #475569;">
+                                <p><b>1. Koordinat Merkezli Arama:</b> Google Maps motoru, LÖSANTE Hastanesi karşısındaki mülkümüzün koordinatını (39.8245, 32.7485) odak noktası alarak arama yarıçapını tarar.</p>
+                                <p><b>2. Kart Panelinden Bilgi Çekimi:</b> Ekran görüntülerinizdeki gibi Kurum Adı, Açık Adres, Plus Kodu, Telefon ve Web Sitesi ayıklanır.</p>
+                                <p><b>3. Kuş Uçuşu Mesafe Hesaplama:</b> Haversine matematiksel formülü ile kurumun mülkümüze olan net mesafesi (km) anlık hesaplanır.</p>
+                                <p><b>4. Derin E-Posta Taraması:</b> Kurumun web sitesindeki /iletisim ve ana sayfalar taranarak resmi e-posta adresleri yakalanır.</p>
+                                <p><b>5. Otomatik HBU & Öncelik Skorlaması:</b> Kurumun faaliyet alanına ve mesafesine göre (0-3.5 km A+ öncelik) portföyümüze en uygun ticari model atanır.</p>
+                                <p><b>6. Mükerrer Kayıt Engelleme:</b> Daha önce çekilmiş olan kurumlar tekrar eklenmez, güncel veriler korunur.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: EXPORT & REPORTS -->
+            <div class="tab-pane fade" id="pills-export" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm p-4 bg-white rounded-3 text-center h-100">
+                            <i class="fa-solid fa-file-excel text-success fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Haritadan Toplanan Kurumlar</h5>
+                            <p class="text-muted" style="font-size: 13px;">Google Maps üzerinden toplanan 40+ güncel kurumun 16 sütunlu detaylı Excel tablosu ve dashboard özeti.</p>
+                            <a href="/download/master_excel" class="btn btn-success fw-bold mt-auto">
+                                <i class="fa-solid fa-download me-1"></i> Master Excel İndir (.xlsx)
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm p-4 bg-white rounded-3 text-center h-100">
+                            <i class="fa-solid fa-file-shield text-primary fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Stratejik 50 Yatırımcı CRM Listesi</h5>
+                            <p class="text-muted" style="font-size: 13px;">Coldwell Banker VIP sözleşmesine uygun, Salı-Çarşamba randevu protokolü ve KYC kontrol listesini içeren 4 sayfalık Excel.</p>
+                            <a href="/download/strategic_excel" class="btn btn-primary fw-bold mt-auto">
+                                <i class="fa-solid fa-download me-1"></i> Stratejik CRM Excel İndir (.xlsx)
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm p-4 bg-white rounded-3 text-center h-100">
+                            <i class="fa-solid fa-file-word text-info fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Kişiselleştirilmiş Word Teklifleri</h5>
+                            <p class="text-muted" style="font-size: 13px;">Taranan tüm kurumlara özel olarak mesafesi ve iş koluna göre üretilmiş profesyonel Word (.docx) yatırım teklif mektupları.</p>
+                            <button class="btn btn-info text-white fw-bold mt-auto" onclick="generateAllPitches()">
+                                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Teklif Mektuplarını Üret (.docx)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#leadsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/tr.json'
+                },
+                pageLength: 25,
+                order: [[6, 'asc']], // Order by distance by default
+                responsive: true
+            });
+        });
+
+        function refreshMap() {
+            var iframe = document.getElementById('mapFrame');
+            iframe.src = '/map?t=' + new Date().getTime();
+        }
+
+        function startScan(e) {
+            e.preventDefault();
+            var category = $('#scanCategory').val();
+            var query = $('#customQuery').val();
+            var maxPlaces = $('#maxPlaces').val();
+
+            $('#scanProgress').removeClass('d-none');
+            $('#btnStartScan').prop('disabled', true);
+            $('#scanStatusText').text('Tarama başlatıldı, kurumlar haritadan çekiliyor...');
+
+            $.ajax({
+                url: '/api/scan',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    category: category,
+                    query: query,
+                    max_places: maxPlaces
+                }),
+                success: function(res) {
+                    $('#scanStatusText').text('Tarama başarıyla tamamlandı! Sayfa yenileniyor...');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2500);
+                },
+                error: function(err) {
+                    alert('Tarama sırasında hata oluştu: ' + (err.responseJSON ? err.responseJSON.error : 'Bilinmeyen hata'));
+                    $('#scanProgress').addClass('d-none');
+                    $('#btnStartScan').prop('disabled', false);
+                }
+            });
+        }
+
+        function generateAllPitches() {
+            if (!confirm('Tüm taranan kurumlar için kişiselleştirilmiş Word (.docx) yatırım teklif mektupları üretilsin mi?')) {
+                return;
+            }
+            alert('Teklif mektupları üretiliyor, bu işlem birkaç saniye sürebilir...');
+            $.get('/api/generate_all_pitches', function(res) {
+                alert(res.message);
+            }).fail(function() {
+                alert('Mektuplar üretilirken hata oluştu.');
+            });
+        }
+    </script>
+</body>
+</html>

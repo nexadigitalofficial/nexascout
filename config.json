@@ -1,0 +1,63 @@
+{
+  "anchor_property": {
+    "title": "İncek LÖSANTE Karşısı Çift Ruhsatlı Ticari Mülk",
+    "address": "Kızılcaşar Mah. 2705. Cadde No: 23, Gölbaşı / Ankara",
+    "latitude": 39.8245,
+    "longitude": 32.7485
+  },
+  "default_radius_km": 10,
+  "output_excel_path": "data/GOOGLE_HARITA_TOPLANAN_KURUMLAR.xlsx",
+  "category_presets": {
+    "saglik": {
+      "name": "Sağlık & Medikal",
+      "hbu_model": "Butik Poliklinik / Cerrahi Tıp Merkezi / VIP Klinik",
+      "keywords": [
+        "tıp merkezi İncek Ankara",
+        "özel poliklinik İncek Ankara",
+        "ağız ve diş sağlığı polikliniği İncek Ankara",
+        "estetik cerrahi kliniği İncek Ankara",
+        "fizik tedavi ve rehabilitasyon İncek Ankara",
+        "göz polikliniği İncek Ankara",
+        "onkoloji danışmanlık Ankara İncek"
+      ]
+    },
+    "egitim": {
+      "name": "Özel Eğitim & Kolejler",
+      "hbu_model": "Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü",
+      "keywords": [
+        "özel kolej İncek Ankara",
+        "anaokulu İncek Ankara",
+        "özel okul İncek Gölbaşı",
+        "eğitim kurumları İncek Ankara"
+      ]
+    },
+    "savunma_teknoloji": {
+      "name": "Savunma Sanayii & Teknoloji AR-GE",
+      "hbu_model": "Müstakil Şirket Genel Merkezi & Özel AR-GE Karargâhı",
+      "keywords": [
+        "savunma sanayi Ankara İncek",
+        "yazılım teknolojileri Çayyolu Beytepe",
+        "siber güvenlik şirketleri Ankara",
+        "ar-ge bilişim merkezi Ankara İncek"
+      ]
+    },
+    "hukuk_denetim": {
+      "name": "Prestij Hukuk & Bağımsız Denetim",
+      "hbu_model": "Müstakil Hukuk Bürosu & YMM Bağımsız Denetim Köşkü",
+      "keywords": [
+        "hukuk bürosu Çayyolu Ankara",
+        "avukatlık ortaklığı İncek Ankara",
+        "bağımsız denetim ymm Ankara"
+      ]
+    },
+    "diplomatik": {
+      "name": "Diplomatik Temsilcilikler & Elçilikler",
+      "hbu_model": "Diplomatik Rezidans / Konsolosluk Hizmet Binası / Ataşelik",
+      "keywords": [
+        "büyükelçilik İncek Ankara",
+        "ataşelik Ankara Çankaya",
+        "embassy Ankara Incek"
+      ]
+    }
+  }
+}

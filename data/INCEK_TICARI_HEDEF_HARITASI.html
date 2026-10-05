@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3a55648d36bafdd7e15195fafc8cc907 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+</head>
+<body>
+    
+    
+    <div style="position: fixed; 
+                bottom: 25px; left: 25px; width: 340px; height: auto; 
+                background-color: white; border: 2px solid #1B365D; border-radius: 8px; z-index: 9999; 
+                padding: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); font-family: 'Segoe UI', Arial;">
+        <div style="font-weight: bold; font-size: 13px; color: #1B365D;">
+            🏢 İNCEK TİCARİ MÜLK HEDEF MÜŞTERİ HARİTASI
+        </div>
+        <div style="font-size: 11px; color: #64748B; margin-top: 4px;">
+            Merkez: LÖSANTE Karşısı Ticari Malikâne (398 m² - YKB TİCARİ)<br>
+            Taranan Toplam Hedef Kurum: <b>40 Adet</b><br>
+            Çemberler: 1 km (Yürüme), 3 km (Doğrudan Aks), 5 km, 10 km
+        </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_3a55648d36bafdd7e15195fafc8cc907" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3a55648d36bafdd7e15195fafc8cc907 = L.map(
+                "map_3a55648d36bafdd7e15195fafc8cc907",
+                {
+                    center: [39.8245, 32.7485],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+
+            
+
+        
+    
+            var tile_layer_5a46af82c434c1d140011ba667c058d5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_5a46af82c434c1d140011ba667c058d5.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var tile_layer_137714eb5ba63b98b96d96d242dd77bf = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Uydu",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_137714eb5ba63b98b96d96d242dd77bf.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_581bd64e56ebcea9ccb670ad617015fa = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_f211f0e77e0b886f5add0135ce67aa59 = L.circle(
+                [39.8245, 32.7485],
+                {"bubblingMouseEvents": true, "color": "#EF4444", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#EF4444", "fillOpacity": 0.04, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1000, "stroke": true, "weight": 1}
+            ).addTo(feature_group_581bd64e56ebcea9ccb670ad617015fa);
+        
+    
+        var popup_e6851220d2ce4e06fc6121dc397c5f38 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f1bc0ecf2e5af24e3d49a2f94b9604e4 = $(`<div id="html_f1bc0ecf2e5af24e3d49a2f94b9604e4" style="width: 100.0%; height: 100.0%;">1 km - Yürüme Mesafesi Kuşağı</div>`)[0];
+                popup_e6851220d2ce4e06fc6121dc397c5f38.setContent(html_f1bc0ecf2e5af24e3d49a2f94b9604e4);
+            
+        
+
+        circle_f211f0e77e0b886f5add0135ce67aa59.bindPopup(popup_e6851220d2ce4e06fc6121dc397c5f38)
+        ;
+
+        
+    
+    
+            circle_f211f0e77e0b886f5add0135ce67aa59.bindTooltip(
+                `<div>
+                     1 km - Yürüme Mesafesi Kuşağı
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_480452d5837d84a82c0f94b4003ae5e3 = L.circle(
+                [39.8245, 32.7485],
+                {"bubblingMouseEvents": true, "color": "#F59E0B", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#F59E0B", "fillOpacity": 0.04, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_581bd64e56ebcea9ccb670ad617015fa);
+        
+    
+        var popup_68b0314984249a30e5bd362874b6ce1c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8877a0b1d3d4ef867a772917c504b15e = $(`<div id="html_8877a0b1d3d4ef867a772917c504b15e" style="width: 100.0%; height: 100.0%;">3 km - Doğrudan İncek Sağlık & Eğitim Aksı</div>`)[0];
+                popup_68b0314984249a30e5bd362874b6ce1c.setContent(html_8877a0b1d3d4ef867a772917c504b15e);
+            
+        
+
+        circle_480452d5837d84a82c0f94b4003ae5e3.bindPopup(popup_68b0314984249a30e5bd362874b6ce1c)
+        ;
+
+        
+    
+    
+            circle_480452d5837d84a82c0f94b4003ae5e3.bindTooltip(
+                `<div>
+                     3 km - Doğrudan İncek Sağlık & Eğitim Aksı
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_e1aab94ff778b61fed458c2dd63ffa34 = L.circle(
+                [39.8245, 32.7485],
+                {"bubblingMouseEvents": true, "color": "#3B82F6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3B82F6", "fillOpacity": 0.04, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_581bd64e56ebcea9ccb670ad617015fa);
+        
+    
+        var popup_ad49101f3eff51ea350116aedfeed467 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c68a3ad1b34fc7e5cbae57839bd44535 = $(`<div id="html_c68a3ad1b34fc7e5cbae57839bd44535" style="width: 100.0%; height: 100.0%;">5 km - Beytepe & Çayyolu Entegrasyon Kuşağı</div>`)[0];
+                popup_ad49101f3eff51ea350116aedfeed467.setContent(html_c68a3ad1b34fc7e5cbae57839bd44535);
+            
+        
+
+        circle_e1aab94ff778b61fed458c2dd63ffa34.bindPopup(popup_ad49101f3eff51ea350116aedfeed467)
+        ;
+
+        
+    
+    
+            circle_e1aab94ff778b61fed458c2dd63ffa34.bindTooltip(
+                `<div>
+                     5 km - Beytepe & Çayyolu Entegrasyon Kuşağı
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_571a7d1e2d19480948613139fb13d2a6 = L.circle(
+                [39.8245, 32.7485],
+                {"bubblingMouseEvents": true, "color": "#6B7280", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6B7280", "fillOpacity": 0.04, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10000, "stroke": true, "weight": 1}
+            ).addTo(feature_group_581bd64e56ebcea9ccb670ad617015fa);
+        
+    
+        var popup_73c2e7e933af8446621e5f6925b45768 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c7b8eef426ab0bbd1987c0389052e080 = $(`<div id="html_c7b8eef426ab0bbd1987c0389052e080" style="width: 100.0%; height: 100.0%;">10 km - Çevre Yolu & Bölgesel Etki Alanı</div>`)[0];
+                popup_73c2e7e933af8446621e5f6925b45768.setContent(html_c7b8eef426ab0bbd1987c0389052e080);
+            
+        
+
+        circle_571a7d1e2d19480948613139fb13d2a6.bindPopup(popup_73c2e7e933af8446621e5f6925b45768)
+        ;
+
+        
+    
+    
+            circle_571a7d1e2d19480948613139fb13d2a6.bindTooltip(
+                `<div>
+                     10 km - Çevre Yolu & Bölgesel Etki Alanı
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_581bd64e56ebcea9ccb670ad617015fa.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var marker_792777838ff675307991fa0ebb97f37e = L.marker(
+                [39.8245, 32.7485],
+                {
+}
+            ).addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var icon_1d66c8379ff0564f5f6fbea7880e83c3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a51b12821818cc24719e2effabc6d0c1 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_fa6de65c338346b95995ee9bc4325add = $(`<div id="html_fa6de65c338346b95995ee9bc4325add" style="width: 100.0%; height: 100.0%;">     <div style="font-family: 'Segoe UI', Arial; width: 320px; padding: 12px; border-radius: 8px;">         <div style="background-color: #1B365D; color: white; padding: 10px; border-radius: 6px; text-align: center;">             <h4 style="margin: 0; font-size: 15px; font-weight: bold;">⭐ SATILIK TİCARİ MÜLKİYET</h4>             <div style="font-size: 11px; margin-top: 3px; color: #C5A059;">Ada 119464 Parsel 13 | Köşe Parsel</div>         </div>         <div style="margin-top: 10px; font-size: 12px; line-height: 1.5; color: #1E293B;">             <b>📍 Konum:</b> LÖSANTE Hastanesi Tam Karşısı (Kızılcaşar Mah. 2705. Cad. No:23)<br>             <b>⚖️ Hukuki Statü:</b> <span style="background: #DCFCE7; color: #166534; padding: 2px 5px; border-radius: 4px; font-weight: bold;">Tescilli TİCARİ YKB (C278DFHU)</span><br>             <b>📐 Alan:</b> 398 m² Arsa | ~420 m² Brüt Kapalı Alan (4 Kat)<br>             <b>🏗️ Özellikler:</b> Dikey Asansör Şaftı, Çift Giriş, 10 Ton Su Deposu, Kapalı Garaj, Şömineler, Kış Bahçesi<br>             <b>💰 Satış Fiyatı:</b> <b>76.500.000 TL - 78.000.000 TL</b><br>             <b>🔒 Pazarlama:</b> %100 Off-Market (Branda Yok) | Salı & Çarşamba 17:00 Randevulu<br>             <div style="margin-top: 8px; border-top: 1px solid #E2E8F0; padding-top: 6px; font-size: 11px; color: #64748B;">                 <b>Yetkili Danışman:</b> Yiğit Narin | Coldwell Banker VIP<br>                 <b>İletişim:</b> 0312 929 92 92             </div>         </div>     </div>     </div>`)[0];
+                popup_a51b12821818cc24719e2effabc6d0c1.setContent(html_fa6de65c338346b95995ee9bc4325add);
+            
+        
+
+        marker_792777838ff675307991fa0ebb97f37e.bindPopup(popup_a51b12821818cc24719e2effabc6d0c1)
+        ;
+
+        
+    
+    
+            marker_792777838ff675307991fa0ebb97f37e.bindTooltip(
+                `<div>
+                     ⭐ SATILIK MÜLK: İncek LÖSANTE Karşısı Tescilli Ticari Malikâne
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_792777838ff675307991fa0ebb97f37e.setIcon(icon_1d66c8379ff0564f5f6fbea7880e83c3);
+            
+    
+            var feature_group_c498e16540c8b5aaf19abe3c7b099c27 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_f821f5eceaf674a9baf11f161f15e620 = L.marker(
+                [39.8103671, 32.7182279],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_6e2830f10d8379e950821de20a56f08b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e2c074fd17f5b97e61d3de6e0e45b3da = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_83d2e69bbd9e5bd39d7286e844935fbf = $(`<div id="html_83d2e69bbd9e5bd39d7286e844935fbf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Özel Mia Tıp Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.03 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 557 23 00<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                                               <a href="https://wa.me/903125572300?text=Merhaba%20Özel Mia Tıp Merkezi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_e2c074fd17f5b97e61d3de6e0e45b3da.setContent(html_83d2e69bbd9e5bd39d7286e844935fbf);
+            
+        
+
+        marker_f821f5eceaf674a9baf11f161f15e620.bindPopup(popup_e2c074fd17f5b97e61d3de6e0e45b3da)
+        ;
+
+        
+    
+    
+            marker_f821f5eceaf674a9baf11f161f15e620.bindTooltip(
+                `<div>
+                     Özel Mia Tıp Merkezi (3.03 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f821f5eceaf674a9baf11f161f15e620.setIcon(icon_6e2830f10d8379e950821de20a56f08b);
+            
+    
+            var marker_169d82256929b1a7b9cde2e7c7a3ee85 = L.marker(
+                [39.8262666, 32.7263588],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_02babebea25a22e4fdf6e3a7c564bd0a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d4200bd291908fd550c6f6215d57b190 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_39f296190e0adb69fa28053e95ebe546 = $(`<div id="html_39f296190e0adb69fa28053e95ebe546" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">İncek Halas Yaşam Merkezi | Diyetisyen | Fizyoterapi | Yoga | Psikolog</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">1.9 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0501 660 53 10<br>                 <b>✉️ E-Posta:</b> info@halasyasam.com<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://halasyasam.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905016605310?text=Merhaba%20İncek Halas Yaşam Merkezi | Diyetisyen | Fizyoterapi | Yoga | Psikolog%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_d4200bd291908fd550c6f6215d57b190.setContent(html_39f296190e0adb69fa28053e95ebe546);
+            
+        
+
+        marker_169d82256929b1a7b9cde2e7c7a3ee85.bindPopup(popup_d4200bd291908fd550c6f6215d57b190)
+        ;
+
+        
+    
+    
+            marker_169d82256929b1a7b9cde2e7c7a3ee85.bindTooltip(
+                `<div>
+                     İncek Halas Yaşam Merkezi | Diyetisyen | Fizyoterapi | Yoga | Psikolog (1.9 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_169d82256929b1a7b9cde2e7c7a3ee85.setIcon(icon_02babebea25a22e4fdf6e3a7c564bd0a);
+            
+    
+            var marker_a4ed6673be3093bc6d3f693095b7c574 = L.marker(
+                [39.8112577, 32.7215013],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_9e3ddb1458087cf3cccb0313303f25f0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7a40d87b2ab74f01f699268bf57f053a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6575ac9fb5460f84a79b28f0fa8fa2b2 = $(`<div id="html_6575ac9fb5460f84a79b28f0fa8fa2b2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">İncek Sağlıklı Hayat Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.74 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> N/A<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                                               </div>         </div>         </div>`)[0];
+                popup_7a40d87b2ab74f01f699268bf57f053a.setContent(html_6575ac9fb5460f84a79b28f0fa8fa2b2);
+            
+        
+
+        marker_a4ed6673be3093bc6d3f693095b7c574.bindPopup(popup_7a40d87b2ab74f01f699268bf57f053a)
+        ;
+
+        
+    
+    
+            marker_a4ed6673be3093bc6d3f693095b7c574.bindTooltip(
+                `<div>
+                     İncek Sağlıklı Hayat Merkezi (2.74 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a4ed6673be3093bc6d3f693095b7c574.setIcon(icon_9e3ddb1458087cf3cccb0313303f25f0);
+            
+    
+            var marker_7865dd380edcd121e7877684af2f8556 = L.marker(
+                [39.8694819, 32.8269843],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_f04772cbe5bc16e53b0d6a92fc9b64ca = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b2a86c5d3a7c2db7a952e82b484f01ed = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_557b746d68853acd73b1515c1f5d8edb = $(`<div id="html_557b746d68853acd73b1515c1f5d8edb" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Özel Yeni Med Tıp Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">8.36 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 476 37 37<br>                 <b>✉️ E-Posta:</b> info@yenimed.com.tr<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.yenimed.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124763737?text=Merhaba%20Özel Yeni Med Tıp Merkezi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_b2a86c5d3a7c2db7a952e82b484f01ed.setContent(html_557b746d68853acd73b1515c1f5d8edb);
+            
+        
+
+        marker_7865dd380edcd121e7877684af2f8556.bindPopup(popup_b2a86c5d3a7c2db7a952e82b484f01ed)
+        ;
+
+        
+    
+    
+            marker_7865dd380edcd121e7877684af2f8556.bindTooltip(
+                `<div>
+                     Özel Yeni Med Tıp Merkezi (8.36 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7865dd380edcd121e7877684af2f8556.setIcon(icon_f04772cbe5bc16e53b0d6a92fc9b64ca);
+            
+    
+            var marker_06cf618ebaac06cd0cea083ca03df3e6 = L.marker(
+                [39.8331152, 32.7193613],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_4b894439334f056b3d222882fb6ad146 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8a0d47be2c4ba7bf3a30b236f4b0bbfa = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2f587ed6c27f9d8053cd6d88b6f15b7b = $(`<div id="html_2f587ed6c27f9d8053cd6d88b6f15b7b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">LÖSEV - Lösante Hastanesi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.67 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 666 76 66<br>                 <b>✉️ E-Posta:</b> losante@losanteinternational.com.tr<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.losante.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903126667666?text=Merhaba%20LÖSEV - Lösante Hastanesi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_8a0d47be2c4ba7bf3a30b236f4b0bbfa.setContent(html_2f587ed6c27f9d8053cd6d88b6f15b7b);
+            
+        
+
+        marker_06cf618ebaac06cd0cea083ca03df3e6.bindPopup(popup_8a0d47be2c4ba7bf3a30b236f4b0bbfa)
+        ;
+
+        
+    
+    
+            marker_06cf618ebaac06cd0cea083ca03df3e6.bindTooltip(
+                `<div>
+                     LÖSEV - Lösante Hastanesi (2.67 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_06cf618ebaac06cd0cea083ca03df3e6.setIcon(icon_4b894439334f056b3d222882fb6ad146);
+            
+    
+            var marker_8a1ad3c4e4b90ed58da4ca8d902fdcef = L.marker(
+                [39.8267113, 32.7245083],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_fadf42fbdb0f8f0383023367fcc0806a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a04bf7161f3abb245300ba84d0b072ad = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2e95732803db03117df6dac2de45bbef = $(`<div id="html_2e95732803db03117df6dac2de45bbef" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Dr. Orhan PEKUZ / Ankapedia İncek Çocuk Sağlığı ve Hastalıkları</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.06 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 316 88 88<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://ankapedia.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903123168888?text=Merhaba%20Dr. Orhan PEKUZ / Ankapedia İncek Çocuk Sağlığı ve Hastalıkları%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_a04bf7161f3abb245300ba84d0b072ad.setContent(html_2e95732803db03117df6dac2de45bbef);
+            
+        
+
+        marker_8a1ad3c4e4b90ed58da4ca8d902fdcef.bindPopup(popup_a04bf7161f3abb245300ba84d0b072ad)
+        ;
+
+        
+    
+    
+            marker_8a1ad3c4e4b90ed58da4ca8d902fdcef.bindTooltip(
+                `<div>
+                     Dr. Orhan PEKUZ / Ankapedia İncek Çocuk Sağlığı ve Hastalıkları (2.06 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8a1ad3c4e4b90ed58da4ca8d902fdcef.setIcon(icon_fadf42fbdb0f8f0383023367fcc0806a);
+            
+    
+            var marker_1d921b4d1f60354697ce376f6769cde2 = L.marker(
+                [39.8689171, 32.6905062],
+                {
+}
+            ).addTo(feature_group_c498e16540c8b5aaf19abe3c7b099c27);
+        
+    
+            var icon_7e58cc3c97dc9faa77bad2cbb4837282 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "heart-pulse",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_02173f2c72cd3279730122ce250aa972 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_51dbbdce1f37ab5c0cb2da65b3b41350 = $(`<div id="html_51dbbdce1f37ab5c0cb2da65b3b41350" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Sağlık & Medikal</span>                 <span style="background: #D97706; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">FizyoEco Pilates ve Sağlıklı Yaşam Merkezi | Reformer Pilates Ankara</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">6.99 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0507 838 47 91<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Butik Tıp Merkezi / Cerrahi Poliklinik / İhtisas Merkezi<br>             </div>             <div style="margin-top: 8px;">                                               <a href="https://wa.me/905078384791?text=Merhaba%20FizyoEco Pilates ve Sağlıklı Yaşam Merkezi | Reformer Pilates Ankara%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_02173f2c72cd3279730122ce250aa972.setContent(html_51dbbdce1f37ab5c0cb2da65b3b41350);
+            
+        
+
+        marker_1d921b4d1f60354697ce376f6769cde2.bindPopup(popup_02173f2c72cd3279730122ce250aa972)
+        ;
+
+        
+    
+    
+            marker_1d921b4d1f60354697ce376f6769cde2.bindTooltip(
+                `<div>
+                     FizyoEco Pilates ve Sağlıklı Yaşam Merkezi | Reformer Pilates Ankara (6.99 km - A)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1d921b4d1f60354697ce376f6769cde2.setIcon(icon_7e58cc3c97dc9faa77bad2cbb4837282);
+            
+    
+            feature_group_c498e16540c8b5aaf19abe3c7b099c27.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_ee3f1e8a24805b854fc7082f0180bcfe = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_41e0fa02176f06a8fb4738c4fc105460 = L.marker(
+                [39.9272294, 32.8227727],
+                {
+}
+            ).addTo(feature_group_ee3f1e8a24805b854fc7082f0180bcfe);
+        
+    
+            var icon_caab48e45104f9011a97b47dd0fa373a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tooth",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d40069cb4042acaf73d4cb054b931c99 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_78e0fbe123e515a80c1f804a5d595366 = $(`<div id="html_78e0fbe123e515a80c1f804a5d595366" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Ağız ve Diş Sağlığı</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Diş Hekimi Mahmut SAPMAZ Ağız Ve Diş Sağlığı Polikliniği</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">13.06 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0551 084 19 21<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil VIP Ağız ve Diş Sağlığı Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.mahmutsapmaz.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905510841921?text=Merhaba%20Diş Hekimi Mahmut SAPMAZ Ağız Ve Diş Sağlığı Polikliniği%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_d40069cb4042acaf73d4cb054b931c99.setContent(html_78e0fbe123e515a80c1f804a5d595366);
+            
+        
+
+        marker_41e0fa02176f06a8fb4738c4fc105460.bindPopup(popup_d40069cb4042acaf73d4cb054b931c99)
+        ;
+
+        
+    
+    
+            marker_41e0fa02176f06a8fb4738c4fc105460.bindTooltip(
+                `<div>
+                     Diş Hekimi Mahmut SAPMAZ Ağız Ve Diş Sağlığı Polikliniği (13.06 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_41e0fa02176f06a8fb4738c4fc105460.setIcon(icon_caab48e45104f9011a97b47dd0fa373a);
+            
+    
+            var marker_a4314051eb9a9f89a31787e1ee75db4a = L.marker(
+                [39.9749467, 32.6568105],
+                {
+}
+            ).addTo(feature_group_ee3f1e8a24805b854fc7082f0180bcfe);
+        
+    
+            var icon_0c5bf704aa5a2795dd66fc2bf3ff7363 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tooth",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_eebde759f2280e35ba91da1810b55737 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_140084fa5679187fc001414b00ea07a1 = $(`<div id="html_140084fa5679187fc001414b00ea07a1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Ağız ve Diş Sağlığı</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Mevadent Ağız ve Diş Sağlığı Polikliniği</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">18.47 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 502 17 17<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil VIP Ağız ve Diş Sağlığı Merkezi<br>             </div>             <div style="margin-top: 8px;">                                               <a href="https://wa.me/903125021717?text=Merhaba%20Mevadent Ağız ve Diş Sağlığı Polikliniği%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_eebde759f2280e35ba91da1810b55737.setContent(html_140084fa5679187fc001414b00ea07a1);
+            
+        
+
+        marker_a4314051eb9a9f89a31787e1ee75db4a.bindPopup(popup_eebde759f2280e35ba91da1810b55737)
+        ;
+
+        
+    
+    
+            marker_a4314051eb9a9f89a31787e1ee75db4a.bindTooltip(
+                `<div>
+                     Mevadent Ağız ve Diş Sağlığı Polikliniği (18.47 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a4314051eb9a9f89a31787e1ee75db4a.setIcon(icon_0c5bf704aa5a2795dd66fc2bf3ff7363);
+            
+    
+            var marker_b88165cf374b164077f59ca3694919d3 = L.marker(
+                [39.8145626, 32.7150362],
+                {
+}
+            ).addTo(feature_group_ee3f1e8a24805b854fc7082f0180bcfe);
+        
+    
+            var icon_8ab7cfca2399ff5ee3f36667bf712c02 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tooth",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_258d35ec84c1f5dc3d64a35adaeb8ff5 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_7e5aa6bd09905e1843367cd26e7f55ec = $(`<div id="html_7e5aa6bd09905e1843367cd26e7f55ec" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Ağız ve Diş Sağlığı</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">DENT İNCEK AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.06 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0536 285 05 20<br>                 <b>✉️ E-Posta:</b> info@dentincek.com<br>                 <b>🏢 Hedef Model:</b> Müstakil VIP Ağız ve Diş Sağlığı Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://dentincek.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905362850520?text=Merhaba%20DENT İNCEK AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_258d35ec84c1f5dc3d64a35adaeb8ff5.setContent(html_7e5aa6bd09905e1843367cd26e7f55ec);
+            
+        
+
+        marker_b88165cf374b164077f59ca3694919d3.bindPopup(popup_258d35ec84c1f5dc3d64a35adaeb8ff5)
+        ;
+
+        
+    
+    
+            marker_b88165cf374b164077f59ca3694919d3.bindTooltip(
+                `<div>
+                     DENT İNCEK AĞIZ VE DİŞ SAĞLIĞI POLİKLİNİĞİ (3.06 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b88165cf374b164077f59ca3694919d3.setIcon(icon_8ab7cfca2399ff5ee3f36667bf712c02);
+            
+    
+            var marker_0a13fa759ffa749e5f9eeebd00e926ef = L.marker(
+                [39.8304462, 32.73452],
+                {
+}
+            ).addTo(feature_group_ee3f1e8a24805b854fc7082f0180bcfe);
+        
+    
+            var icon_1409219801d5a99100b2e4abc6b3a086 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tooth",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d459346cd8e6e5b99aa5bc7c3231fd28 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d5199816a16407c4cfc4686459fa3c7c = $(`<div id="html_d5199816a16407c4cfc4686459fa3c7c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Ağız ve Diş Sağlığı</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Denthaus Ağız ve Diş Sağlığı Polikliniği - Ankara</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">1.36 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0552 822 25 95<br>                 <b>✉️ E-Posta:</b> info@denthaus.com.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil VIP Ağız ve Diş Sağlığı Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.denthaus.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905528222595?text=Merhaba%20Denthaus Ağız ve Diş Sağlığı Polikliniği - Ankara%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_d459346cd8e6e5b99aa5bc7c3231fd28.setContent(html_d5199816a16407c4cfc4686459fa3c7c);
+            
+        
+
+        marker_0a13fa759ffa749e5f9eeebd00e926ef.bindPopup(popup_d459346cd8e6e5b99aa5bc7c3231fd28)
+        ;
+
+        
+    
+    
+            marker_0a13fa759ffa749e5f9eeebd00e926ef.bindTooltip(
+                `<div>
+                     Denthaus Ağız ve Diş Sağlığı Polikliniği - Ankara (1.36 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0a13fa759ffa749e5f9eeebd00e926ef.setIcon(icon_1409219801d5a99100b2e4abc6b3a086);
+            
+    
+            var marker_20c1c4d9a3b38d2df70c3aa1045ae1c4 = L.marker(
+                [39.8288454, 32.7098617],
+                {
+}
+            ).addTo(feature_group_ee3f1e8a24805b854fc7082f0180bcfe);
+        
+    
+            var icon_447d18e96cb92c4078de656caa5289e2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tooth",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_199574f4791ef380fdeee6c60cd77743 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_63841dd05ad68c3f29f3e89e1d31ee33 = $(`<div id="html_63841dd05ad68c3f29f3e89e1d31ee33" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Ağız ve Diş Sağlığı</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">CCLDENT - İncek Diş Kliniği- Estetik Diş Hekimliği- Gülüş Tasarımı- Ankara İmplant Tedavisi- Ortodonti- Çocuk Diş Hekimliği</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.33 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 514 12 34<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil VIP Ağız ve Diş Sağlığı Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://ccldent.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903125141234?text=Merhaba%20CCLDENT - İncek Diş Kliniği- Estetik Diş Hekimliği- Gülüş Tasarımı- Ankara İmplant Tedavisi- Ortodonti- Çocuk Diş Hekimliği%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_199574f4791ef380fdeee6c60cd77743.setContent(html_63841dd05ad68c3f29f3e89e1d31ee33);
+            
+        
+
+        marker_20c1c4d9a3b38d2df70c3aa1045ae1c4.bindPopup(popup_199574f4791ef380fdeee6c60cd77743)
+        ;
+
+        
+    
+    
+            marker_20c1c4d9a3b38d2df70c3aa1045ae1c4.bindTooltip(
+                `<div>
+                     CCLDENT - İncek Diş Kliniği- Estetik Diş Hekimliği- Gülüş Tasarımı- Ankara İmplant Tedavisi- Ortodonti- Çocuk Diş Hekimliği (3.33 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_20c1c4d9a3b38d2df70c3aa1045ae1c4.setIcon(icon_447d18e96cb92c4078de656caa5289e2);
+            
+    
+            feature_group_ee3f1e8a24805b854fc7082f0180bcfe.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_d634fa8eeb1539eec2a10ed44771914e = L.marker(
+                [39.8998889, 32.8116153],
+                {
+}
+            ).addTo(feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5);
+        
+    
+            var icon_3ad2ed6bfb8d5063060dd5a059254217 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "wand-magic-sparkles",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3150b476e96c49c3297b8376db419fd4 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a290f32bf5b9d264170d052b7c064cd2 = $(`<div id="html_a290f32bf5b9d264170d052b7c064cd2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Plastik & Estetik Cerrahi</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Forest Klinik | Estetik & Saç Ekimi & Lazer Epilasyon</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">9.96 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 287 06 99<br>                 <b>✉️ E-Posta:</b> bilgi@forestklinik.com<br>                 <b>🏢 Hedef Model:</b> VIP Estetik & Plastik Cerrahi / Saç Ekim Köşkü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.forestklinik.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903122870699?text=Merhaba%20Forest Klinik | Estetik & Saç Ekimi & Lazer Epilasyon%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_3150b476e96c49c3297b8376db419fd4.setContent(html_a290f32bf5b9d264170d052b7c064cd2);
+            
+        
+
+        marker_d634fa8eeb1539eec2a10ed44771914e.bindPopup(popup_3150b476e96c49c3297b8376db419fd4)
+        ;
+
+        
+    
+    
+            marker_d634fa8eeb1539eec2a10ed44771914e.bindTooltip(
+                `<div>
+                     Forest Klinik | Estetik & Saç Ekimi & Lazer Epilasyon (9.96 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d634fa8eeb1539eec2a10ed44771914e.setIcon(icon_3ad2ed6bfb8d5063060dd5a059254217);
+            
+    
+            var marker_69cfa0dcb8c3a429ad19baec53c49c6a = L.marker(
+                [39.9074768, 32.8074612],
+                {
+}
+            ).addTo(feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5);
+        
+    
+            var icon_de047e51b4499a926a08ac77e37aa566 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "wand-magic-sparkles",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_131dd90f26d0520c5c687b83958ef570 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_65a6fcd884eadab19c4473a37e5c3193 = $(`<div id="html_65a6fcd884eadab19c4473a37e5c3193" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Plastik & Estetik Cerrahi</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Op.Dr.Ferruh Bingül</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">10.51 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 446 47 50<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> VIP Estetik & Plastik Cerrahi / Saç Ekim Köşkü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.ferruhbingul.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124464750?text=Merhaba%20Op.Dr.Ferruh Bingül%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_131dd90f26d0520c5c687b83958ef570.setContent(html_65a6fcd884eadab19c4473a37e5c3193);
+            
+        
+
+        marker_69cfa0dcb8c3a429ad19baec53c49c6a.bindPopup(popup_131dd90f26d0520c5c687b83958ef570)
+        ;
+
+        
+    
+    
+            marker_69cfa0dcb8c3a429ad19baec53c49c6a.bindTooltip(
+                `<div>
+                     Op.Dr.Ferruh Bingül (10.51 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_69cfa0dcb8c3a429ad19baec53c49c6a.setIcon(icon_de047e51b4499a926a08ac77e37aa566);
+            
+    
+            var marker_71431ee9767af3329282f333da4def7e = L.marker(
+                [39.8303022, 32.7350895],
+                {
+}
+            ).addTo(feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5);
+        
+    
+            var icon_80f75ebacd592c8a6e37813ef77ad26f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "wand-magic-sparkles",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ed124eefd30b966e514f607bcb9303e3 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_3f70d8c7a23dce433092696a5c9d1c6f = $(`<div id="html_3f70d8c7a23dce433092696a5c9d1c6f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Plastik & Estetik Cerrahi</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Dr. Mahmut Demet - Medikal Estetik</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">1.31 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0533 707 93 63<br>                 <b>✉️ E-Posta:</b> info@drmahmutdemet.com<br>                 <b>🏢 Hedef Model:</b> VIP Estetik & Plastik Cerrahi / Saç Ekim Köşkü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.drmahmutdemet.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905337079363?text=Merhaba%20Dr. Mahmut Demet - Medikal Estetik%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_ed124eefd30b966e514f607bcb9303e3.setContent(html_3f70d8c7a23dce433092696a5c9d1c6f);
+            
+        
+
+        marker_71431ee9767af3329282f333da4def7e.bindPopup(popup_ed124eefd30b966e514f607bcb9303e3)
+        ;
+
+        
+    
+    
+            marker_71431ee9767af3329282f333da4def7e.bindTooltip(
+                `<div>
+                     Dr. Mahmut Demet - Medikal Estetik (1.31 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_71431ee9767af3329282f333da4def7e.setIcon(icon_80f75ebacd592c8a6e37813ef77ad26f);
+            
+    
+            var marker_7a893d53c8b348e44c527b18626fea1f = L.marker(
+                [39.911448, 32.8119028],
+                {
+}
+            ).addTo(feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5);
+        
+    
+            var icon_f142c94be410b9d8c63550372a3b1d93 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "wand-magic-sparkles",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_41cdd4d413050835df03e04c5155f8e6 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1be153adb0c020e1d6aee8c0d0e6214d = $(`<div id="html_1be153adb0c020e1d6aee8c0d0e6214d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Plastik & Estetik Cerrahi</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Prof. Dr. Ömer Lütfi Tapısız- Minimal İnvaziv Cerrahi, Ürojinekoloji, Jinekolojik Onkoloji, Endometriozis, Miyom Ameliyatları</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">11.08 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0538 430 32 10<br>                 <b>✉️ E-Posta:</b> dotlottie-wc@0.7.1<br>                 <b>🏢 Hedef Model:</b> VIP Estetik & Plastik Cerrahi / Saç Ekim Köşkü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://omerlutfitapisiz.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905384303210?text=Merhaba%20Prof. Dr. Ömer Lütfi Tapısız- Minimal İnvaziv Cerrahi, Ürojinekoloji, Jinekolojik Onkoloji, Endometriozis, Miyom Ameliyatları%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_41cdd4d413050835df03e04c5155f8e6.setContent(html_1be153adb0c020e1d6aee8c0d0e6214d);
+            
+        
+
+        marker_7a893d53c8b348e44c527b18626fea1f.bindPopup(popup_41cdd4d413050835df03e04c5155f8e6)
+        ;
+
+        
+    
+    
+            marker_7a893d53c8b348e44c527b18626fea1f.bindTooltip(
+                `<div>
+                     Prof. Dr. Ömer Lütfi Tapısız- Minimal İnvaziv Cerrahi, Ürojinekoloji, Jinekolojik Onkoloji, Endometriozis, Miyom Ameliyatları (11.08 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7a893d53c8b348e44c527b18626fea1f.setIcon(icon_f142c94be410b9d8c63550372a3b1d93);
+            
+    
+            feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_0d88709efbb08c076f1ed959bb1e01a9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_71427a45ee81177a6e15acdac6e2605f = L.marker(
+                [39.912656, 32.765994],
+                {
+}
+            ).addTo(feature_group_0d88709efbb08c076f1ed959bb1e01a9);
+        
+    
+            var icon_50adac56808dc8bdfcaa1bdd4c434b68 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "person-walking",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_186f7361b4ef525e0c0149d1208c8579 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_d2dea4be6c30b4d5ac033c9f3cb0ee4e = $(`<div id="html_d2dea4be6c30b4d5ac033c9f3cb0ee4e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Fizik Tedavi & Rehabilitasyon</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Fizyoterapist Bilal Aydoğan</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">9.92 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0531 336 80 58<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Bahçeli Fizik Tedavi ve Rehabilitasyon Merkezi<br>             </div>             <div style="margin-top: 8px;">                                               <a href="https://wa.me/905313368058?text=Merhaba%20Fizyoterapist Bilal Aydoğan%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_186f7361b4ef525e0c0149d1208c8579.setContent(html_d2dea4be6c30b4d5ac033c9f3cb0ee4e);
+            
+        
+
+        marker_71427a45ee81177a6e15acdac6e2605f.bindPopup(popup_186f7361b4ef525e0c0149d1208c8579)
+        ;
+
+        
+    
+    
+            marker_71427a45ee81177a6e15acdac6e2605f.bindTooltip(
+                `<div>
+                     Fizyoterapist Bilal Aydoğan (9.92 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_71427a45ee81177a6e15acdac6e2605f.setIcon(icon_50adac56808dc8bdfcaa1bdd4c434b68);
+            
+    
+            var marker_cf82309be47fc34b72a49ad0da91f397 = L.marker(
+                [39.8247885, 32.7229805],
+                {
+}
+            ).addTo(feature_group_0d88709efbb08c076f1ed959bb1e01a9);
+        
+    
+            var icon_ac5243e7f0431db87122f9bfb657b51c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "person-walking",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9164a3aa088366dcf059427cac844f94 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0314265c9d69d5437c109c44856067f8 = $(`<div id="html_0314265c9d69d5437c109c44856067f8" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Fizik Tedavi & Rehabilitasyon</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Fizyoterapist Tuğba Kara</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.18 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0553 346 14 51<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Bahçeli Fizik Tedavi ve Rehabilitasyon Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.ariafiz.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905533461451?text=Merhaba%20Fizyoterapist Tuğba Kara%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_9164a3aa088366dcf059427cac844f94.setContent(html_0314265c9d69d5437c109c44856067f8);
+            
+        
+
+        marker_cf82309be47fc34b72a49ad0da91f397.bindPopup(popup_9164a3aa088366dcf059427cac844f94)
+        ;
+
+        
+    
+    
+            marker_cf82309be47fc34b72a49ad0da91f397.bindTooltip(
+                `<div>
+                     Fizyoterapist Tuğba Kara (2.18 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cf82309be47fc34b72a49ad0da91f397.setIcon(icon_ac5243e7f0431db87122f9bfb657b51c);
+            
+    
+            var marker_c985ddd192ecacdd4dabb7513a9565ff = L.marker(
+                [39.8146265, 32.7152245],
+                {
+}
+            ).addTo(feature_group_0d88709efbb08c076f1ed959bb1e01a9);
+        
+    
+            var icon_c70d6f65b612dacfaac94b770aacd68e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "person-walking",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9e287366368d222093c44fe0e6530c88 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_8e18dbf334b692b939bac3817ce269c6 = $(`<div id="html_8e18dbf334b692b939bac3817ce269c6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Fizik Tedavi & Rehabilitasyon</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Fizyoterapist Zeki Safa Uysal</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.05 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0538 699 78 00<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Bahçeli Fizik Tedavi ve Rehabilitasyon Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.fizyoeffect.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905386997800?text=Merhaba%20Fizyoterapist Zeki Safa Uysal%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_9e287366368d222093c44fe0e6530c88.setContent(html_8e18dbf334b692b939bac3817ce269c6);
+            
+        
+
+        marker_c985ddd192ecacdd4dabb7513a9565ff.bindPopup(popup_9e287366368d222093c44fe0e6530c88)
+        ;
+
+        
+    
+    
+            marker_c985ddd192ecacdd4dabb7513a9565ff.bindTooltip(
+                `<div>
+                     Fizyoterapist Zeki Safa Uysal (3.05 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c985ddd192ecacdd4dabb7513a9565ff.setIcon(icon_c70d6f65b612dacfaac94b770aacd68e);
+            
+    
+            feature_group_0d88709efbb08c076f1ed959bb1e01a9.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_dd02788ef30df93691d47ed2ea8b6056 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_f4ed69c0b0900d7f8bdde908d1034eeb = L.marker(
+                [39.8031285, 32.711707],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_504e68871ee6662c2044284760a4404a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8db09b33f0f5a45f69a3de59af737c9a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ae4f2fabdd00d20011b07fefd9eb2011 = $(`<div id="html_ae4f2fabdd00d20011b07fefd9eb2011" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #D97706; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Anka Bilim Koleji / Anka Bilim Schule</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.94 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 444 1 012<br>                 <b>✉️ E-Posta:</b> info@ankabilim.k12.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.ankabilim.k12.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           </div>         </div>         </div>`)[0];
+                popup_8db09b33f0f5a45f69a3de59af737c9a.setContent(html_ae4f2fabdd00d20011b07fefd9eb2011);
+            
+        
+
+        marker_f4ed69c0b0900d7f8bdde908d1034eeb.bindPopup(popup_8db09b33f0f5a45f69a3de59af737c9a)
+        ;
+
+        
+    
+    
+            marker_f4ed69c0b0900d7f8bdde908d1034eeb.bindTooltip(
+                `<div>
+                     Anka Bilim Koleji / Anka Bilim Schule (3.94 km - A)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f4ed69c0b0900d7f8bdde908d1034eeb.setIcon(icon_504e68871ee6662c2044284760a4404a);
+            
+    
+            var marker_d038c7c518edc504d9913c5e5bfaf382 = L.marker(
+                [39.8192086, 32.714458],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_23fd8ff122790aeee7a3d1e80863092c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d96e0931da9f88f8bdb54b79df9c84af = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5dd26e0a9ec5187f2a65e914e42833df = $(`<div id="html_5dd26e0a9ec5187f2a65e914e42833df" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Büyük Kolej İncek Kampüsü</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.97 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 446 66 77<br>                 <b>✉️ E-Posta:</b> incek@buyukkolej.k12.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://incek.buyukkolej.k12.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124466677?text=Merhaba%20Büyük Kolej İncek Kampüsü%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_d96e0931da9f88f8bdb54b79df9c84af.setContent(html_5dd26e0a9ec5187f2a65e914e42833df);
+            
+        
+
+        marker_d038c7c518edc504d9913c5e5bfaf382.bindPopup(popup_d96e0931da9f88f8bdb54b79df9c84af)
+        ;
+
+        
+    
+    
+            marker_d038c7c518edc504d9913c5e5bfaf382.bindTooltip(
+                `<div>
+                     Büyük Kolej İncek Kampüsü (2.97 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d038c7c518edc504d9913c5e5bfaf382.setIcon(icon_23fd8ff122790aeee7a3d1e80863092c);
+            
+    
+            var marker_d03061c8380ac5430f96e462aa98471d = L.marker(
+                [39.821929, 32.713446],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_9c3a3ef487b7a0cc443b07900c2ecec1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9bc0bef6ec1a8be9640aceb337f0dd43 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c09e549f443b271957c10c205edd64e1 = $(`<div id="html_c09e549f443b271957c10c205edd64e1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">İncek Okyanus Koleji</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.01 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 460 18 88<br>                 <b>✉️ E-Posta:</b> info@okyanuskoleji.k12.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.okyanuskoleji.k12.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124601888?text=Merhaba%20İncek Okyanus Koleji%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_9bc0bef6ec1a8be9640aceb337f0dd43.setContent(html_c09e549f443b271957c10c205edd64e1);
+            
+        
+
+        marker_d03061c8380ac5430f96e462aa98471d.bindPopup(popup_9bc0bef6ec1a8be9640aceb337f0dd43)
+        ;
+
+        
+    
+    
+            marker_d03061c8380ac5430f96e462aa98471d.bindTooltip(
+                `<div>
+                     İncek Okyanus Koleji (3.01 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d03061c8380ac5430f96e462aa98471d.setIcon(icon_9c3a3ef487b7a0cc443b07900c2ecec1);
+            
+    
+            var marker_ec305585e55e798d910417062e8ec658 = L.marker(
+                [39.8243424, 32.7036273],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_e8e101bb1ec8c7eb0943c64bc958b14c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cd08cfebfe71d26647b0a9ef96db6648 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_51177190628b498e867e51927ca0f878 = $(`<div id="html_51177190628b498e867e51927ca0f878" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #D97706; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Sınav Koleji İncek Kampüsü</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.83 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 512 05 25<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.sinavfenkoleji.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903125120525?text=Merhaba%20Sınav Koleji İncek Kampüsü%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_cd08cfebfe71d26647b0a9ef96db6648.setContent(html_51177190628b498e867e51927ca0f878);
+            
+        
+
+        marker_ec305585e55e798d910417062e8ec658.bindPopup(popup_cd08cfebfe71d26647b0a9ef96db6648)
+        ;
+
+        
+    
+    
+            marker_ec305585e55e798d910417062e8ec658.bindTooltip(
+                `<div>
+                     Sınav Koleji İncek Kampüsü (3.83 km - A)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ec305585e55e798d910417062e8ec658.setIcon(icon_e8e101bb1ec8c7eb0943c64bc958b14c);
+            
+    
+            var marker_07a3702258c23143117da63658e37279 = L.marker(
+                [39.9050502, 32.8012353],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_9219c4362d9493a588188991944b4953 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c15f85f0bf8b5051e13fff836f19c68c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ceae309dcfee55fd7b3f6f95368a3684 = $(`<div id="html_ceae309dcfee55fd7b3f6f95368a3684" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Esince Çocuk Anaokulu</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">10.02 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 284 06 61<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://esincecocuk.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903122840661?text=Merhaba%20Esince Çocuk Anaokulu%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_c15f85f0bf8b5051e13fff836f19c68c.setContent(html_ceae309dcfee55fd7b3f6f95368a3684);
+            
+        
+
+        marker_07a3702258c23143117da63658e37279.bindPopup(popup_c15f85f0bf8b5051e13fff836f19c68c)
+        ;
+
+        
+    
+    
+            marker_07a3702258c23143117da63658e37279.bindTooltip(
+                `<div>
+                     Esince Çocuk Anaokulu (10.02 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_07a3702258c23143117da63658e37279.setIcon(icon_9219c4362d9493a588188991944b4953);
+            
+    
+            var marker_21f4fc5b3d06671827d5d0de3512cc6c = L.marker(
+                [39.8303375, 32.7191412],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_5fa1a6fa1033ab344f7e8a754691ff3b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ee230ee4eafc32bf95ddc012ed4542fd = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_2eaf5948657b4583d39051ca485c0d55 = $(`<div id="html_2eaf5948657b4583d39051ca485c0d55" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Kar Çiçekleri Anaokulu İncek</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.59 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0552 006 03 52<br>                 <b>✉️ E-Posta:</b> karciceklerianaokulu@gmail.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://karciceklerianaokulu.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905520060352?text=Merhaba%20Kar Çiçekleri Anaokulu İncek%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_ee230ee4eafc32bf95ddc012ed4542fd.setContent(html_2eaf5948657b4583d39051ca485c0d55);
+            
+        
+
+        marker_21f4fc5b3d06671827d5d0de3512cc6c.bindPopup(popup_ee230ee4eafc32bf95ddc012ed4542fd)
+        ;
+
+        
+    
+    
+            marker_21f4fc5b3d06671827d5d0de3512cc6c.bindTooltip(
+                `<div>
+                     Kar Çiçekleri Anaokulu İncek (2.59 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_21f4fc5b3d06671827d5d0de3512cc6c.setIcon(icon_5fa1a6fa1033ab344f7e8a754691ff3b);
+            
+    
+            var marker_e0a672a00fd053bd1c2ec3a1a3136cf7 = L.marker(
+                [39.8221416, 32.7427625],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_71994d29eab6756437cc0c56cb24dd84 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bb00f462716c6499e8fc7ba8b0514a81 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_de04e835ca6be0f1533e51d4ec7704b1 = $(`<div id="html_de04e835ca6be0f1533e51d4ec7704b1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">İncek Sera Anaokulu</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">0.56 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0553 973 75 32<br>                 <b>✉️ E-Posta:</b> incekseraanaokulu@gmail.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://incekseraanaokulu.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905539737532?text=Merhaba%20İncek Sera Anaokulu%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_bb00f462716c6499e8fc7ba8b0514a81.setContent(html_de04e835ca6be0f1533e51d4ec7704b1);
+            
+        
+
+        marker_e0a672a00fd053bd1c2ec3a1a3136cf7.bindPopup(popup_bb00f462716c6499e8fc7ba8b0514a81)
+        ;
+
+        
+    
+    
+            marker_e0a672a00fd053bd1c2ec3a1a3136cf7.bindTooltip(
+                `<div>
+                     İncek Sera Anaokulu (0.56 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e0a672a00fd053bd1c2ec3a1a3136cf7.setIcon(icon_71994d29eab6756437cc0c56cb24dd84);
+            
+    
+            var marker_cbf420fe808e37da1a84fa358642f7ce = L.marker(
+                [39.8217464, 32.7168024],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_36582596b646585ae1bec04bece64eab = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d9100922280b9c4d4114ac34e7d5fd4e = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b5655e04c269ef3c2677ee15df707064 = $(`<div id="html_b5655e04c269ef3c2677ee15df707064" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Özel Ankara İncek Neşe Erberk Anaokulu</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.72 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0506 173 63 73<br>                 <b>✉️ E-Posta:</b> info@joyfullhouseankaraincek.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://neseerberkegitimkurumlari.com/anaokulu/ankara_incek" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905061736373?text=Merhaba%20Özel Ankara İncek Neşe Erberk Anaokulu%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_d9100922280b9c4d4114ac34e7d5fd4e.setContent(html_b5655e04c269ef3c2677ee15df707064);
+            
+        
+
+        marker_cbf420fe808e37da1a84fa358642f7ce.bindPopup(popup_d9100922280b9c4d4114ac34e7d5fd4e)
+        ;
+
+        
+    
+    
+            marker_cbf420fe808e37da1a84fa358642f7ce.bindTooltip(
+                `<div>
+                     Özel Ankara İncek Neşe Erberk Anaokulu (2.72 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cbf420fe808e37da1a84fa358642f7ce.setIcon(icon_36582596b646585ae1bec04bece64eab);
+            
+    
+            var marker_cb875b23108a1989f4f6a89b0b9ec644 = L.marker(
+                [39.8207495, 32.7127591],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_f183dd9ac4ff2289ef7934eec693ae50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fab61ce9c329cd55ff9847218f0efc00 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_4fe75d90c6e2bc56c7844eec8e19fd37 = $(`<div id="html_4fe75d90c6e2bc56c7844eec8e19fd37" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Uğur Okulları Ankara İncek Kampüsü</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.08 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0501 766 06 56<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://ugurokullari.k12.tr/ankara-incek-ugur-okullari-kampusu" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905017660656?text=Merhaba%20Uğur Okulları Ankara İncek Kampüsü%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_fab61ce9c329cd55ff9847218f0efc00.setContent(html_4fe75d90c6e2bc56c7844eec8e19fd37);
+            
+        
+
+        marker_cb875b23108a1989f4f6a89b0b9ec644.bindPopup(popup_fab61ce9c329cd55ff9847218f0efc00)
+        ;
+
+        
+    
+    
+            marker_cb875b23108a1989f4f6a89b0b9ec644.bindTooltip(
+                `<div>
+                     Uğur Okulları Ankara İncek Kampüsü (3.08 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cb875b23108a1989f4f6a89b0b9ec644.setIcon(icon_f183dd9ac4ff2289ef7934eec693ae50);
+            
+    
+            var marker_4881317751efecc79e12d07f3585e24e = L.marker(
+                [39.8327359, 32.7260084],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_e503a57f504ac5e5d8328baa17f86d11 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_14b963aa7c05ea8a9076255a16c22a8a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_08d89ac51944aed5aae6cbe210c39459 = $(`<div id="html_08d89ac51944aed5aae6cbe210c39459" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Maya Okulları İncek Yerleşkesi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.13 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 461 00 13<br>                 <b>✉️ E-Posta:</b> sakarya@maya.k12.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://maya.k12.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124610013?text=Merhaba%20Maya Okulları İncek Yerleşkesi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_14b963aa7c05ea8a9076255a16c22a8a.setContent(html_08d89ac51944aed5aae6cbe210c39459);
+            
+        
+
+        marker_4881317751efecc79e12d07f3585e24e.bindPopup(popup_14b963aa7c05ea8a9076255a16c22a8a)
+        ;
+
+        
+    
+    
+            marker_4881317751efecc79e12d07f3585e24e.bindTooltip(
+                `<div>
+                     Maya Okulları İncek Yerleşkesi (2.13 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4881317751efecc79e12d07f3585e24e.setIcon(icon_e503a57f504ac5e5d8328baa17f86d11);
+            
+    
+            var marker_ae4bd6b0dcdb43b5875f497c6fc49106 = L.marker(
+                [39.8191073, 32.7074958],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_4dd69f7dd71d12be57053b9f49bf443a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c290680c475feac22039759cbc7bb5d0 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6e8e03fbdeae01cb1b6181de27b74702 = $(`<div id="html_6e8e03fbdeae01cb1b6181de27b74702" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #D97706; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Özel Sevgi Koleji</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.55 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 461 08 88<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.muradiye.com.tr/inceksevgikoleji/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124610888?text=Merhaba%20Özel Sevgi Koleji%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_c290680c475feac22039759cbc7bb5d0.setContent(html_6e8e03fbdeae01cb1b6181de27b74702);
+            
+        
+
+        marker_ae4bd6b0dcdb43b5875f497c6fc49106.bindPopup(popup_c290680c475feac22039759cbc7bb5d0)
+        ;
+
+        
+    
+    
+            marker_ae4bd6b0dcdb43b5875f497c6fc49106.bindTooltip(
+                `<div>
+                     Özel Sevgi Koleji (3.55 km - A)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ae4bd6b0dcdb43b5875f497c6fc49106.setIcon(icon_4dd69f7dd71d12be57053b9f49bf443a);
+            
+    
+            var marker_cd73006aa61a2a028dad7c4811b99fc8 = L.marker(
+                [39.9128482, 32.7678376],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_aadce13bc9feb9ab080d13782c6864c2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7265f811e01878cd38f1712a78f94457 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_45dfaf99f4f85bb3dbfefd82adb97ddd = $(`<div id="html_45dfaf99f4f85bb3dbfefd82adb97ddd" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Aşiyan Anaokulu</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">9.96 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 219 57 75<br>                 <b>✉️ E-Posta:</b> info@asiyankoleji.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.asiyankoleji.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903122195775?text=Merhaba%20Aşiyan Anaokulu%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_7265f811e01878cd38f1712a78f94457.setContent(html_45dfaf99f4f85bb3dbfefd82adb97ddd);
+            
+        
+
+        marker_cd73006aa61a2a028dad7c4811b99fc8.bindPopup(popup_7265f811e01878cd38f1712a78f94457)
+        ;
+
+        
+    
+    
+            marker_cd73006aa61a2a028dad7c4811b99fc8.bindTooltip(
+                `<div>
+                     Aşiyan Anaokulu (9.96 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cd73006aa61a2a028dad7c4811b99fc8.setIcon(icon_aadce13bc9feb9ab080d13782c6864c2);
+            
+    
+            var marker_9c30eb2e2c86b41c5aaf36ddb25a5bf5 = L.marker(
+                [39.832131, 32.7432951],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_e0edc43a99f4dbfb47f19c5a27a73068 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5c06d232dc015bdffd6f3e1b8e58d654 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_4d152bddf9fae0d962a6184d167dd908 = $(`<div id="html_4d152bddf9fae0d962a6184d167dd908" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">tam Okulları</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">0.96 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 444 4 826<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.tamokullari.k12.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           </div>         </div>         </div>`)[0];
+                popup_5c06d232dc015bdffd6f3e1b8e58d654.setContent(html_4d152bddf9fae0d962a6184d167dd908);
+            
+        
+
+        marker_9c30eb2e2c86b41c5aaf36ddb25a5bf5.bindPopup(popup_5c06d232dc015bdffd6f3e1b8e58d654)
+        ;
+
+        
+    
+    
+            marker_9c30eb2e2c86b41c5aaf36ddb25a5bf5.bindTooltip(
+                `<div>
+                     tam Okulları (0.96 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9c30eb2e2c86b41c5aaf36ddb25a5bf5.setIcon(icon_e0edc43a99f4dbfb47f19c5a27a73068);
+            
+    
+            var marker_887b443ce45fedd208243894ade24a12 = L.marker(
+                [39.8341482, 32.7459519],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_cd29214d9ab9b663fd5a38868b33dea2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_da485ad89fe3d7e7c89e96abdd56ff80 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c8c52ceeea175a989e4c5328adf5dda3 = $(`<div id="html_c8c52ceeea175a989e4c5328adf5dda3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Adalet Bakanlığı, Ceza İnfaz Kurumları ve Tutukevleri Personeli Ankara Eğitim Merkezi-İncek Yerleşkesi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">1.09 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> N/A<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                                               </div>         </div>         </div>`)[0];
+                popup_da485ad89fe3d7e7c89e96abdd56ff80.setContent(html_c8c52ceeea175a989e4c5328adf5dda3);
+            
+        
+
+        marker_887b443ce45fedd208243894ade24a12.bindPopup(popup_da485ad89fe3d7e7c89e96abdd56ff80)
+        ;
+
+        
+    
+    
+            marker_887b443ce45fedd208243894ade24a12.bindTooltip(
+                `<div>
+                     Adalet Bakanlığı, Ceza İnfaz Kurumları ve Tutukevleri Personeli Ankara Eğitim Merkezi-İncek Yerleşkesi (1.09 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_887b443ce45fedd208243894ade24a12.setIcon(icon_cd29214d9ab9b663fd5a38868b33dea2);
+            
+    
+            var marker_bad6cd2f3a45750707992e15b4b74793 = L.marker(
+                [39.8342133, 32.746754],
+                {
+}
+            ).addTo(feature_group_dd02788ef30df93691d47ed2ea8b6056);
+        
+    
+            var icon_427f1ad3ec0734af2b237eb7995ac79f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "graduation-cap",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3b79e9ce50dc3a3dfe32c05ecbb06258 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c87c741feb0f0151465859d152c60d35 = $(`<div id="html_c87c741feb0f0151465859d152c60d35" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Özel Eğitim & Kolejler</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Ceza İnfaz Kurumları Personeli Ankara Eğitim Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">1.09 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 489 18 14<br>                 <b>✉️ E-Posta:</b> cte.ankara_egtmrk@adalet.gov.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Butik Kolej / VIP Anaokulu / Özel Eğitim Kampüsü<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://cte-aem.adalet.gov.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903124891814?text=Merhaba%20Ceza İnfaz Kurumları Personeli Ankara Eğitim Merkezi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_3b79e9ce50dc3a3dfe32c05ecbb06258.setContent(html_c87c741feb0f0151465859d152c60d35);
+            
+        
+
+        marker_bad6cd2f3a45750707992e15b4b74793.bindPopup(popup_3b79e9ce50dc3a3dfe32c05ecbb06258)
+        ;
+
+        
+    
+    
+            marker_bad6cd2f3a45750707992e15b4b74793.bindTooltip(
+                `<div>
+                     Ceza İnfaz Kurumları Personeli Ankara Eğitim Merkezi (1.09 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bad6cd2f3a45750707992e15b4b74793.setIcon(icon_427f1ad3ec0734af2b237eb7995ac79f);
+            
+    
+            feature_group_dd02788ef30df93691d47ed2ea8b6056.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_a804c39cc6729c36e9d8b48d717ad6f1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_a804c39cc6729c36e9d8b48d717ad6f1.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_c46c33331cac2e11537e73b87c160db9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_c46c33331cac2e11537e73b87c160db9.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_020d98cebecc68f39d1b4aa497044490 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_020d98cebecc68f39d1b4aa497044490.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_ba16c07470f5950a2b03500c548da88a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_ba16c07470f5950a2b03500c548da88a.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_7238a9fc102508cb3f970773d0d3653e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_7238a9fc102508cb3f970773d0d3653e.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_ef53d0188324252d6d7d43afab71fa3c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_c4f759d30246199368d73c627a4ba809 = L.marker(
+                [39.8138488, 32.7263185],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_ae29c06f2332c57608a792b80566cd6d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0d18eed900a7eae5c49d5edb07a484ea = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_0b6f4dfdc805bc294de2379c79c41f1c = $(`<div id="html_0b6f4dfdc805bc294de2379c79c41f1c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Atılım Kids Club</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.23 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0505 333 66 37<br>                 <b>✉️ E-Posta:</b> noreply@envato.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.atilimkidsclub.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905053336637?text=Merhaba%20Atılım Kids Club%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_0d18eed900a7eae5c49d5edb07a484ea.setContent(html_0b6f4dfdc805bc294de2379c79c41f1c);
+            
+        
+
+        marker_c4f759d30246199368d73c627a4ba809.bindPopup(popup_0d18eed900a7eae5c49d5edb07a484ea)
+        ;
+
+        
+    
+    
+            marker_c4f759d30246199368d73c627a4ba809.bindTooltip(
+                `<div>
+                     Atılım Kids Club (2.23 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c4f759d30246199368d73c627a4ba809.setIcon(icon_ae29c06f2332c57608a792b80566cd6d);
+            
+    
+            var marker_fe0b3f13da6ce088104d2693250127bc = L.marker(
+                [39.810938, 32.7182254],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_822f5f087967bc51070d0c8f03767a83 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a65e16eb9761c62f601d15db4190cae2 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_1c185413b6d415253eea3fd5b78e1408 = $(`<div id="html_1c185413b6d415253eea3fd5b78e1408" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">MİA YAŞAM MERKEZİ</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">2.99 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> (0312) 557 23 00<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.miayasammerkezi.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/903125572300?text=Merhaba%20MİA YAŞAM MERKEZİ%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_a65e16eb9761c62f601d15db4190cae2.setContent(html_1c185413b6d415253eea3fd5b78e1408);
+            
+        
+
+        marker_fe0b3f13da6ce088104d2693250127bc.bindPopup(popup_a65e16eb9761c62f601d15db4190cae2)
+        ;
+
+        
+    
+    
+            marker_fe0b3f13da6ce088104d2693250127bc.bindTooltip(
+                `<div>
+                     MİA YAŞAM MERKEZİ (2.99 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fe0b3f13da6ce088104d2693250127bc.setIcon(icon_822f5f087967bc51070d0c8f03767a83);
+            
+    
+            var marker_de00db46d1729114f22ff962c7d356d4 = L.marker(
+                [39.9104338, 32.8088618],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_edbb513df545540975377c98e86b70d8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b398ab3c00fddcdfabed9c44103ddf16 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a34c96305be71e3f99d9db8c02f83b14 = $(`<div id="html_a34c96305be71e3f99d9db8c02f83b14" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Uzm. Dr. Elif Küçük, Psikiyatri</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">10.86 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0505 222 62 81<br>                 <b>✉️ E-Posta:</b> elifkucukpsikiyatri@gmail.com<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://elifkucukpsikiyatri.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905052226281?text=Merhaba%20Uzm. Dr. Elif Küçük, Psikiyatri%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_b398ab3c00fddcdfabed9c44103ddf16.setContent(html_a34c96305be71e3f99d9db8c02f83b14);
+            
+        
+
+        marker_de00db46d1729114f22ff962c7d356d4.bindPopup(popup_b398ab3c00fddcdfabed9c44103ddf16)
+        ;
+
+        
+    
+    
+            marker_de00db46d1729114f22ff962c7d356d4.bindTooltip(
+                `<div>
+                     Uzm. Dr. Elif Küçük, Psikiyatri (10.86 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de00db46d1729114f22ff962c7d356d4.setIcon(icon_edbb513df545540975377c98e86b70d8);
+            
+    
+            var marker_df802230a24a3cb683a2ab528855f9be = L.marker(
+                [39.8496281, 32.6747139],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_f01e20e735da8713bc2714aec12f3556 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7c463c644c60beec9c242a0191e85b3d = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_39dd65d5b06a0b8d2eee5e293fa36d73 = $(`<div id="html_39dd65d5b06a0b8d2eee5e293fa36d73" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #D97706; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">HOMER Hematolojik Onkoloji Danışma Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">6.89 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0534 500 69 95<br>                 <b>✉️ E-Posta:</b> bootstrap@5.3.3<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="http://www.osmanilhan.com/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905345006995?text=Merhaba%20HOMER Hematolojik Onkoloji Danışma Merkezi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_7c463c644c60beec9c242a0191e85b3d.setContent(html_39dd65d5b06a0b8d2eee5e293fa36d73);
+            
+        
+
+        marker_df802230a24a3cb683a2ab528855f9be.bindPopup(popup_7c463c644c60beec9c242a0191e85b3d)
+        ;
+
+        
+    
+    
+            marker_df802230a24a3cb683a2ab528855f9be.bindTooltip(
+                `<div>
+                     HOMER Hematolojik Onkoloji Danışma Merkezi (6.89 km - A)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_df802230a24a3cb683a2ab528855f9be.setIcon(icon_f01e20e735da8713bc2714aec12f3556);
+            
+    
+            var marker_43095762d3d9d2150528d25f90260d24 = L.marker(
+                [39.8236421, 32.709823],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_5be26d552802bf253cc0e54cb71caaea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8731876cd020a2c0f7629366e0141553 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_01da7dafb507a9301204f748d730b92d = $(`<div id="html_01da7dafb507a9301204f748d730b92d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #DC2626; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">A+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">İncek Psikolojik Danışma Merkezi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">3.3 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0532 696 30 27<br>                 <b>✉️ E-Posta:</b> N/A<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://www.instagram.com/incekpsikoloji/?igshid=MzMyNGUyNmU2YQ%3D%3D" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905326963027?text=Merhaba%20İncek Psikolojik Danışma Merkezi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_8731876cd020a2c0f7629366e0141553.setContent(html_01da7dafb507a9301204f748d730b92d);
+            
+        
+
+        marker_43095762d3d9d2150528d25f90260d24.bindPopup(popup_8731876cd020a2c0f7629366e0141553)
+        ;
+
+        
+    
+    
+            marker_43095762d3d9d2150528d25f90260d24.bindTooltip(
+                `<div>
+                     İncek Psikolojik Danışma Merkezi (3.3 km - A+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_43095762d3d9d2150528d25f90260d24.setIcon(icon_5be26d552802bf253cc0e54cb71caaea);
+            
+    
+            var marker_b661cd73229e4bec4f2d4c8e7a7b6895 = L.marker(
+                [39.9056107, 32.8098535],
+                {
+}
+            ).addTo(feature_group_ef53d0188324252d6d7d43afab71fa3c);
+        
+    
+            var icon_11da1ae245347f19042d072c9db382d1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_46d9e431ac034583253c6a193effb7fb = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_9da4b38f54b323d6c48b561f3b55a496 = $(`<div id="html_9da4b38f54b323d6c48b561f3b55a496" style="width: 100.0%; height: 100.0%;">         <div style="font-family: 'Segoe UI', Arial; width: 280px; padding: 6px;">             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px;">                 <span style="font-size: 11px; font-weight: bold; color: #64748B;">Kurumsal Merkez</span>                 <span style="background: #2563EB; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px;">B+ Öncelik</span>             </div>             <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: bold; color: #1E293B;">Tıbbi Onkoloji Uzmanı, Ankara. Prof. Dr. Mustafa Benekli Muayenehanesi</h4>             <div style="font-size: 11px; color: #475569; line-height: 1.4;">                 <b>📍 Mesafe:</b> <span style="color: #DC2626; font-weight: bold;">10.43 km</span> (LÖSANTE Karşısına)<br>                 <b>📞 Telefon:</b> 0546 554 10 20<br>                 <b>✉️ E-Posta:</b> info@onkolojidoktoru.com.tr<br>                 <b>🏢 Hedef Model:</b> Müstakil Kurumsal Şirket Genel Merkezi<br>             </div>             <div style="margin-top: 8px;">                              <a href="https://onkolojidoktoru.com.tr/" target="_blank" style="display: inline-block; background-color: #0284C7; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; margin-top: 6px; margin-right: 5px;">                 🌐 Web Sitesi             </a>                                           <a href="https://wa.me/905465541020?text=Merhaba%20Tıbbi Onkoloji Uzmanı, Ankara. Prof. Dr. Mustafa Benekli Muayenehanesi%20Yetkilisi,%20İncek%20LÖSANTE%20karşısındaki%20ticari%20mülkümüz%20hakkında%20bilgilendirme%20yapmak%20isteriz." target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 11px; font-weight: bold; margin-top: 6px;">                 💬 WhatsApp Mesajı Başlat             </a>                          </div>         </div>         </div>`)[0];
+                popup_46d9e431ac034583253c6a193effb7fb.setContent(html_9da4b38f54b323d6c48b561f3b55a496);
+            
+        
+
+        marker_b661cd73229e4bec4f2d4c8e7a7b6895.bindPopup(popup_46d9e431ac034583253c6a193effb7fb)
+        ;
+
+        
+    
+    
+            marker_b661cd73229e4bec4f2d4c8e7a7b6895.bindTooltip(
+                `<div>
+                     Tıbbi Onkoloji Uzmanı, Ankara. Prof. Dr. Mustafa Benekli Muayenehanesi (10.43 km - B+)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b661cd73229e4bec4f2d4c8e7a7b6895.setIcon(icon_11da1ae245347f19042d072c9db382d1);
+            
+    
+            feature_group_ef53d0188324252d6d7d43afab71fa3c.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var feature_group_db8c9d15e5665851ec3f246bc63827c8 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_db8c9d15e5665851ec3f246bc63827c8.addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var layer_control_1420fb09ad65cbc9ad8478bca0361fa0_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_5a46af82c434c1d140011ba667c058d5,
+                    "Google Hibrit Uydu" : tile_layer_137714eb5ba63b98b96d96d242dd77bf,
+                },
+                overlays :  {
+                    "Mesafe Yar\u0131\u00e7ap \u00c7emberleri" : feature_group_581bd64e56ebcea9ccb670ad617015fa,
+                    "Sa\u011fl\u0131k \u0026 Medikal" : feature_group_c498e16540c8b5aaf19abe3c7b099c27,
+                    "A\u011f\u0131z ve Di\u015f Sa\u011fl\u0131\u011f\u0131" : feature_group_ee3f1e8a24805b854fc7082f0180bcfe,
+                    "Plastik \u0026 Estetik Cerrahi" : feature_group_8e8fe2ded0cdf64ee5c536ae2d349de5,
+                    "Fizik Tedavi \u0026 Rehabilitasyon" : feature_group_0d88709efbb08c076f1ed959bb1e01a9,
+                    "\u00d6zel E\u011fitim \u0026 Kolejler" : feature_group_dd02788ef30df93691d47ed2ea8b6056,
+                    "Savunma Sanayii" : feature_group_a804c39cc6729c36e9d8b48d717ad6f1,
+                    "Bili\u015fim \u0026 Yaz\u0131l\u0131m" : feature_group_c46c33331cac2e11537e73b87c160db9,
+                    "Prestij Hukuk" : feature_group_020d98cebecc68f39d1b4aa497044490,
+                    "Ba\u011f\u0131ms\u0131z Denetim \u0026 YMM" : feature_group_ba16c07470f5950a2b03500c548da88a,
+                    "Diplomatik Misyon" : feature_group_7238a9fc102508cb3f970773d0d3653e,
+                    "Kurumsal Merkez" : feature_group_ef53d0188324252d6d7d43afab71fa3c,
+                    "Di\u011fer Kurumlar" : feature_group_db8c9d15e5665851ec3f246bc63827c8,
+                },
+            };
+            let layer_control_1420fb09ad65cbc9ad8478bca0361fa0 = L.control.layers(
+                layer_control_1420fb09ad65cbc9ad8478bca0361fa0_layers.base_layers,
+                layer_control_1420fb09ad65cbc9ad8478bca0361fa0_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topright",
+  "title": "Tam Ekran",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": true,
+}
+            ).addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+        
+    
+            var locate_control_03ba6f04932fe87f8af8e99ed7cfca9f = L.control.locate(
+                {"position": "topright"}
+            ).addTo(map_3a55648d36bafdd7e15195fafc8cc907);
+            
+        
+</script>
+</html>
