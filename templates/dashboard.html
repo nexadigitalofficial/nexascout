@@ -900,8 +900,25 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
                 </div>
                 <div class="modal-body p-4">
-                    <div class="alert alert-info py-2 mb-3" style="font-size: 12px;">
-                        <i class="fa-solid fa-circle-info me-1"></i> <b>Coldwell Banker E-Posta Altyapısı:</b> <code>cb.com.tr</code> alan adı Google Workspace (Gmail) altyapısını kullanmaktadır.
+                    <!-- 1-Click Google Workspace OAuth Card -->
+                    <div class="card p-3 mb-3 border-primary bg-light shadow-sm">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                            <div>
+                                <div class="fw-bold text-navy" style="font-size: 13px;">
+                                    <i class="fa-brands fa-google text-danger me-1"></i> Resmi Google Workspace (Gmail API)
+                                </div>
+                                <div class="text-muted" style="font-size: 11px;">
+                                    Şifre gerekmeden, resmi Google yetkilendirmesi ile yigit.narin@cb.com.tr hesabınızı bağlayın.
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm fw-bold px-3" onclick="authGoogleNow()">
+                                <i class="fa-solid fa-link me-1"></i> Google ile Yetkilendir
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-secondary py-2 mb-3" style="font-size: 11px;">
+                        <i class="fa-solid fa-sliders me-1"></i> <b>Alternatif:</b> Doğrudan Klasik SMTP / Uygulama Şifresi ile Gönderim:
                     </div>
                     <form id="smtpConfigForm">
                         <div class="mb-3">
@@ -1234,6 +1251,14 @@
                 error: function() {
                     alertBox.removeClass('alert-info alert-success').addClass('alert-danger').html('❌ Test sırasında sunucu hatası oluştu.');
                 }
+            });
+        }
+
+        function authGoogleNow() {
+            $.post('/api/email/auth_google', function(res) {
+                alert(res.message);
+            }).fail(function() {
+                alert('Yetkilendirme başlatılırken hata oluştu.');
             });
         }
     </script>

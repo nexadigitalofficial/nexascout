@@ -26,7 +26,7 @@ from modules.decision_maker_hunter import find_decision_makers, generate_confide
 from modules.mailer import (
     load_smtp_config, save_smtp_config, test_smtp_connection,
     build_email_content, send_proposal_email, load_sent_logs,
-    find_proposal_file
+    find_proposal_file, is_gmail_api_ready
 )
 from google_maps_lead_harvester import scrape_google_maps_places, export_to_excel, load_config
 
@@ -239,7 +239,8 @@ def api_email_preview(lead_index):
             "text_body": content["text_body"],
             "attachment_file": os.path.basename(doc_path) if doc_path else None,
             "has_attachment": bool(doc_path and os.path.exists(doc_path)),
-            "smtp_ready": bool(cfg.get("smtp_password"))
+            "smtp_ready": bool(cfg.get("smtp_password")) or is_gmail_api_ready(),
+            "gmail_api_ready": is_gmail_api_ready()
         })
     return jsonify({"error": "Kurum bulunamadı"}), 404
 
@@ -294,6 +295,20 @@ def api_email_test():
 def api_email_logs():
     logs = load_sent_logs()
     return jsonify(logs)
+
+
+@app.route("/api/email/auth_google", methods=["POST"])
+def api_email_auth_google():
+    try:
+        import subprocess
+        script_path = os.path.join(APP_DIR, "google_auth_setup.py")
+        subprocess.Popen([sys.executable, script_path], creationflags=subprocess.CREATE_NEW_CONSOLE)
+        return jsonify({
+            "status": "success",
+            "message": "Yetkilendirme penceresi açıldı. Tarayıcınızda açılan Google onay ekranında yigit.narin@cb.com.tr hesabınızı seçip 'İzin Ver' deyiniz."
+        })
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 
 @app.route("/api/scan", methods=["POST"])

@@ -291,9 +291,39 @@ def find_proposal_file(kurum_adi, proposals_dir):
                 return os.path.join(proposals_dir, fname)
     return None
 
+def is_gmail_api_ready():
+    """token.json dosyasının varlığını kontrol eder."""
+    token_file = os.path.join(PROJECT_DIR, "token.json")
+    return os.path.exists(token_file)
+
+def send_via_gmail_api(msg, target_email):
+    """Resmi Gmail API (OAuth2) üzerinden e-postayı iletir."""
+    import base64
+    from google.oauth2.credentials import Credentials
+    from google.auth.transport.requests import Request
+    from googleapiclient.discovery import build
+
+    token_file = os.path.join(PROJECT_DIR, "token.json")
+    if not os.path.exists(token_file):
+        return False, "token.json bulunamadı. Lütfen önce GOOGLE_GMAIL_BAGLA.bat dosyasını çalıştırınız."
+
+    creds = Credentials.from_authorized_user_file(token_file, ["https://www.googleapis.com/auth/gmail.send"])
+    if not creds.valid:
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+            with open(token_file, "w", encoding="utf-8") as tf:
+                tf.write(creds.to_json())
+        else:
+            return False, "Google yetkilendirme oturumunun süresi dolmuş. Lütfen GOOGLE_GMAIL_BAGLA.bat dosyasını çalıştırınız."
+
+    service = build("gmail", "v1", credentials=creds)
+    raw_message = base64.urlsafe_b64encode(msg.as_bytes()).decode("utf-8")
+    service.users().messages().send(userId="me", body={"raw": raw_message}).execute()
+    return True, None
+
 def send_proposal_email(lead_data, proposals_dir, recipient_email=None, custom_subject=None, custom_html=None):
     """
-    Tek bir kuruma Word ekli VIP teklif e-postasını SMTP üzerinden gönderir.
+    Tek bir kuruma Word ekli VIP teklif e-postasını resmi Gmail API veya SMTP üzerinden gönderir.
     """
     cfg = load_smtp_config()
     server = cfg.get("smtp_server", "smtp.gmail.com")
@@ -309,10 +339,6 @@ def send_proposal_email(lead_data, proposals_dir, recipient_email=None, custom_s
     if not target_email or target_email == "N/A" or "@" not in target_email:
         err = f"'{kurum_adi}' için geçerli bir e-posta adresi bulunamadı."
         log_sent_email(kurum_adi, target_email or "N/A", "", "FAILED", err)
-        return {"success": False, "message": err}
-
-    if not password:
-        err = "SMTP parolası girilmemiş. Lütfen SMTP Ayarlarından Google Workspace Uygulama Şifrenizi kaydedin."
         return {"success": False, "message": err}
 
     content = build_email_content(lead_data)
@@ -342,6 +368,29 @@ def send_proposal_email(lead_data, proposals_dir, recipient_email=None, custom_s
         except Exception:
             pass
 
+    # 1. Önce resmi Gmail API (OAuth2) dene (En güvenilir yöntem)
+    if is_gmail_api_ready():
+        try:
+            ok, err = send_via_gmail_api(msg, target_email)
+            if ok:
+                log_sent_email(kurum_adi, target_email, subject, "SUCCESS (Gmail API)")
+                return {
+                    "success": True,
+                    "message": f"E-posta resmi Google Workspace (Gmail API) üzerinden '{target_email}' adresine başarıyla gönderildi! (Ekli dosya: {os.path.basename(doc_path) if doc_path else 'Yok'})",
+                    "sent_at": datetime.now().strftime("%d.%m.%Y %H:%M")
+                }
+            elif not password:
+                return {"success": False, "message": err}
+        except Exception as e:
+            if not password:
+                log_sent_email(kurum_adi, target_email, subject, "FAILED (Gmail API)", str(e))
+                return {"success": False, "message": f"Gmail API gönderim hatası: {str(e)}"}
+
+    # 2. Gmail API bağlı değilse SMTP yedek kanalına geç
+    if not password:
+        err = "Google API henüz yetkilendirilmemiş ve SMTP parolası girilmemiş. Lütfen klasördeki GOOGLE_GMAIL_BAGLA.bat dosyasını çalıştırarak Google ile bağlanınız."
+        return {"success": False, "message": err}
+
     # Send via SMTP
     try:
         if port == 465:
@@ -357,7 +406,7 @@ def send_proposal_email(lead_data, proposals_dir, recipient_email=None, custom_s
         smtp.sendmail(sender_email, [target_email], msg.as_string())
         smtp.quit()
 
-        log_sent_email(kurum_adi, target_email, subject, "SUCCESS")
+        log_sent_email(kurum_adi, target_email, subject, "SUCCESS (SMTP)")
         return {
             "success": True,
             "message": f"E-posta '{target_email}' adresine başarıyla gönderildi! (Ekli dosya: {os.path.basename(doc_path) if doc_path else 'Yok'})",
