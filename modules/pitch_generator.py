@@ -205,4 +205,31 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
         import time
         time.sleep(0.5)
         doc.save(out_file)
+
+    # Save TXT version as well
+    txt_file = os.path.join(output_dir, f"{clean_name}_VIP_Yatirim_Teklifi.txt")
+    try:
+        lines = []
+        for element in doc.element.body:
+            if element.tag.endswith('p'):
+                p = docx.text.paragraph.Paragraph(element, doc)
+                txt = p.text.strip()
+                if txt:
+                    lines.append(txt)
+            elif element.tag.endswith('tbl'):
+                t = docx.table.Table(element, doc)
+                lines.append("")
+                lines.append("=" * 65)
+                for row in t.rows:
+                    if len(row.cells) >= 2:
+                        lbl = row.cells[0].text.strip()
+                        val = row.cells[1].text.strip()
+                        lines.append(f"  • {lbl:<22}: {val}")
+                lines.append("=" * 65)
+                lines.append("")
+        with open(txt_file, "w", encoding="utf-8") as f_txt:
+            f_txt.write("\n".join(lines))
+    except Exception:
+        pass
+
     return out_file
