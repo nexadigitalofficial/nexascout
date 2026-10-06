@@ -82,6 +82,19 @@
             background-color: #1EBE5D;
             color: white;
         }
+        .btn-purple {
+            background-color: #6F42C1;
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        .btn-purple:hover {
+            background-color: #593196;
+            color: white;
+        }
+        .bg-purple {
+            background-color: #6F42C1 !important;
+        }
         .nav-pills .nav-link.active {
             background-color: var(--navy-dark);
             color: white;
@@ -284,6 +297,24 @@
 
             <!-- TAB 1: DATA TABLE -->
             <div class="tab-pane fade show active" id="pills-table" role="tabpanel">
+                <!-- AI Pitch Fast Bar -->
+                <div class="card p-3 mb-3 border-0 shadow-sm" style="background: linear-gradient(135deg, #2E0854 0%, #6F42C1 100%); color: white; border-radius: 12px;">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <h6 class="fw-bold mb-1"><i class="fa-solid fa-wand-magic-sparkles text-warning me-2"></i> AI Kurum Analizörü & 4'lü Stratejik Mesaj Motoru</h6>
+                            <p class="mb-0 text-white-50" style="font-size: 12px;">Hedef kurumun adını yazın; yapay zeka sektörünü analiz edip E-Posta, WhatsApp VIP, Emlak Grubu ve Afiş metinlerini saniyeler içinde oluştursun.</p>
+                        </div>
+                        <div class="col-lg-5 mt-2 mt-lg-0">
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="customKurumInput" class="form-control fw-bold" placeholder="Örn: Medicana, Dent Group, FNSS, Aşiyan Koleji...">
+                                <button class="btn btn-warning text-dark fw-bold px-3" onclick="generateCustomAiPitch()">
+                                    <i class="fa-solid fa-bolt me-1"></i> AI ile Üret
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="fw-bold mb-0 text-navy">
@@ -373,6 +404,9 @@
                                     <div class="btn-group btn-group-sm">
                                         <button class="btn btn-danger text-white fw-bold" onclick="openEmailModal({{ lead.index }})" title="VIP E-Posta Gönder (yigit.narin@cb.com.tr)">
                                             <i class="fa-solid fa-paper-plane"></i>
+                                        </button>
+                                        <button class="btn btn-purple text-white fw-bold" onclick="openAiPitchModal({{ lead.index }})" title="AI Kurum Analizi & 4'lü Stratejik Mesaj (E-Posta, WhatsApp VIP, Emlak Grubu, Afiş)">
+                                            <i class="fa-solid fa-robot"></i>
                                         </button>
                                         {% if lead.telefon and lead.telefon != 'N/A' %}
                                         <a href="https://wa.me/{{ lead.telefon_wa }}?text=Sayın%20Yetkili,%20İncek%20LÖSANTE%20karşısındaki%20bölgenin%20tek%20ticari%20ruhsatlı%20müstakil%20mülkü%20için%20özel%20yatırım%20bilgilendirmemizi%20paylaşmak%20isteriz." target="_blank" class="btn btn-wa" title="WhatsApp Mesajı Başlat">
@@ -611,6 +645,9 @@
                                     <td class="text-center fw-bold text-danger">{{ lead.mesafe_km }} km</td>
                                     <td>
                                         <div class="d-flex gap-1 flex-wrap">
+                                            <button class="btn btn-purple btn-sm text-white fw-bold" onclick="openAiPitchModal({{ lead.index }})" title="AI Kurum Analizi & 4'lü Stratejik Mesaj">
+                                                <i class="fa-solid fa-robot me-1"></i> AI Paket
+                                            </button>
                                             <button class="btn btn-warning btn-sm text-dark fw-bold" onclick="openTeaserModal({{ lead.index }})" title="Gizli Yatırım Teaser'ı Görüntüle / Kopyala">
                                                 <i class="fa-solid fa-envelope-open-text me-1"></i> Teaser
                                             </button>
@@ -767,6 +804,172 @@
     </div>
 
     <!-- Modals -->
+    <!-- AI PITCH SUITE MODAL (4 FORMAT + MASTER PROMPT) -->
+    <div class="modal fade" id="aiPitchModal" tabindex="-1" aria-labelledby="aiPitchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #2E0854 0%, #6F42C1 100%); border-bottom: 3px solid #FFD700;">
+                    <div>
+                        <h5 class="modal-title fw-bold" id="aiPitchModalLabel">
+                            <i class="fa-solid fa-robot text-warning me-2"></i> <span id="aiModalTargetTitle">AI Kurum Analizi & 4'lü Stratejik Mesaj Paketi</span>
+                        </h5>
+                        <small class="text-white-50" id="aiModalSubtitle">Yiğit Narin adına kişiselleştirilmiş pazarlama metinleri</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body p-4" style="background-color: #F8F9FA;">
+                    <!-- Loading State -->
+                    <div id="aiPitchLoading" class="text-center py-5">
+                        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                        <h6 class="fw-bold text-dark">Yapay Zeka Kurumu Analiz Ediyor ve 4 Formatı Hazırlıyor...</h6>
+                        <small class="text-muted">Sektör personası, yasal tekel avantajları ve LÖSANTE konumu işleniyor.</small>
+                    </div>
+
+                    <!-- Content Area with Tabs -->
+                    <div id="aiPitchContent" class="d-none">
+                        <!-- Sector Badge Banner -->
+                        <div class="alert alert-light border shadow-sm p-3 mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <div>
+                                <span class="badge bg-purple text-white me-2" id="aiSectorBadge">SAGLIK</span>
+                                <b class="text-dark" id="aiPersonaAngle">Sağlık Yatırımı / Yeni Hizmet Noktası</b>
+                            </div>
+                            <div class="text-muted" style="font-size: 12px;">
+                                <i class="fa-solid fa-shield-halved text-success me-1"></i> Tek Yetkili: <b>Yiğit Narin</b> (0532 451 40 08)
+                            </div>
+                        </div>
+
+                        <!-- Inner Nav Tabs -->
+                        <ul class="nav nav-tabs fw-bold mb-3" id="aiTabs" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active text-danger" id="ai-email-tab" data-bs-toggle="tab" data-bs-target="#ai-email-pane" type="button" role="tab">
+                                    <i class="fa-solid fa-envelope me-1"></i> 1. Kurumsal E-Posta
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link text-success" id="ai-wa-tab" data-bs-toggle="tab" data-bs-target="#ai-wa-pane" type="button" role="tab">
+                                    <i class="fa-brands fa-whatsapp me-1"></i> 2. WhatsApp VIP Yönetici
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link text-primary" id="ai-broker-tab" data-bs-toggle="tab" data-bs-target="#ai-broker-pane" type="button" role="tab">
+                                    <i class="fa-solid fa-handshake me-1"></i> 3. Meslektaş / Emlak Grubu
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link text-warning" id="ai-visual-tab" data-bs-toggle="tab" data-bs-target="#ai-visual-pane" type="button" role="tab">
+                                    <i class="fa-solid fa-image me-1"></i> 4. Görsel / Afiş Vitrin Metni
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link text-dark" id="ai-prompt-tab" data-bs-toggle="tab" data-bs-target="#ai-prompt-pane" type="button" role="tab">
+                                    <i class="fa-solid fa-terminal me-1"></i> 5. Master AI Promptu
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab Panes -->
+                        <div class="tab-content bg-white p-3 border rounded-3 shadow-sm">
+                            <!-- Pane 1: Email -->
+                            <div class="tab-pane fade show active" id="ai-email-pane" role="tabpanel">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">E-Posta Konu Başlığı:</label>
+                                        <button class="btn btn-outline-secondary btn-sm py-0" onclick="copyElementText('aiEmailSubject')">
+                                            <i class="fa-regular fa-copy me-1"></i> Başlığı Kopyala
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control fw-bold bg-light" id="aiEmailSubject" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">E-Posta Gövdesi (Yatırım Direktörlüğü Formatı):</label>
+                                        <button class="btn btn-danger btn-sm fw-bold" onclick="copyElementText('aiEmailBody')">
+                                            <i class="fa-regular fa-copy me-1"></i> Gövdeyi Kopyala
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" id="aiEmailBody" rows="12" style="font-family: monospace; font-size: 12px; background: #FAFBFD; line-height: 1.5;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Pane 2: WhatsApp VIP -->
+                            <div class="tab-pane fade" id="ai-wa-pane" role="tabpanel">
+                                <div class="alert alert-success py-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-mobile-screen-button me-1"></i> C-Level yönetici veya yatırımcının doğrudan WhatsApp hattına atılmak üzere 4-5 kısa paragrafta optimize edilmiştir.
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">WhatsApp VIP Teaser Metni:</label>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-secondary btn-sm" onclick="copyElementText('aiWaText')">
+                                                <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                            </button>
+                                            <a href="#" target="_blank" id="btnOpenDirectWa" class="btn btn-success btn-sm fw-bold">
+                                                <i class="fa-brands fa-whatsapp me-1"></i> Doğrudan WhatsApp Web'de Aç
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" id="aiWaText" rows="11" style="font-family: monospace; font-size: 12px; background: #F6FFF8; line-height: 1.5;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Pane 3: Emlak Grubu -->
+                            <div class="tab-pane fade" id="ai-broker-pane" role="tabpanel">
+                                <div class="alert alert-primary py-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-users me-1"></i> Meslektaş emlak gruplarında paylaşılmak üzere "Müşteriniz varsa GETİRİN, BİRLİKTE GÖSTERELİM" odaklı VIP iş birliği metnidir.
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">Meslektaş Paylaşım Metni:</label>
+                                        <button class="btn btn-primary btn-sm fw-bold" onclick="copyElementText('aiBrokerText')">
+                                            <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" id="aiBrokerText" rows="12" style="font-family: monospace; font-size: 12px; background: #F4F8FD; line-height: 1.5;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Pane 4: Afiş & Vitrin -->
+                            <div class="tab-pane fade" id="ai-visual-pane" role="tabpanel">
+                                <div class="alert alert-warning py-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-camera me-1"></i> Görsel üzerine, afiş arkasına veya Instagram/WhatsApp Durum paylaşımına uygun tipografik vitrin formatı.
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">Görsel & Story Vitrin Metni:</label>
+                                        <button class="btn btn-warning text-dark btn-sm fw-bold" onclick="copyElementText('aiVisualText')">
+                                            <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" id="aiVisualText" rows="9" style="font-family: monospace; font-size: 12px; background: #FFFCF2; line-height: 1.5;"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Pane 5: Master AI Prompt -->
+                            <div class="tab-pane fade" id="ai-prompt-pane" role="tabpanel">
+                                <div class="alert alert-dark py-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-brain me-1"></i> Antigravity, ChatGPT veya Claude'a yapıştırıp istediğiniz kurumu tek satırda analiz ettirmek için hazır sistem direktifidir.
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <label class="form-label fw-bold text-navy mb-0" style="font-size: 13px;">Antigravity Master Prompt:</label>
+                                        <button class="btn btn-dark btn-sm fw-bold" onclick="copyElementText('aiPromptText')">
+                                            <i class="fa-regular fa-copy me-1"></i> Promptu Kopyala
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" id="aiPromptText" rows="10" style="font-family: monospace; font-size: 11px; background: #212529; color: #00FF66;" readonly></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 1. Confidential Teaser Modal -->
     <div class="modal fade" id="teaserModal" tabindex="-1" aria-labelledby="teaserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1259,6 +1462,103 @@
                 alert(res.message);
             }).fail(function() {
                 alert('Yetkilendirme başlatılırken hata oluştu.');
+            });
+        }
+
+        // ==========================================
+        // AI PITCH SUITE (4 FORMAT + MASTER PROMPT)
+        // ==========================================
+        var masterPromptTemplate = `SİSTEM DİREKTİFİ: ÜST DÜZEY TİCARİ GAYRİMENKUL DANIŞMANI & STRATEJİK COPYWRITING AJANI
+Coldwell Banker VIP Real Gayrimenkul Tek Yetkili Danışmanı Yiğit Narin (0532 451 40 08) adına çalışıyorsun.
+Mülk: Ankara Gölbaşı Kızılcaşar / LÖSANTE Hastanesi Tam Karşısı, Konut + TİCARİ Çift Ruhsatlı (Yapı Kayıt C278DFHU), 398 m² arsa, 420 m² kapalı, 4 katlı köşe parsel tam müstakil bina. Hazır asansör şaftı mimari boşluğu, 8-10 ton su deposu, müstakil otopark.
+İlan Linki: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/
+FİYAT YAZILMAYACAK.
+Kullanıcı herhangi bir kurum adı girdiğinde:
+1. Kurumun sektörünü ve Ankara genişleme potansiyelini analiz et.
+2. Kurumsal E-Posta (Konu + Gövde, Yatırım Direktörlüğü odaklı).
+3. WhatsApp VIP Yönetici Teaser'ı (C-Level, hızlı okunan mobil teaser).
+4. Değerli Meslektaşlarım / Emlak Grubu Mesajı (Müşterin varsa GETİRİN BİRLİKTE GÖSTERELİM odaklı).
+5. Görsel / Afiş Vitrin Metni üret.`;
+
+        function populateAiModal(data) {
+            $('#aiPitchLoading').addClass('d-none');
+            $('#aiPitchContent').removeClass('d-none');
+            
+            $('#aiModalTargetTitle').text(data.kurum_adi + ' — AI Stratejik Mesaj Paketi');
+            $('#aiSectorBadge').text(data.sektor);
+            $('#aiPersonaAngle').text(data.persona_angle);
+            
+            $('#aiEmailSubject').val(data.email_subject);
+            $('#aiEmailBody').val(data.email_body);
+            $('#aiWaText').val(data.whatsapp_teaser);
+            $('#aiBrokerText').val(data.emlak_grubu_mesaji);
+            $('#aiVisualText').val(data.gorsel_afis_metni);
+            $('#aiPromptText').val(masterPromptTemplate);
+            
+            if (data.whatsapp_direct_url) {
+                $('#btnOpenDirectWa').attr('href', data.whatsapp_direct_url).removeClass('d-none');
+            } else {
+                $('#btnOpenDirectWa').attr('href', 'https://web.whatsapp.com/send?text=' + data.whatsapp_encoded).removeClass('d-none');
+            }
+        }
+
+        function openAiPitchModal(leadIndex) {
+            $('#aiPitchLoading').removeClass('d-none');
+            $('#aiPitchContent').addClass('d-none');
+            var modal = new bootstrap.Modal(document.getElementById('aiPitchModal'));
+            modal.show();
+
+            $.get('/api/ai_pitch/' + leadIndex, function(res) {
+                if (res.status === 'success') {
+                    populateAiModal(res);
+                } else {
+                    alert('Hata: ' + (res.error || 'Bilinmeyen hata'));
+                }
+            }).fail(function() {
+                alert('Yapay zeka mesaj paketi çekilirken bağlantı hatası oluştu.');
+            });
+        }
+
+        function generateCustomAiPitch() {
+            var kurum = $('#customKurumInput').val().trim();
+            if (!kurum) {
+                alert('Lütfen bir kurum veya işletme adı yazınız (Örn: Medicana, Dent Group, FNSS)');
+                return;
+            }
+
+            $('#aiPitchLoading').removeClass('d-none');
+            $('#aiPitchContent').addClass('d-none');
+            var modal = new bootstrap.Modal(document.getElementById('aiPitchModal'));
+            modal.show();
+
+            $.ajax({
+                url: '/api/ai_pitch_custom',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ kurum_adi: kurum }),
+                success: function(res) {
+                    if (res.status === 'success') {
+                        populateAiModal(res);
+                    } else {
+                        alert('Hata: ' + (res.error || 'Bilinmeyen hata'));
+                    }
+                },
+                error: function() {
+                    alert('Sunucu hatası oluştu.');
+                }
+            });
+        }
+
+        function copyElementText(elId) {
+            var el = document.getElementById(elId);
+            if (!el) return;
+            var val = el.value || el.innerText;
+            navigator.clipboard.writeText(val).then(function() {
+                alert('Metin başarıyla panoya kopyalandı!');
+            }).catch(function() {
+                el.select();
+                document.execCommand('copy');
+                alert('Metin kopyalandı!');
             });
         }
     </script>

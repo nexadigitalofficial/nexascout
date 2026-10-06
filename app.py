@@ -28,6 +28,7 @@ from modules.mailer import (
     build_email_content, send_proposal_email, load_sent_logs,
     find_proposal_file, is_gmail_api_ready
 )
+from modules.ai_pitch_crafter import craft_institution_pitch_suite
 from google_maps_lead_harvester import scrape_google_maps_places, export_to_excel, load_config
 
 import openpyxl
@@ -205,6 +206,49 @@ def api_generate_teaser(lead_index):
             "teaser": teaser_text
         })
     return jsonify({"error": "Kurum bulunamadı"}), 404
+
+@app.route("/api/ai_pitch/<int:lead_index>")
+def api_ai_pitch(lead_index):
+    leads = load_leads_from_excel()
+    if 0 <= lead_index < len(leads):
+        lead = leads[lead_index]
+        res = craft_institution_pitch_suite(
+            kurum_adi=lead.get("kurum_adi", ""),
+            is_kolu=lead.get("is_kolu", ""),
+            ana_kategori=lead.get("ana_kategori", ""),
+            mesafe_km=lead.get("mesafe_km", None),
+            web_sitesi=lead.get("web_sitesi", "")
+        )
+        # Format WhatsApp direct link if phone available
+        phone_wa = lead.get("telefon_wa")
+        if phone_wa and phone_wa != "N/A":
+            res["whatsapp_direct_url"] = f"https://wa.me/{phone_wa}?text={res['whatsapp_encoded']}"
+        else:
+            res["whatsapp_direct_url"] = None
+            
+        res["status"] = "success"
+        res["telefon"] = lead.get("telefon", "N/A")
+        res["eposta"] = lead.get("eposta", "N/A")
+        return jsonify(res)
+    return jsonify({"error": "Kurum bulunamadı"}), 404
+
+@app.route("/api/ai_pitch_custom", methods=["POST"])
+def api_ai_pitch_custom():
+    data = request.get_json() or {}
+    kurum_adi = data.get("kurum_adi", "").strip()
+    is_kolu = data.get("is_kolu", "").strip()
+    if not kurum_adi:
+        return jsonify({"error": "Lütfen bir kurum adı belirtiniz"}), 400
+        
+    res = craft_institution_pitch_suite(
+        kurum_adi=kurum_adi,
+        is_kolu=is_kolu,
+        ana_kategori=is_kolu,
+        mesafe_km=data.get("mesafe_km", None),
+        web_sitesi=data.get("web_sitesi", "")
+    )
+    res["status"] = "success"
+    return jsonify(res)
 
 @app.route("/api/hunt_executives/<int:lead_index>")
 def api_hunt_executives(lead_index):
