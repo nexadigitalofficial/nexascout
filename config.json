@@ -7,6 +7,14 @@
   },
   "default_radius_km": 10,
   "output_excel_path": "data/GOOGLE_HARITA_TOPLANAN_KURUMLAR.xlsx",
+  "smtp": {
+    "sender_email": "yigit.narin@cb.com.tr",
+    "sender_name": "Yiğit Narin | Coldwell Banker VIP",
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "use_tls": true,
+    "smtp_password": ""
+  },
   "category_presets": {
     "saglik": {
       "name": "Sağlık & Medikal",

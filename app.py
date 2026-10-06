@@ -23,6 +23,11 @@ from modules.map_generator import generate_interactive_map
 from modules.pitch_generator import generate_pitch_document
 from modules.scoring import calculate_propfit_score
 from modules.decision_maker_hunter import find_decision_makers, generate_confidential_teaser
+from modules.mailer import (
+    load_smtp_config, save_smtp_config, test_smtp_connection,
+    build_email_content, send_proposal_email, load_sent_logs,
+    find_proposal_file
+)
 from google_maps_lead_harvester import scrape_google_maps_places, export_to_excel, load_config
 
 import openpyxl
@@ -135,7 +140,18 @@ def compute_stats(leads):
 def dashboard():
     leads = load_leads_from_excel()
     stats = compute_stats(leads)
-    return render_template("dashboard.html", leads=leads, stats=stats)
+    email_logs = load_sent_logs()
+    for l in leads:
+        k_name = l.get("kurum_adi", "")
+        if k_name in email_logs:
+            l["email_sent"] = email_logs[k_name]
+        else:
+            l["email_sent"] = None
+    smtp_cfg = load_smtp_config()
+    safe_smtp_cfg = dict(smtp_cfg)
+    safe_smtp_cfg["has_password"] = bool(smtp_cfg.get("smtp_password"))
+    safe_smtp_cfg["smtp_password"] = "***" if safe_smtp_cfg["has_password"] else ""
+    return render_template("dashboard.html", leads=leads, stats=stats, smtp_config=safe_smtp_cfg, email_logs=email_logs)
 
 @app.route("/map")
 def serve_map():
@@ -203,6 +219,81 @@ def api_hunt_executives(lead_index):
             "executives": execs
         })
     return jsonify({"error": "Kurum bulunamadı"}), 404
+
+@app.route("/api/email/preview/<int:lead_index>")
+def api_email_preview(lead_index):
+    leads = load_leads_from_excel()
+    if 0 <= lead_index < len(leads):
+        lead = leads[lead_index]
+        content = build_email_content(lead)
+        cfg = load_smtp_config()
+        doc_path = find_proposal_file(lead.get("kurum_adi", ""), PROPOSALS_DIR)
+        return jsonify({
+            "status": "success",
+            "kurum_adi": lead.get("kurum_adi"),
+            "recipient_email": lead.get("eposta", "") if lead.get("eposta") != "N/A" else "",
+            "sender_email": cfg.get("sender_email", "yigit.narin@cb.com.tr"),
+            "sender_name": cfg.get("sender_name", "Yiğit Narin | Coldwell Banker VIP"),
+            "subject": content["subject"],
+            "html_body": content["html_body"],
+            "text_body": content["text_body"],
+            "attachment_file": os.path.basename(doc_path) if doc_path else None,
+            "has_attachment": bool(doc_path and os.path.exists(doc_path)),
+            "smtp_ready": bool(cfg.get("smtp_password"))
+        })
+    return jsonify({"error": "Kurum bulunamadı"}), 404
+
+@app.route("/api/email/send/<int:lead_index>", methods=["POST"])
+def api_email_send(lead_index):
+    leads = load_leads_from_excel()
+    if 0 <= lead_index < len(leads):
+        lead = leads[lead_index]
+        req_data = request.json or {}
+        recipient = req_data.get("recipient_email") or lead.get("eposta")
+        custom_subject = req_data.get("subject")
+        custom_html = req_data.get("html_body")
+        
+        # Ensure proposal file exists, if not generate it
+        doc_path = find_proposal_file(lead.get("kurum_adi", ""), PROPOSALS_DIR)
+        if not doc_path:
+            generate_pitch_document(lead, PROPOSALS_DIR)
+            
+        res = send_proposal_email(
+            lead_data=lead,
+            proposals_dir=PROPOSALS_DIR,
+            recipient_email=recipient,
+            custom_subject=custom_subject,
+            custom_html=custom_html
+        )
+        return jsonify(res)
+    return jsonify({"success": False, "message": "Kurum bulunamadı"}), 404
+
+@app.route("/api/email/config", methods=["GET", "POST"])
+def api_email_config():
+    if request.method == "POST":
+        data = request.json or {}
+        updated = save_smtp_config(data)
+        safe = dict(updated)
+        safe["has_password"] = bool(safe.get("smtp_password"))
+        safe["smtp_password"] = "***" if safe["has_password"] else ""
+        return jsonify({"status": "success", "config": safe})
+    else:
+        cfg = load_smtp_config()
+        safe = dict(cfg)
+        safe["has_password"] = bool(safe.get("smtp_password"))
+        safe["smtp_password"] = "***" if safe["has_password"] else ""
+        return jsonify(safe)
+
+@app.route("/api/email/test", methods=["POST"])
+def api_email_test():
+    data = request.json or {}
+    res = test_smtp_connection(data if "smtp_password" in data else None)
+    return jsonify(res)
+
+@app.route("/api/email/logs")
+def api_email_logs():
+    logs = load_sent_logs()
+    return jsonify(logs)
 
 
 @app.route("/api/scan", methods=["POST"])

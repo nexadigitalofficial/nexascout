@@ -124,10 +124,13 @@
                 <span class="badge bg-warning text-dark px-3 py-2 fw-bold">
                     <i class="fa-solid fa-certificate me-1"></i> Tescilli Ticari YKB (C278DFHU)
                 </span>
-                <span class="badge bg-danger px-3 py-2 fw-bold">
-                    <i class="fa-solid fa-lock me-1"></i> %100 Off-Market (Branda Yok)
+                <span class="badge bg-success px-3 py-2 fw-bold">
+                    <i class="fa-solid fa-bolt me-1"></i> Münhasır Tek Yetkili Portföy
                 </span>
-                <button class="btn btn-outline-light btn-sm ms-2" onclick="location.reload()">
+                <button class="btn btn-warning btn-sm ms-2 fw-bold text-dark" onclick="openSmtpModal()" title="Kurumsal E-Posta / SMTP Yapılandırması">
+                    <i class="fa-solid fa-envelope-gear me-1"></i> SMTP / Mail Ayarları
+                </button>
+                <button class="btn btn-outline-light btn-sm ms-1" onclick="location.reload()">
                     <i class="fa-solid fa-rotate me-1"></i> Yenile
                 </button>
             </div>
@@ -353,6 +356,13 @@
                                     {% else %}
                                     <span class="text-muted" style="font-size: 11px;">N/A</span>
                                     {% endif %}
+                                    {% if lead.email_sent %}
+                                    <div class="mt-1">
+                                        <span class="badge bg-success" style="font-size: 9px;" title="Gönderildi: {{ lead.email_sent.timestamp }}">
+                                            <i class="fa-solid fa-check-double me-1"></i> Gönderildi
+                                        </span>
+                                    </div>
+                                    {% endif %}
                                 </td>
                                 <td class="text-center">
                                     <span class="fw-bold {% if lead.mesafe_km and lead.mesafe_km <= 3.5 %}text-danger{% else %}text-primary{% endif %}">
@@ -361,6 +371,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-danger text-white fw-bold" onclick="openEmailModal({{ lead.index }})" title="VIP E-Posta Gönder (yigit.narin@cb.com.tr)">
+                                            <i class="fa-solid fa-paper-plane"></i>
+                                        </button>
                                         {% if lead.telefon and lead.telefon != 'N/A' %}
                                         <a href="https://wa.me/{{ lead.telefon_wa }}?text=Sayın%20Yetkili,%20İncek%20LÖSANTE%20karşısındaki%20bölgenin%20tek%20ticari%20ruhsatlı%20müstakil%20mülkü%20için%20özel%20yatırım%20bilgilendirmemizi%20paylaşmak%20isteriz." target="_blank" class="btn btn-wa" title="WhatsApp Mesajı Başlat">
                                             <i class="fa-brands fa-whatsapp"></i>
@@ -810,6 +823,131 @@
         </div>
     </div>
 
+    <!-- 3. VIP Email Dispatch Modal -->
+    <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0A2540 0%, #1B365D 100%); border-bottom: 3px solid #C5A059;">
+                    <h5 class="modal-title fw-bold" id="emailModalLabel">
+                        <i class="fa-solid fa-paper-plane text-warning me-2"></i> VIP Teklif E-Postası Gönderimi
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div id="emailLoading" class="text-center py-4">
+                        <div class="spinner-border text-primary mb-2" role="status"></div>
+                        <div class="text-muted fw-bold" style="font-size: 13px;">Kuruma özel e-posta şablonu ve ekli Word teklif dosyası yükleniyor...</div>
+                    </div>
+                    <div id="emailForm" class="d-none">
+                        <input type="hidden" id="emailLeadIndex">
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-navy" style="font-size: 12px;">Gönderen:</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-user-check text-primary"></i></span>
+                                    <input type="text" class="form-control" id="emailSender" value="Yiğit Narin &lt;yigit.narin@cb.com.tr&gt;" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-navy" style="font-size: 12px;">Alıcı E-Posta:</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text bg-light"><i class="fa-solid fa-envelope text-danger"></i></span>
+                                    <input type="email" class="form-control fw-bold text-primary" id="emailRecipient" placeholder="alici@kurum.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-navy" style="font-size: 12px;">E-Posta Konusu:</label>
+                            <input type="text" class="form-control form-control-sm fw-bold" id="emailSubject">
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <label class="form-label fw-bold text-navy mb-0" style="font-size: 12px;">Ekli VIP Dosya:</label>
+                                <span class="badge bg-success" id="emailAttachmentBadge"><i class="fa-solid fa-paperclip me-1"></i> Word Teklifi İliştirildi</span>
+                            </div>
+                            <input type="text" class="form-control form-control-sm bg-light" id="emailAttachmentName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-navy" style="font-size: 12px;">E-Posta Canlı Önizlemesi (HTML):</label>
+                            <div class="border rounded p-3 bg-white" style="max-height: 280px; overflow-y: auto;" id="emailPreviewBox"></div>
+                        </div>
+                        <div id="emailAlert" class="alert d-none py-2" style="font-size: 13px;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="openSmtpModal()">
+                        <i class="fa-solid fa-gear me-1"></i> SMTP Ayarlarını İncele
+                    </button>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">İptal</button>
+                        <button type="button" class="btn btn-danger btn-sm fw-bold px-3" id="btnSendEmail" onclick="sendEmailNow()">
+                            <i class="fa-solid fa-paper-plane me-1"></i> yigit.narin@cb.com.tr ile Gönder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. SMTP Settings Modal -->
+    <div class="modal fade" id="smtpModal" tabindex="-1" aria-labelledby="smtpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-navy text-white" style="border-bottom: 3px solid #C5A059;">
+                    <h5 class="modal-title fw-bold" id="smtpModalLabel">
+                        <i class="fa-solid fa-envelope-gear text-warning me-2"></i> Kurumsal SMTP (cb.com.tr) Yapılandırması
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-info py-2 mb-3" style="font-size: 12px;">
+                        <i class="fa-solid fa-circle-info me-1"></i> <b>Coldwell Banker E-Posta Altyapısı:</b> <code>cb.com.tr</code> alan adı Google Workspace (Gmail) altyapısını kullanmaktadır.
+                    </div>
+                    <form id="smtpConfigForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-navy" style="font-size: 12px;">Gönderen E-Posta Adresi:</label>
+                            <input type="email" class="form-control form-control-sm" id="smtpEmail" value="yigit.narin@cb.com.tr">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-navy" style="font-size: 12px;">Gönderen Adı / Unvanı:</label>
+                            <input type="text" class="form-control form-control-sm" id="smtpName" value="Yiğit Narin | Coldwell Banker VIP">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-8">
+                                <label class="form-label fw-bold text-navy" style="font-size: 12px;">SMTP Sunucusu:</label>
+                                <input type="text" class="form-control form-control-sm" id="smtpServer" value="smtp.gmail.com">
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label fw-bold text-navy" style="font-size: 12px;">Port:</label>
+                                <input type="number" class="form-control form-control-sm" id="smtpPort" value="587">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-navy" style="font-size: 12px;">Google Uygulama Şifresi (16 Haneli App Password):</label>
+                            <input type="password" class="form-control form-control-sm" id="smtpPassword" placeholder="••••••••••••••••">
+                            <div class="form-text" style="font-size: 11px;">
+                                Google Hesabınızda 2 Adımlı Doğrulama açıksa: <br>
+                                <b>Google Hesabı > Güvenlik > Uygulama Şifreleri</b> adımından 16 haneli şifre oluşturup buraya yapıştırınız.
+                            </div>
+                        </div>
+                        <div id="smtpTestAlert" class="alert d-none py-2" style="font-size: 12px;"></div>
+                    </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-primary btn-sm fw-bold" onclick="testSmtpConnection()">
+                        <i class="fa-solid fa-plug me-1"></i> Bağlantıyı Test Et
+                    </button>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Kapat</button>
+                        <button type="button" class="btn btn-success btn-sm fw-bold px-3" onclick="saveSmtpConfig()">
+                            <i class="fa-solid fa-floppy-disk me-1"></i> Kaydet
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -929,6 +1067,173 @@
                 alert(res.message);
             }).fail(function() {
                 alert('Mektuplar üretilirken hata oluştu.');
+            });
+        }
+
+        // VIP E-Posta Gönderim Fonksiyonları
+        function openEmailModal(index) {
+            $('#emailLoading').removeClass('d-none');
+            $('#emailForm').addClass('d-none');
+            $('#emailAlert').addClass('d-none');
+            $('#btnSendEmail').prop('disabled', false).html('<i class="fa-solid fa-paper-plane me-1"></i> yigit.narin@cb.com.tr ile Gönder');
+            
+            var modal = new bootstrap.Modal(document.getElementById('emailModal'));
+            modal.show();
+
+            $.get('/api/email/preview/' + index, function(res) {
+                $('#emailLoading').addClass('d-none');
+                $('#emailForm').removeClass('d-none');
+                $('#emailLeadIndex').val(index);
+                $('#emailSender').val(res.sender_name + ' <' + res.sender_email + '>');
+                $('#emailRecipient').val(res.recipient_email);
+                $('#emailSubject').val(res.subject);
+                $('#emailPreviewBox').html(res.html_body);
+                
+                if (res.has_attachment) {
+                    $('#emailAttachmentBadge').removeClass('bg-warning').addClass('bg-success').html('<i class="fa-solid fa-paperclip me-1"></i> ' + res.attachment_file);
+                    $('#emailAttachmentName').val(res.attachment_file + ' (Otomatik eklenecek)');
+                } else {
+                    $('#emailAttachmentBadge').removeClass('bg-success').addClass('bg-warning text-dark').html('<i class="fa-solid fa-triangle-exclamation me-1"></i> Word dosyası üretimde');
+                    $('#emailAttachmentName').val('Dosya gönderim anında anlık üretilip eklenecektir.');
+                }
+
+                if (!res.smtp_ready) {
+                    $('#emailAlert').removeClass('d-none alert-success').addClass('alert-warning').html(
+                        '⚠️ <b>SMTP Şifresi Girilmemiş:</b> E-posta gönderebilmek için önce <a href="javascript:void(0)" onclick="openSmtpModal()" class="alert-link">SMTP Ayarlarından</a> Google Workspace Uygulama Şifrenizi kaydetmelisiniz.'
+                    );
+                }
+            }).fail(function() {
+                $('#emailLoading').addClass('d-none');
+                alert('E-posta önizlemesi yüklenirken hata oluştu.');
+            });
+        }
+
+        function sendEmailNow() {
+            var index = $('#emailLeadIndex').val();
+            var recipient = $('#emailRecipient').val().trim();
+            var subject = $('#emailSubject').val().trim();
+
+            if (!recipient || recipient.indexOf('@') === -1) {
+                alert('Lütfen geçerli bir alıcı e-posta adresi giriniz.');
+                return;
+            }
+
+            if (!confirm(recipient + ' adresine VIP yatırım teklifi e-postası yollansın mı?')) {
+                return;
+            }
+
+            var btn = $('#btnSendEmail');
+            btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Gönderiliyor...');
+            $('#emailAlert').addClass('d-none');
+
+            $.ajax({
+                url: '/api/email/send/' + index,
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    recipient_email: recipient,
+                    subject: subject
+                }),
+                success: function(res) {
+                    btn.html('<i class="fa-solid fa-check me-1"></i> Başarılı');
+                    if (res.success) {
+                        $('#emailAlert').removeClass('d-none alert-warning alert-danger').addClass('alert-success').html(
+                            '✅ ' + res.message
+                        );
+                        setTimeout(function() {
+                            bootstrap.Modal.getInstance(document.getElementById('emailModal')).hide();
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        btn.prop('disabled', false).html('<i class="fa-solid fa-paper-plane me-1"></i> Tekrar Dene');
+                        $('#emailAlert').removeClass('d-none alert-success alert-warning').addClass('alert-danger').html(
+                            '❌ ' + res.message
+                        );
+                    }
+                },
+                error: function(err) {
+                    btn.prop('disabled', false).html('<i class="fa-solid fa-paper-plane me-1"></i> Tekrar Dene');
+                    var msg = err.responseJSON ? err.responseJSON.message : 'Bağlantı hatası oluştu.';
+                    $('#emailAlert').removeClass('d-none alert-success alert-warning').addClass('alert-danger').html('❌ ' + msg);
+                }
+            });
+        }
+
+        // SMTP Ayarları Modal Fonksiyonları
+        function openSmtpModal() {
+            $('#smtpTestAlert').addClass('d-none');
+            $.get('/api/email/config', function(cfg) {
+                $('#smtpEmail').val(cfg.sender_email || 'yigit.narin@cb.com.tr');
+                $('#smtpName').val(cfg.sender_name || 'Yiğit Narin | Coldwell Banker VIP');
+                $('#smtpServer').val(cfg.smtp_server || 'smtp.gmail.com');
+                $('#smtpPort').val(cfg.smtp_port || 587);
+                if (cfg.has_password) {
+                    $('#smtpPassword').attr('placeholder', '•••••••••••••••• (Kayıtlı)');
+                }
+                var modal = new bootstrap.Modal(document.getElementById('smtpModal'));
+                modal.show();
+            });
+        }
+
+        function saveSmtpConfig() {
+            var email = $('#smtpEmail').val().trim();
+            var name = $('#smtpName').val().trim();
+            var server = $('#smtpServer').val().trim();
+            var port = parseInt($('#smtpPort').val().trim()) || 587;
+            var pass = $('#smtpPassword').val().trim();
+
+            $.ajax({
+                url: '/api/email/config',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    sender_email: email,
+                    sender_name: name,
+                    smtp_server: server,
+                    smtp_port: port,
+                    smtp_password: pass
+                }),
+                success: function(res) {
+                    alert('SMTP ayarları başarıyla kaydedildi!');
+                    bootstrap.Modal.getInstance(document.getElementById('smtpModal')).hide();
+                },
+                error: function() {
+                    alert('Ayarlar kaydedilirken hata oluştu.');
+                }
+            });
+        }
+
+        function testSmtpConnection() {
+            var alertBox = $('#smtpTestAlert');
+            alertBox.removeClass('d-none alert-success alert-danger').addClass('alert-info').html(
+                '<span class="spinner-border spinner-border-sm me-1"></span> SMTP sunucusuna bağlanılıyor...'
+            );
+
+            var pass = $('#smtpPassword').val().trim();
+            var payload = {
+                sender_email: $('#smtpEmail').val().trim(),
+                smtp_server: $('#smtpServer').val().trim(),
+                smtp_port: parseInt($('#smtpPort').val().trim()) || 587
+            };
+            if (pass) {
+                payload.smtp_password = pass;
+            }
+
+            $.ajax({
+                url: '/api/email/test',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(payload),
+                success: function(res) {
+                    if (res.success) {
+                        alertBox.removeClass('alert-info alert-danger').addClass('alert-success').html('✅ ' + res.message);
+                    } else {
+                        alertBox.removeClass('alert-info alert-success').addClass('alert-danger').html('❌ ' + res.message);
+                    }
+                },
+                error: function() {
+                    alertBox.removeClass('alert-info alert-success').addClass('alert-danger').html('❌ Test sırasında sunucu hatası oluştu.');
+                }
             });
         }
     </script>
