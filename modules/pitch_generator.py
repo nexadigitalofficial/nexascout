@@ -47,7 +47,7 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     # 1. Header Banner
     header_para = doc.add_paragraph()
     header_para.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run_conf = header_para.add_run("[GİZLİ VE KİŞİYE ÖZEL / OFF-MARKET YATIRIM TEKLİFİ]\n")
+    run_conf = header_para.add_run("[KURUMA ÖZEL STRATEJİK YATIRIM TEKLİFİ]\n")
     run_conf.font.size = Pt(9)
     run_conf.font.bold = True
     run_conf.font.color.rgb = RGBColor(180, 0, 0)
@@ -151,7 +151,6 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
         ("Arsa / Kapalı Alan", "398,00 m² Müstakil Arsa | ~420 m² Brüt Kapalı Alan (4 Kat)"),
         ("Resmi Hukuki Nitelik", "TİCARİ - T.C. Çevre ve Şehircilik Bakanlığı Yapı Kayıt Belgesi (C278DFHU)"),
         ("Teknik Donanım", "Dikey Asansör Şaftı, 10 Ton Su Deposu, 2 Şömine, Kış Bahçesi, Kapalı Garaj"),
-        ("Pazarlama & Gösterim", "Ön Eleme ve Randevu Esasıyla (Salı & Çarşamba 17:00)"),
         ("Resmi İlan Bağlantısı", "https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/")
     ]
     
@@ -183,24 +182,7 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
             p.runs[0].font.size = Pt(9)
             p.runs[0].font.color.rgb = RGBColor(15, 23, 42)
             
-    # 7. Protocol and Closing
-    doc.add_paragraph().paragraph_format.space_before = Pt(12)
-    p_proto = doc.add_paragraph()
-    p_proto.paragraph_format.line_spacing = 1.15
-    proto_txt = (
-        "ÖNEMLİ RANDEVU VE GÖSTERİM PROTOKOLÜ:\n"
-        "Mülk sahibinin kurumsal itibarı ve ikamet eden saygıdeğer aile bireylerinin huzuru gereği mülk üzerine "
-        "'Satılık' brandası asılmamaktadır. "
-        "Yer gösterimleri yalnızca ön elemeden geçmiş kurumlara ve akredite karar vericilere, "
-        "Gizlilik Protokolü (NDA) çerçevesinde Salı ve Çarşamba günleri organize edilmektedir."
-    )
-    r_pr = p_proto.add_run(proto_txt)
-    r_pr.font.name = "Segoe UI"
-    r_pr.font.size = Pt(9)
-    r_pr.font.italic = True
-    r_pr.font.color.rgb = RGBColor(100, 116, 139)
-    
-    # 8. Sign-off
+    # 7. Sign-off
     p_sign = doc.add_paragraph()
     p_sign.paragraph_format.space_before = Pt(15)
     r_sign = p_sign.add_run(
@@ -222,10 +204,5 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     except PermissionError:
         import time
         time.sleep(0.5)
-        try:
-            doc.save(out_file)
-        except Exception:
-            fallback = os.path.join(output_dir, f"{clean_name}_VIP_Yatirim_Teklifi_guncel.docx")
-            doc.save(fallback)
-            return fallback
+        doc.save(out_file)
     return out_file

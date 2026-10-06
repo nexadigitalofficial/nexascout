@@ -106,7 +106,7 @@ def generate_confidential_teaser(lead_data, decision_maker_name=None, decision_m
     
     dm_salutation = f"Sayın {decision_maker_name} ({decision_maker_title})" if decision_maker_name and decision_maker_title else f"{kurum_adi} Yönetim Kurulu Başkanlığı & Üst Yönetimi Dikkatine"
     
-    teaser = f"""GİZLİ & KİŞİYE ÖZEL YATIRIM TEASER'I
+    teaser = f"""KURUMA ÖZEL STRATEJİK YATIRIM TEASER'I
 Kime: {dm_salutation}
 Gönderen: Yiğit Narin - Coldwell Banker VIP Gayrimenkul Yatırım Direktörlüğü
 Konu: Ankara İncek / LÖSANTE Karşısı - Bölgedeki Tek Yasal Ticari Ruhsatlı Müstakil Kompleks Hakkında
@@ -115,15 +115,14 @@ Sayın Yetkili,
 
 {kurum_adi}'nin {sektor} alanındaki prestijli büyüme vizyonunu yakından takip etmekteyiz.
 
-Mevcut lokasyonunuza yalnızca {mesafe} km mesafede, Ankara İncek'in en değerli sağlık ve kurumsal aksında, mülk sahibinin 'Tamamen Gizli / Off-Market' satış talimatı verdiği müstesna bir gayrimenkulü portföyümüze almış bulunmaktayız.
+Mevcut lokasyonunuza yalnızca {mesafe} km mesafede, Ankara İncek'in en değerli sağlık ve kurumsal aksında, müstesna bir ticari gayrimenkulü portföyümüze almış bulunmaktayız.
 
 MÜLKÜN STRATEJİK & RAKİPSİZ ÖZELLİKLERİ:
 1. YASAL TEKEL STATÜSÜ: Çevre, Şehircilik ve İklim Değişikliği Bakanlığı onaylı 'TİCARİ Yapı Kayıt Belgesi' (Belge No: C278DFHU). Bölgedeki konut kooperatifi dokusu içerisinde ticari faaliyet ve kurum açma iznine sahip TEK müstakil parseldir.
 2. LOKASYON GÜCÜ: LÖSANTE Hastanesi'nin tam karşısında, köşe parsel, 398 m² arsa ve ~420 m² brüt 4 katlı müstakil kullanım.
 3. KULLANIM ALTYAPISI: Özel otopark alanı, müstakil bahçe, bağımsız girişler ve sağlık/klinik/eğitim/savunma standartlarına tam uygun mimari.
-4. SATIŞ ŞARTLARI: Mülk sahibinin gizlilik protokolü gereği alanda 'Satılık' tabelası asılmamakta olup, sunumlar yalnızca KYC (Alıcı Tanıma Formu) ve Gizlilik Sözleşmesi (NDA) imzalamış akredite kurumlara Salı/Çarşamba günleri randevu ile yapılmaktadır.
 
-Yatırım detayları ve teknik şartname dosyasını şahsınıza özel olarak arz etmek üzere, uygun göreceğiniz bir zaman diliminde 15 dakikalık bir ön görüşme teklif etmekteyiz.
+Yatırım detayları ve teknik şartname dosyasını şahsınıza özel olarak arz etmek üzere, uygun göreceğiniz bir zaman diliminde bir ön görüşme teklif etmekteyiz.
 
 Resmi İlan Detayı: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/
 

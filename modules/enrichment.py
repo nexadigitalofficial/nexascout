@@ -44,7 +44,7 @@ def generate_whatsapp_url(phone_str, institution_name, distance_km=None):
         f"bölgenin tek tescilli 'TİCARİ' ruhsatlı müstakil gayrimenkulü hakkında "
         f"tarafınıza özel yatırım dosyamızı sunmak isteriz. "
         f"İlan Detayı: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/ "
-        f"Detaylı bilgi ve randevu için: Yiğit Narin | Coldwell Banker VIP (0532 451 40 08)"
+        f"Detaylı bilgi için: Yiğit Narin | Coldwell Banker VIP (0532 451 40 08)"
     )
     encoded_msg = urllib.parse.quote(msg)
     return f"https://wa.me/{clean_p}?text={encoded_msg}"

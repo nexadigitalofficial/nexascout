@@ -84,7 +84,7 @@ Mektupların içeriği şablondan ibaret değildir; **o kuruma özel akıllı ma
   * **Tıp Merkezi/Cerrahi ise:** LÖSANTE ve eczaneler aksı, tescilli ticari YKB bürokratik muafiyeti, 10 ton su deposu ve kesintisiz elektrik hattı anlatılır.
   * **Kolej/Okul ise:** 398 m² bahçe alanı, 4 katlı serbest mimari, kış bahçesi botanik atölyesi ve servis araçlarına uygun geniş cadde profili vurgulanır.
   * **Savunma/Teknoloji ise:** O-20 Çevre Yolu'na 1 km bağlantı, yüksek güvenlikli istinat duvarları, bodrum kat bağımsız veri merkezi/server altyapısı ve 15 araçlık otopark vurgulanır.
-* **Finansal ve Protokol Şartları:** 76.5M - 78M TL hedef satış fiyatı, mülk sahibinin gizlilik kuralı (%100 Off-Market / Branda Yok) ve Salı-Çarşamba 17:00 randevu protokolü resmi dille aktarılır.
+* **Kurumsal Şartlar & İlan Bağlantısı:** Resmi Sahibinden ilan bağlantısı ve yetkili danışman Yiğit Narin (0532 451 40 08) iletişim detayları resmi dille aktarılır.
 * **İmza:** Yiğit Narin | Coldwell Banker VIP Real Gayrimenkul A.Ş.
 
 ---
