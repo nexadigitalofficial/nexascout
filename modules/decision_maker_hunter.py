@@ -123,13 +123,15 @@ MÜLKÜN STRATEJİK & RAKİPSİZ ÖZELLİKLERİ:
 3. KULLANIM ALTYAPISI: Özel otopark alanı, müstakil bahçe, bağımsız girişler ve sağlık/klinik/eğitim/savunma standartlarına tam uygun mimari.
 4. SATIŞ ŞARTLARI: Mülk sahibinin gizlilik protokolü gereği alanda 'Satılık' tabelası asılmamakta olup, sunumlar yalnızca KYC (Alıcı Tanıma Formu) ve Gizlilik Sözleşmesi (NDA) imzalamış akredite kurumlara Salı/Çarşamba günleri randevu ile yapılmaktadır.
 
-Yatırım bütçesi ve detaylı teknik şartname dosyasını şahsınıza özel olarak arz etmek üzere, uygun göreceğiniz bir zaman diliminde 15 dakikalık bir ön görüşme teklif etmekteyiz.
+Yatırım detayları ve teknik şartname dosyasını şahsınıza özel olarak arz etmek üzere, uygun göreceğiniz bir zaman diliminde 15 dakikalık bir ön görüşme teklif etmekteyiz.
+
+Resmi İlan Detayı: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/
 
 Saygılarımla,
 
 Yiğit Narin
 Coldwell Banker VIP Gayrimenkul
 Lüks Konut & Ticari Gayrimenkul Danışmanı
-İletişim: +90 532 505 48 37
+İletişim: 0532 451 40 08
 """
     return teaser

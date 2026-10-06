@@ -143,11 +143,7 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     r_syn.font.size = Pt(10)
     
     # 6. Technical Specifications Table
-    doc.add_heading("Portföy Teknik ve Finansal Künyesi", level=2)
-    
-    table = doc.add_table(rows=7, cols=2)
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = False
+    doc.add_heading("Portföy Teknik ve Kurumsal Künyesi", level=2)
     
     specs = [
         ("Konum ve Adres", "Ankara / Gölbaşı / Kızılcaşar Mah. 2705. Cad. No:23 (LÖSANTE Karşısı)"),
@@ -155,9 +151,13 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
         ("Arsa / Kapalı Alan", "398,00 m² Müstakil Arsa | ~420 m² Brüt Kapalı Alan (4 Kat)"),
         ("Resmi Hukuki Nitelik", "TİCARİ - T.C. Çevre ve Şehircilik Bakanlığı Yapı Kayıt Belgesi (C278DFHU)"),
         ("Teknik Donanım", "Dikey Asansör Şaftı, 10 Ton Su Deposu, 2 Şömine, Kış Bahçesi, Kapalı Garaj"),
-        ("Hedef Satış Fiyatı", "76.500.000 TL - 78.000.000 TL (Münhasır Tek Yetkili Portföy)"),
-        ("Pazarlama Protokolü", "Kesinlikle Branda Asılmamaktadır (%100 Off-Market / Gizli Portföy)")
+        ("Pazarlama & Gösterim", "Ön Eleme ve Randevu Esasıyla (Salı & Çarşamba 17:00)"),
+        ("Resmi İlan Bağlantısı", "https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/")
     ]
+    
+    table = doc.add_table(rows=len(specs), cols=2)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.autofit = False
     
     for r_i, (lbl, val) in enumerate(specs):
         cell_lbl = table.cell(r_i, 0)
@@ -190,9 +190,9 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     proto_txt = (
         "ÖNEMLİ RANDEVU VE GÖSTERİM PROTOKOLÜ:\n"
         "Mülk sahibinin kurumsal itibarı ve ikamet eden saygıdeğer aile bireylerinin huzuru gereği mülk üzerine "
-        "'Satılık' brandası asılmamakta ve açık internet ilanlarına konu edilmemektedir. "
-        "Yer gösterimleri yalnızca ön elemeden geçmiş kurumlara, Gizlilik Protokolü (NDA) çerçevesinde "
-        "Salı ve Çarşamba günleri saat 17:00'de organize edilmektedir."
+        "'Satılık' brandası asılmamaktadır. "
+        "Yer gösterimleri yalnızca ön elemeden geçmiş kurumlara ve akredite karar vericilere, "
+        "Gizlilik Protokolü (NDA) çerçevesinde Salı ve Çarşamba günleri organize edilmektedir."
     )
     r_pr = p_proto.add_run(proto_txt)
     r_pr.font.name = "Segoe UI"
@@ -205,9 +205,10 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     p_sign.paragraph_format.space_before = Pt(15)
     r_sign = p_sign.add_run(
         "Saygılarımızla,\n"
-        "Yiğit Narin | Coldwell Banker VIP Real Gayrimenkul A.Ş.\n"
-        "Santra Royal Rezidans Ofisleri No: 2C/4 Çayyolu / Ankara\n"
-        "Tel: 0312 929 92 92 | E-Posta: vip@cb.com.tr"
+        "Yiğit Narin | Coldwell Banker VIP Real Gayrimenkul\n"
+        "İletişim: 0532 451 40 08\n"
+        "Ofis Adresi: Santra Royal Rezidans Ofisleri No: 2C/4 Çayyolu / Ankara\n"
+        "İlan Detayı: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/"
     )
     r_sign.font.name = "Segoe UI"
     r_sign.font.size = Pt(10)
@@ -216,5 +217,15 @@ def generate_pitch_document(lead_data, output_dir=OUTPUT_DIR):
     
     clean_name = sanitize_filename(kurum_adi)[:40]
     out_file = os.path.join(output_dir, f"{clean_name}_VIP_Yatirim_Teklifi.docx")
-    doc.save(out_file)
+    try:
+        doc.save(out_file)
+    except PermissionError:
+        import time
+        time.sleep(0.5)
+        try:
+            doc.save(out_file)
+        except Exception:
+            fallback = os.path.join(output_dir, f"{clean_name}_VIP_Yatirim_Teklifi_guncel.docx")
+            doc.save(fallback)
+            return fallback
     return out_file

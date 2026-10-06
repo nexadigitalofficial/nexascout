@@ -79,11 +79,11 @@ def generate_interactive_map(leads_data, output_html_path, anchor_lat=ANCHOR_LAT
             <b>⚖️ Hukuki Statü:</b> <span style="background: #DCFCE7; color: #166534; padding: 2px 5px; border-radius: 4px; font-weight: bold;">Tescilli TİCARİ YKB (C278DFHU)</span><br>
             <b>📐 Alan:</b> 398 m² Arsa | ~420 m² Brüt Kapalı Alan (4 Kat)<br>
             <b>🏗️ Özellikler:</b> Dikey Asansör Şaftı, Çift Giriş, 10 Ton Su Deposu, Kapalı Garaj, Şömineler, Kış Bahçesi<br>
-            <b>💰 Satış Fiyatı:</b> <b>76.500.000 TL - 78.000.000 TL</b><br>
-            <b>🔒 Pazarlama:</b> %100 Off-Market (Branda Yok) | Salı & Çarşamba 17:00 Randevulu<br>
+            <b>🔗 Resmi İlan:</b> <a href="https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/" target="_blank" style="color: #0284c7; font-weight: bold; text-decoration: underline;">Sahibinden İlanını İncele</a><br>
+            <b>🔒 Gösterim:</b> Salı & Çarşamba Randevu ile (Gizlilik Esaslı)<br>
             <div style="margin-top: 8px; border-top: 1px solid #E2E8F0; padding-top: 6px; font-size: 11px; color: #64748B;">
                 <b>Yetkili Danışman:</b> Yiğit Narin | Coldwell Banker VIP<br>
-                <b>İletişim:</b> 0312 929 92 92
+                <b>İletişim:</b> 0532 451 40 08
             </div>
         </div>
     </div>

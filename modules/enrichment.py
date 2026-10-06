@@ -42,9 +42,9 @@ def generate_whatsapp_url(phone_str, institution_name, distance_km=None):
         f"Merhaba {institution_name} yetkilisi, "
         f"İncek sağlık ve kurumsal aksında, LÖSANTE Hastanesi'nin tam karşısında yer alan "
         f"bölgenin tek tescilli 'TİCARİ' ruhsatlı müstakil gayrimenkulü hakkında "
-        f"tarafınıza özel kapalı devre (Off-Market) yatırım dosyamızı sunmak isteriz. "
-        f"Detaylı bilgi için uygunluk durumunuzu iletebilir misiniz? "
-        f"Saygılarımla, Yiğit Narin | Coldwell Banker VIP (0312 929 92 92)"
+        f"tarafınıza özel yatırım dosyamızı sunmak isteriz. "
+        f"İlan Detayı: https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/ "
+        f"Detaylı bilgi ve randevu için: Yiğit Narin | Coldwell Banker VIP (0532 451 40 08)"
     )
     encoded_msg = urllib.parse.quote(msg)
     return f"https://wa.me/{clean_p}?text={encoded_msg}"
