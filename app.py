@@ -29,6 +29,7 @@ from modules.mailer import (
     find_proposal_file, is_gmail_api_ready
 )
 from modules.ai_pitch_crafter import craft_institution_pitch_suite
+from modules.portfolio_buyer_pipeline import run_portfolio_buyer_pipeline
 from google_maps_lead_harvester import scrape_google_maps_places, export_to_excel, load_config
 
 import openpyxl
@@ -249,6 +250,28 @@ def api_ai_pitch_custom():
     )
     res["status"] = "success"
     return jsonify(res)
+
+@app.route("/api/portfolio_pipeline", methods=["POST"])
+def api_portfolio_pipeline():
+    data = request.get_json() or {}
+    url = data.get("url", "").strip()
+    if not url:
+        return jsonify({"error": "Lütfen geçerli bir portföy ilan linki (Sahibinden veya CB) giriniz."}), 400
+        
+    broker_name = data.get("broker_name", "YİĞİT NARİN")
+    broker_phone = data.get("broker_phone", "0532 451 40 08")
+    broker_office = data.get("broker_office", "Coldwell Banker VIP Real Gayrimenkul")
+    
+    try:
+        res = run_portfolio_buyer_pipeline(
+            url=url,
+            broker_name=broker_name,
+            broker_phone=broker_phone,
+            broker_office=broker_office
+        )
+        return jsonify(res)
+    except Exception as e:
+        return jsonify({"error": f"Portföy alıcı süreci işletilirken hata oluştu: {str(e)}"}), 500
 
 @app.route("/api/hunt_executives/<int:lead_index>")
 def api_hunt_executives(lead_index):

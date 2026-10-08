@@ -1,0 +1,142 @@
+{
+  "scraped": {
+    "ok": true,
+    "source": "sahibinden_psi_api",
+    "title": "Is Yeri Satılık Kızılcaşar LÖSANTE Karşısı Karsisi Köşe Parsel Ticari Satılık Bina 1343884633",
+    "price": "78.249.000 TL",
+    "location": "Gölbaşı, Gölbaşı, Ankara",
+    "city": "Ankara",
+    "district": "Gölbaşı",
+    "neighborhood": "Gölbaşı",
+    "specs": {
+      "Sayfa Türü": "İlan Detay",
+      "Kategori 1": "Emlak",
+      "Kategori 2": "İş Yeri",
+      "Kategori 3": "Satılık",
+      "Şehir": "Ankara",
+      "İlçe": "Gölbaşı",
+      "Mahalle": "Gölbaşı",
+      "İlan No": "1343884633",
+      "Fiyat (Sayısal)": "78249000",
+      "Ülke": "Türkiye",
+      "Mahalle (detay)": "Kızılcaşar Mh.",
+      "Satıcı Tipi": "Kurumsal",
+      "Fiyat": "78.249.000 TL"
+    },
+    "description": "Is Yeri Satılık Kızılcaşar LÖSANTE Karşısı Karsisi Köşe Parsel Ticari Satılık Bina 1343884633 — Ankara, Kızılcaşar aksında yer alan bu seçkin portföy; mimari yapısı, stratejik konumu ve yüksek ticari/yatırım potansiyeliyle öne çıkmaktadır. Tek yetkili danışmanlık hizmetiyle yerinde sunum ve detaylı yatırım şartnamesi hazırlanmıştır.",
+    "images": [
+      "https://i0.shbdn.com/photos/88/46/33/x5_13438846331sd.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633a7z.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633azk.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633kui.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_13438846334hw.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633f7z.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633pxg.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_13438846331sd.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633g0w.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_13438846333ce.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_134388463343n.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_134388463373s.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_13438846333zi.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633h5p.jpg",
+      "https://i0.shbdn.com/photos/88/46/33/thmb_1343884633pz6.jpg"
+    ],
+    "photo_count": 15,
+    "url": "https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/",
+    "listing_id": "",
+    "lat": 39.8064915,
+    "lon": 32.795458
+  },
+  "analysis": {
+    "title": "Is Yeri Satılık Kızılcaşar LÖSANTE Karşısı Karsisi Köşe Parsel Ticari Satılık Bina 1343884633",
+    "asset_class": "Komple Müstakil Ticari Bina",
+    "kapali_m2": "",
+    "location": "Gölbaşı, Gölbaşı, Ankara",
+    "lat": 39.8064915,
+    "lon": 32.795458,
+    "radius_km": 6.0,
+    "advantages": [
+      "TİCARİ KULLANIM: Şirket merkezi, klinik ve eğitim açılışına uygun altyapı",
+      "KÖŞE PARSEL: Çift cepheli kesintisiz tabela değeri, çift bağımsız giriş ve geniş otopark",
+      "STRATEJİK SAĞLIK AKSI: LÖSANTE ve hastaneler bölgesinde hazır hasta ve ziyaretçi sinerjisi"
+    ],
+    "matched_sectors": [
+      {
+        "kod": "SAGLIK",
+        "ad": "Özel Hastane, Tıp Merkezi & VIP Diş/Estetik Klinikleri",
+        "neden": "Bölgedeki tek ticari ruhsatlı müstakil yapı olması ve hazır asansör şaftı sayesinde Sağlık Bakanlığı ruhsatlandırmasına eksiksiz uyum.",
+        "queries": [
+          "özel tıp merkezi",
+          "diş polikliniği",
+          "estetik cerrahi kliniği",
+          "fizik tedavi merkezi",
+          "göz tıp merkezi"
+        ]
+      },
+      {
+        "kod": "SAVUNMA_TEKNO",
+        "ad": "Savunma Sanayii Tedarikçileri, Siber Güvenlik & Ar-Ge Karargahları",
+        "neden": "Ankara Çevre Yolu ve ASELSAN aksına yakınlık, yüksek güvenlikli müstakil bahçe duvarları ve otopark rahatlığı.",
+        "queries": [
+          "savunma sanayi",
+          "yazılım arge merkezi",
+          "siber güvenlik firması",
+          "mühendislik şirket merkezi"
+        ]
+      },
+      {
+        "kod": "HUKUK_DENETIM",
+        "ad": "Büyük Hukuk Büroları, YMM & Bağımsız Denetim Ortaklıkları",
+        "neden": "Çukurambar/GOP apartman otopark krizinden uzak, VIP müvekkil kabul salonları ve şömineli prestijli villa ofis konsepti.",
+        "queries": [
+          "avukatlık ortaklığı",
+          "hukuk bürosu",
+          "yeminli mali müşavirlik",
+          "bağımsız denetim a.ş."
+        ]
+      },
+      {
+        "kod": "EGITIM",
+        "ad": "VIP Erken Çocukluk Akademisi, Butik Kolej & Dil Kampüsü",
+        "neden": "MEB Standartlar Yönergesi'nin zorunlu kıldığı ticari ruhsat ve müstakil güvenli bahçe şartını tam karşılama.",
+        "queries": [
+          "butik kolej",
+          "özel anaokulu",
+          "montessori anaokulu",
+          "yabancı dil akademisi"
+        ]
+      },
+      {
+        "kod": "FON_YATIRIM",
+        "ad": "Gayrimenkul Yatırım Fonları (GYF), Family Office & Portföy Şirketleri",
+        "neden": "Bölge ortalamasının çok altında amortisman süresi, tek kiracılı yüksek kurumsal getiri ve enflasyona karşı yasal tekel koruması.",
+        "queries": [
+          "portföy yönetim şirketi",
+          "holding genel merkezi",
+          "yatırım holding",
+          "gayrimenkul yatırım ortaklığı"
+        ]
+      }
+    ],
+    "lead_search_queries": [
+      "özel tıp merkezi",
+      "diş polikliniği",
+      "savunma sanayi",
+      "yazılım arge merkezi",
+      "avukatlık ortaklığı",
+      "hukuk bürosu",
+      "butik kolej",
+      "özel anaokulu",
+      "portföy yönetim şirketi",
+      "holding genel merkezi"
+    ],
+    "url": "https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/",
+    "photo_count": 15,
+    "primary_image": "https://i0.shbdn.com/photos/88/46/33/x5_13438846331sd.jpg"
+  },
+  "broker": {
+    "name": "YİĞİT NARİN",
+    "phone": "0532 451 40 08",
+    "office": "Coldwell Banker VIP Real Gayrimenkul"
+  }
+}

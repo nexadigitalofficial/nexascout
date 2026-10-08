@@ -286,6 +286,11 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link text-white fw-bold" style="background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);" id="pills-link-tab" data-bs-toggle="pill" data-bs-target="#pills-link" type="button" role="tab">
+                    <i class="fa-solid fa-satellite-dish me-2"></i> 🚀 Tek Linkle Portföy Alıcı Motoru
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-export-tab" data-bs-toggle="pill" data-bs-target="#pills-export" type="button" role="tab">
                     <i class="fa-solid fa-file-export me-2"></i> Excel İndir & Raporlama
                 </button>
@@ -794,6 +799,192 @@
                             <button class="btn btn-info text-white fw-bold mt-auto" onclick="generateAllPitches()">
                                 <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Teklif Mektuplarını Üret (.docx)
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: UNIVERSAL PORTFOLIO BUYER ENGINE (TEK LINKLE ALICI MOTORU) -->
+            <div class="tab-pane fade" id="pills-link" role="tabpanel">
+                <!-- Banner & Input -->
+                <div class="card border-0 mb-4 shadow-sm" style="background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #2563EB 100%); color: white; border-radius: 12px;">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <span class="badge bg-warning text-dark fw-bold mb-2">
+                                    <i class="fa-solid fa-satellite-dish me-1"></i> OTONOM B2B ALICI BULMA MOTORU
+                                </span>
+                                <h4 class="fw-bold mb-1">Tek Link ile Herhangi Bir Portföy İçin Alıcı Sürecini Başlat</h4>
+                                <p class="text-white-50 mb-3" style="font-size: 13px;">
+                                    Sahibinden veya Coldwell Banker (cb.com.tr) ilan linkini yapıştırın. Sistemimiz ilanı anında scrape eder, m² ve ruhsat özelliklerini çıkarır, haksız avantajlarını analiz eder ve hedef alıcı sektörleri için tüm pazarlama paketini hazırlar.
+                                </p>
+                            </div>
+                            <div class="col-lg-4 text-lg-end">
+                                <div class="bg-white bg-opacity-10 p-3 rounded-3 text-start" style="font-size: 12px;">
+                                    <b>✔ Desteklenen Kaynaklar:</b><br>
+                                    • sahibinden.com/ilan/...<br>
+                                    • cb.com.tr/ilan/... (Coldwell Banker)<br>
+                                    • hepsiemlak, zingat, emlakjet
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-white text-dark p-3 rounded-3 shadow-sm mt-2">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-lg-7">
+                                    <label class="form-label fw-bold text-navy mb-1" style="font-size: 12px;">İlan Linki (Sahibinden veya CB):</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-text bg-light"><i class="fa-solid fa-link text-primary"></i></span>
+                                        <input type="url" id="pipelineUrlInput" class="form-control form-control-sm fw-bold" placeholder="https://www.sahibinden.com/ilan/... veya https://www.cb.com.tr/ilan/..." value="https://www.sahibinden.com/ilan/emlak-is-yeri-satilik-kizilcasar-losante-karsisi-kose-parsel-ticari-satilik-bina-1343884633/detay/">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="form-label fw-bold text-navy mb-1" style="font-size: 12px;">Tek Yetkili Danışman:</label>
+                                    <input type="text" id="pipelineBrokerName" class="form-control form-control-sm" value="YİĞİT NARİN (0532 451 40 08)">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-danger btn-sm fw-bold w-100" id="btnRunPipeline" onclick="runPipelineNow()">
+                                        <i class="fa-solid fa-bolt me-1"></i> Süreci Başlat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipeline Loading State -->
+                <div id="pipelineLoading" class="text-center py-5 d-none">
+                    <div class="spinner-border text-primary mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
+                    <h5 class="fw-bold text-navy mb-1">İlan Scrape Ediliyor ve Alıcı Profilleri Analiz Ediliyor...</h5>
+                    <p class="text-muted" style="font-size: 13px;">Sayfa verisi çekiliyor, m² ve ruhsat avantajları ayrıştırılıyor, hedef sektörler haritalandırılıyor.</p>
+                </div>
+
+                <!-- Pipeline Results Dashboard -->
+                <div id="pipelineResultCard" class="d-none">
+                    <div class="row g-4">
+                        <!-- Left: Property DNA Card -->
+                        <div class="col-lg-5">
+                            <div class="card border-0 shadow-sm p-3 bg-white rounded-3 h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                    <h6 class="fw-bold text-navy mb-0">
+                                        <i class="fa-solid fa-building text-primary me-2"></i> Çözümlenen Portföy DNA'sı
+                                    </h6>
+                                    <span class="badge bg-success" id="resSourceBadge">Scrape Başarılı</span>
+                                </div>
+
+                                <h5 class="fw-bold text-dark mb-1" id="resPropertyTitle">Portföy Başlığı</h5>
+                                <div class="text-muted mb-3" style="font-size: 12px;">
+                                    <i class="fa-solid fa-location-dot text-danger me-1"></i> <span id="resPropertyLocation">Lokasyon</span>
+                                </div>
+
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <div class="p-2 border rounded bg-light">
+                                            <div class="text-muted" style="font-size: 10px;">MÜLK SINIFI</div>
+                                            <b class="text-navy" style="font-size: 12px;" id="resAssetClass">Ticari Kompleks</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="p-2 border rounded bg-light">
+                                            <div class="text-muted" style="font-size: 10px;">KAPALI ALAN / ÖLÇEK</div>
+                                            <b class="text-danger" style="font-size: 12px;" id="resKapaliM2">420 m²</b>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold text-navy mb-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-shield-halved text-success me-1"></i> Tespit Edilen Haksız Avantajlar (Alıcı Kozları):
+                                </h6>
+                                <div id="resAdvantagesList" class="d-flex flex-column gap-1 mb-3"></div>
+
+                                <h6 class="fw-bold text-navy mb-2" style="font-size: 12px;">
+                                    <i class="fa-solid fa-bullseye text-danger me-1"></i> Eşleşen Öncelikli Alıcı Sektörleri:
+                                </h6>
+                                <div id="resSectorsList" class="d-flex flex-column gap-2 mb-3"></div>
+
+                                <div class="alert alert-secondary p-2 mb-0" style="font-size: 11px;">
+                                    <i class="fa-solid fa-folder-open text-primary me-1"></i> Tüm metin ve rapor dosyaları kaydedildi: <br>
+                                    <code id="resFolderLabel" style="font-size: 10px;"></code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: 4-Way Outreach Suite -->
+                        <div class="col-lg-7">
+                            <div class="card border-0 shadow-sm p-3 bg-white rounded-3 h-100">
+                                <ul class="nav nav-tabs fw-bold mb-3" id="pipelineOutreachTabs" role="tablist">
+                                    <li class="nav-item">
+                                        <button class="nav-link active text-primary" data-bs-toggle="tab" data-bs-target="#tab-pipe-broker" type="button">
+                                            <i class="fa-solid fa-handshake me-1"></i> 1. Meslektaş Paylaşımı
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link text-success" data-bs-toggle="tab" data-bs-target="#tab-pipe-wa" type="button">
+                                            <i class="fa-brands fa-whatsapp me-1"></i> 2. WhatsApp VIP Teaser
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link text-danger" data-bs-toggle="tab" data-bs-target="#tab-pipe-email" type="button">
+                                            <i class="fa-solid fa-envelope me-1"></i> 3. Kurumsal E-Posta
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link text-warning" data-bs-toggle="tab" data-bs-target="#tab-pipe-visual" type="button">
+                                            <i class="fa-solid fa-image me-1"></i> 4. Afiş / Story Metni
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <!-- 1. Broker Tab -->
+                                    <div class="tab-pane fade show active" id="tab-pipe-broker">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-primary">Meslektaş WhatsApp Grupları İçin</span>
+                                            <button class="btn btn-outline-primary btn-sm fw-bold" onclick="copyElementText('pipeBrokerText')">
+                                                <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                            </button>
+                                        </div>
+                                        <textarea class="form-control" id="pipeBrokerText" rows="14" style="font-family: monospace; font-size: 12px; background: #F8FAFC;"></textarea>
+                                    </div>
+
+                                    <!-- 2. WhatsApp Tab -->
+                                    <div class="tab-pane fade" id="tab-pipe-wa">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-success">C-Level Karar Verici Direkt Temas</span>
+                                            <button class="btn btn-outline-success btn-sm fw-bold" onclick="copyElementText('pipeWaText')">
+                                                <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                            </button>
+                                        </div>
+                                        <textarea class="form-control" id="pipeWaText" rows="14" style="font-family: monospace; font-size: 12px; background: #F6FFF8;"></textarea>
+                                    </div>
+
+                                    <!-- 3. Email Tab -->
+                                    <div class="tab-pane fade" id="tab-pipe-email">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-danger">Kurumsal Yatırım Direktörlüğü</span>
+                                            <button class="btn btn-outline-danger btn-sm fw-bold" onclick="copyElementText('pipeEmailText')">
+                                                <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                            </button>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label fw-bold mb-0" style="font-size: 11px;">Konu:</label>
+                                            <input type="text" class="form-control form-control-sm bg-light fw-bold" id="pipeEmailSubject" readonly>
+                                        </div>
+                                        <textarea class="form-control" id="pipeEmailText" rows="11" style="font-family: monospace; font-size: 12px; background: #FAFBFD;"></textarea>
+                                    </div>
+
+                                    <!-- 4. Visual Tab -->
+                                    <div class="tab-pane fade" id="tab-pipe-visual">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="badge bg-warning text-dark">Görsel / Afiş / Story Vitrini</span>
+                                            <button class="btn btn-outline-warning text-dark btn-sm fw-bold" onclick="copyElementText('pipeVisualText')">
+                                                <i class="fa-regular fa-copy me-1"></i> Metni Kopyala
+                                            </button>
+                                        </div>
+                                        <textarea class="form-control" id="pipeVisualText" rows="14" style="font-family: monospace; font-size: 12px; background: #FFFCF2;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1545,6 +1736,87 @@ Kullanıcı herhangi bir kurum adı girdiğinde:
                 },
                 error: function() {
                     alert('Sunucu hatası oluştu.');
+                }
+            });
+        }
+
+        function runPipelineNow() {
+            var url = $('#pipelineUrlInput').val().trim();
+            if (!url) {
+                alert('Lütfen geçerli bir ilan linki giriniz (Sahibinden veya CB)!');
+                return;
+            }
+
+            var broker = $('#pipelineBrokerName').val().trim();
+            $('#pipelineLoading').removeClass('d-none');
+            $('#pipelineResultCard').addClass('d-none');
+            $('#btnRunPipeline').prop('disabled', true);
+
+            $.ajax({
+                url: '/api/portfolio_pipeline',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    url: url,
+                    broker_name: broker || 'YİĞİT NARİN'
+                }),
+                success: function(res) {
+                    $('#pipelineLoading').addClass('d-none');
+                    $('#btnRunPipeline').prop('disabled', false);
+
+                    if (res.status === 'success') {
+                        var analysis = res.analysis;
+                        var outputs = res.outputs;
+
+                        $('#pipelineResultCard').removeClass('d-none');
+                        $('#resPropertyTitle').text(analysis.title);
+                        $('#resPropertyLocation').text(analysis.location);
+                        $('#resAssetClass').text(analysis.asset_class);
+                        $('#resKapaliM2').text(analysis.kapali_m2 || 'Belirtilmemiş');
+                        $('#resSourceBadge').text(res.scraped.source || 'Scrape Tamamlandı');
+                        $('#resFolderLabel').text(res.folder_path);
+
+                        // Advantages
+                        $('#resAdvantagesList').empty();
+                        analysis.advantages.forEach(function(adv) {
+                            $('#resAdvantagesList').append(
+                                '<div class="p-2 rounded bg-light border-start border-success border-3" style="font-size: 11px;">' +
+                                '<i class="fa-solid fa-check text-success me-1"></i> ' + adv +
+                                '</div>'
+                            );
+                        });
+
+                        // Matched Sectors
+                        $('#resSectorsList').empty();
+                        analysis.matched_sectors.forEach(function(sec) {
+                            $('#resSectorsList').append(
+                                '<div class="p-2 border rounded bg-white shadow-sm" style="font-size: 11px;">' +
+                                '<b class="text-navy">' + sec.ad + '</b><br>' +
+                                '<span class="text-muted">' + sec.neden + '</span>' +
+                                '</div>'
+                            );
+                        });
+
+                        // Fill Outreach Outputs
+                        $('#pipeBrokerText').val(outputs.meslektas_metni);
+                        $('#pipeWaText').val(outputs.wa_teaser);
+                        $('#pipeEmailSubject').val(outputs.email_subject);
+                        $('#pipeEmailText').val(outputs.email_body);
+                        $('#pipeVisualText').val(outputs.gorsel_metin);
+
+                        // Smooth scroll to results
+                        $('html, body').animate({
+                            scrollTop: $("#pipelineResultCard").offset().top - 80
+                        }, 500);
+                    } else {
+                        alert('Hata: ' + (res.error || 'İşlem tamamlanamadı'));
+                    }
+                },
+                error: function(err) {
+                    $('#pipelineLoading').addClass('d-none');
+                    $('#btnRunPipeline').prop('disabled', false);
+                    var msg = err.responseJSON ? err.responseJSON.error : 'Sunucu bağlantı hatası oluştu.';
+                    alert('Hata: ' + msg);
                 }
             });
         }
