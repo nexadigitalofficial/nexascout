@@ -25,7 +25,7 @@ from modules.scoring import calculate_propfit_score
 from modules.decision_maker_hunter import find_decision_makers, generate_confidential_teaser
 from modules.mailer import (
     load_smtp_config, save_smtp_config, test_smtp_connection,
-    build_email_content, send_proposal_email, load_sent_logs,
+    build_email_content, send_proposal_email, send_bulk_proposal_emails, load_sent_logs,
     find_proposal_file, is_gmail_api_ready
 )
 from modules.ai_pitch_crafter import craft_institution_pitch_suite
@@ -335,6 +335,118 @@ def api_email_send(lead_index):
         )
         return jsonify(res)
     return jsonify({"success": False, "message": "Kurum bulunamadı"}), 404
+
+# Global Bulk Email State
+bulk_email_state = {
+    "is_running": False,
+    "total": 0,
+    "current": 0,
+    "current_target": "",
+    "sent_count": 0,
+    "failed_count": 0,
+    "skipped_count": 0,
+    "logs": [],
+    "completed": False,
+    "start_time": None
+}
+
+@app.route("/api/email/bulk_preview")
+def api_email_bulk_preview():
+    leads = load_leads_from_excel()
+    sent_logs = load_sent_logs()
+    valid_leads = [l for l in leads if l.get("eposta") and l.get("eposta") != "N/A" and "@" in l.get("eposta")]
+    missing_leads = [l for l in leads if not (l.get("eposta") and l.get("eposta") != "N/A" and "@" in l.get("eposta"))]
+    already_sent = [l for l in valid_leads if l.get("kurum_adi") in sent_logs and "SUCCESS" in sent_logs[l.get("kurum_adi")].get("status", "")]
+    
+    cfg = load_smtp_config()
+    ready = is_gmail_api_ready() or bool(cfg.get("smtp_password"))
+    
+    return jsonify({
+        "status": "success",
+        "total_leads": len(leads),
+        "valid_email_count": len(valid_leads),
+        "missing_email_count": len(missing_leads),
+        "already_sent_count": len(already_sent),
+        "to_be_sent_count": len(valid_leads) - len(already_sent),
+        "gmail_api_ready": is_gmail_api_ready(),
+        "smtp_ready": bool(cfg.get("smtp_password")),
+        "is_ready_to_send": ready,
+        "estimated_duration_min": round((len(valid_leads) * 2.5) / 60, 1)
+    })
+
+@app.route("/api/email/send_bulk", methods=["POST"])
+def api_email_send_bulk():
+    global bulk_email_state
+    if bulk_email_state["is_running"]:
+        return jsonify({"error": "Toplu gönderim işlemi zaten arka planda devam ediyor."}), 400
+        
+    cfg = load_smtp_config()
+    if not (is_gmail_api_ready() or cfg.get("smtp_password")):
+        return jsonify({
+            "error": "Google API bağlı değil ve SMTP şifresi girilmemiş. Lütfen önce GOOGLE_GMAIL_BAGLA.bat ile hesabınızı bağlayınız."
+        }), 400
+
+    leads = load_leads_from_excel()
+    req_data = request.json or {}
+    skip_already_sent = req_data.get("skip_already_sent", True)
+    delay_sec = float(req_data.get("delay_sec", 2.5))
+    
+    # Reset state
+    bulk_email_state = {
+        "is_running": True,
+        "total": len(leads),
+        "current": 0,
+        "current_target": "",
+        "sent_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "logs": [],
+        "completed": False,
+        "start_time": datetime.now().strftime("%H:%M:%S")
+    }
+
+    def worker():
+        global bulk_email_state
+        def progress_cb(current, total, name, status, msg):
+            bulk_email_state["current"] = current
+            bulk_email_state["current_target"] = name
+            if status == "SUCCESS":
+                bulk_email_state["sent_count"] += 1
+            elif status == "FAILED":
+                bulk_email_state["failed_count"] += 1
+            else:
+                bulk_email_state["skipped_count"] += 1
+            bulk_email_state["logs"].append({
+                "time": datetime.now().strftime("%H:%M:%S"),
+                "name": name,
+                "status": status,
+                "msg": msg
+            })
+            # Sadece son 50 logu sakla
+            if len(bulk_email_state["logs"]) > 50:
+                bulk_email_state["logs"].pop(0)
+
+        try:
+            send_bulk_proposal_emails(
+                leads=leads,
+                proposals_dir=PROPOSALS_DIR,
+                delay_sec=delay_sec,
+                skip_already_sent=skip_already_sent,
+                status_callback=progress_cb
+            )
+        finally:
+            bulk_email_state["is_running"] = False
+            bulk_email_state["completed"] = True
+
+    thread = threading.Thread(target=worker, daemon=True)
+    thread.start()
+
+    return jsonify({"status": "started", "message": "Toplu e-posta gönderimi arka planda başlatıldı."})
+
+@app.route("/api/email/bulk_status")
+def api_email_bulk_status():
+    global bulk_email_state
+    return jsonify(bulk_email_state)
 
 @app.route("/api/email/config", methods=["GET", "POST"])
 def api_email_config():

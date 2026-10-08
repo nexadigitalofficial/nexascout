@@ -326,6 +326,9 @@
                             <i class="fa-solid fa-database text-primary me-2"></i> Taranan ve Eşleştirilen Kurumsal Adaylar
                         </h5>
                         <div class="d-flex gap-2">
+                            <button class="btn btn-primary btn-sm fw-bold shadow-sm" onclick="openBulkEmailModal()">
+                                <i class="fa-solid fa-paper-plane me-1"></i> Toplu VIP E-Posta Gönder (81 Kurum)
+                            </button>
                             <button class="btn btn-success btn-sm fw-bold" onclick="generateAllPitches()">
                                 <i class="fa-solid fa-file-word me-1"></i> Tüm Kurumlara Word Teklif Üret (.docx)
                             </button>
@@ -1217,6 +1220,125 @@
         </div>
     </div>
 
+    <!-- 2.8. Bulk Email Dispatch Modal -->
+    <div class="modal fade" id="bulkEmailModal" tabindex="-1" aria-labelledby="bulkEmailModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #0A2540 0%, #1B365D 100%); border-bottom: 3px solid #C5A059;">
+                    <h5 class="modal-title fw-bold" id="bulkEmailModalLabel">
+                        <i class="fa-solid fa-paper-plane text-warning me-2"></i> Toplu VIP Teklif E-Postası Gönderim Merkezi
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat" id="btnBulkHeaderClose"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Loading State -->
+                    <div id="bulkEmailLoading" class="text-center py-4">
+                        <div class="spinner-border text-primary mb-2" role="status"></div>
+                        <div class="text-muted fw-bold" style="font-size: 13px;">Kurum veritabanı ve e-posta yetkilendirmesi denetleniyor...</div>
+                    </div>
+
+                    <!-- Main Bulk Content -->
+                    <div id="bulkEmailContent" class="d-none">
+                        <!-- Account Status Alert -->
+                        <div id="bulkAuthAlert" class="alert py-2 mb-3" style="font-size: 13px;"></div>
+
+                        <!-- Statistics Grid -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-3">
+                                <div class="card p-2 bg-light border-0 text-center">
+                                    <div class="text-muted" style="font-size: 11px;">Toplam Kurum</div>
+                                    <h5 class="fw-bold text-navy mb-0" id="bulkStatTotal">100</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card p-2 bg-success bg-opacity-10 border-0 text-center">
+                                    <div class="text-success fw-bold" style="font-size: 11px;">E-Postası Doğrulanan</div>
+                                    <h5 class="fw-bold text-success mb-0" id="bulkStatValid">81</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card p-2 bg-secondary bg-opacity-10 border-0 text-center">
+                                    <div class="text-muted" style="font-size: 11px;">E-posta Eksik (Atlanacak)</div>
+                                    <h5 class="fw-bold text-muted mb-0" id="bulkStatMissing">19</h5>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card p-2 bg-primary bg-opacity-10 border-0 text-center">
+                                    <div class="text-primary fw-bold" style="font-size: 11px;">Gönderilecek Aday</div>
+                                    <h5 class="fw-bold text-primary mb-0" id="bulkStatToSend">81</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feature Badges -->
+                        <div class="p-3 bg-light rounded-3 mb-3 border">
+                            <div class="row g-2" style="font-size: 12px;">
+                                <div class="col-md-6">
+                                    <i class="fa-solid fa-file-word text-primary me-1"></i> <b>Kişiselleştirilmiş Word Eki:</b> Her kuruma özel oluşturulan <code>.docx</code> teklif mektubu otomatik eklenir.
+                                </div>
+                                <div class="col-md-6">
+                                    <i class="fa-solid fa-shield-halved text-success me-1"></i> <b>Spam & Kota Koruması:</b> 2.5 sn güvenli aralıkla gönderilir (Tahmini süre: ~3.5 dakika).
+                                </div>
+                                <div class="col-md-6">
+                                    <i class="fa-solid fa-user-tie text-navy me-1"></i> <b>Gönderen Kimliği:</b> Yiğit Narin &lt;yigit.narin@cb.com.tr&gt;
+                                </div>
+                                <div class="col-md-6">
+                                    <i class="fa-solid fa-clock-rotate-left text-warning me-1"></i> <b>Mükerrer Engelleyici:</b> Daha önce gönderilmiş kurumlar atlanır.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Options -->
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="bulkSkipAlreadySent" checked>
+                            <label class="form-check-label fw-bold text-navy" for="bulkSkipAlreadySent" style="font-size: 13px;">
+                                Daha önce başarıyla gönderilen kurumları atla (Tekrar gönderilmesin)
+                            </label>
+                        </div>
+
+                        <!-- Progress Box (Hidden until started) -->
+                        <div id="bulkProgressBox" class="d-none border rounded-3 p-3 bg-white shadow-sm mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold text-navy" style="font-size: 13px;" id="bulkCurrentAction">Gönderim devam ediyor...</span>
+                                <span class="badge bg-primary" id="bulkProgressPercent">0%</span>
+                            </div>
+                            <div class="progress mb-2" style="height: 12px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="bulkProgressBar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted" style="font-size: 11px;">
+                                <span><i class="fa-solid fa-circle-check text-success me-1"></i> Başarılı: <b id="bulkCountSent">0</b></span>
+                                <span><i class="fa-solid fa-circle-xmark text-danger me-1"></i> Hatalı: <b id="bulkCountFailed">0</b></span>
+                                <span><i class="fa-solid fa-circle-minus text-secondary me-1"></i> Atlanan: <b id="bulkCountSkipped">0</b></span>
+                                <span><i class="fa-solid fa-list-ol text-primary me-1"></i> İlerleme: <b id="bulkCountProgress">0 / 81</b></span>
+                            </div>
+
+                            <!-- Live Log Box -->
+                            <div class="mt-3">
+                                <div class="text-muted fw-bold mb-1" style="font-size: 11px;"><i class="fa-solid fa-terminal me-1"></i> Canlı Gönderim Logu:</div>
+                                <div id="bulkLogConsole" class="p-2 rounded bg-dark text-white font-monospace" style="font-size: 11px; height: 140px; overflow-y: auto;">
+                                    <div>[SİSTEM] Toplu gönderim konsolu hazır...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="openSmtpModal()">
+                            <i class="fa-solid fa-gear me-1"></i> E-Posta / API Ayarları
+                        </button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" id="btnBulkClose">Kapat</button>
+                        <button type="button" class="btn btn-primary btn-sm fw-bold px-3 shadow-sm" id="btnStartBulk" onclick="startBulkEmail()">
+                            <i class="fa-solid fa-paper-plane me-1"></i> Toplu Gönderimi Başlat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 3. VIP Email Dispatch Modal -->
     <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1654,6 +1776,156 @@
             }).fail(function() {
                 alert('Yetkilendirme başlatılırken hata oluştu.');
             });
+        }
+
+        // ==========================================
+        // TOPLU E-POSTA GÖNDERİM SİSTEMİ
+        // ==========================================
+        var bulkPollInterval = null;
+
+        function openBulkEmailModal() {
+            $('#bulkEmailLoading').removeClass('d-none');
+            $('#bulkEmailContent').addClass('d-none');
+            $('#bulkProgressBox').addClass('d-none');
+            $('#btnStartBulk').prop('disabled', false).html('<i class="fa-solid fa-paper-plane me-1"></i> Toplu Gönderimi Başlat');
+            $('#btnBulkClose').prop('disabled', false);
+            $('#btnBulkHeaderClose').prop('disabled', false);
+
+            var modal = new bootstrap.Modal(document.getElementById('bulkEmailModal'));
+            modal.show();
+
+            // Preview verisini çek
+            $.get('/api/email/bulk_preview', function(data) {
+                $('#bulkEmailLoading').addClass('d-none');
+                $('#bulkEmailContent').removeClass('d-none');
+
+                $('#bulkStatTotal').text(data.total_leads);
+                $('#bulkStatValid').text(data.valid_email_count);
+                $('#bulkStatMissing').text(data.missing_email_count);
+                $('#bulkStatToSend').text(data.to_be_sent_count);
+
+                var authAlert = $('#bulkAuthAlert');
+                if (data.is_ready_to_send) {
+                    var provider = data.gmail_api_ready ? 'Resmi Google Workspace (Gmail API)' : 'Kurumsal SMTP';
+                    authAlert.removeClass('alert-danger alert-warning').addClass('alert-success').html(
+                        '<b><i class="fa-solid fa-circle-check me-1"></i> Gönderim Altyapısı Hazır:</b> ' + provider + ' aktif. Gönderici: <code>yigit.narin@cb.com.tr</code>'
+                    );
+                    $('#btnStartBulk').prop('disabled', false);
+                } else {
+                    authAlert.removeClass('alert-success').addClass('alert-danger').html(
+                        '<b><i class="fa-solid fa-triangle-exclamation me-1"></i> Yetkilendirme Gerekli:</b> Google Gmail API yetkisi henüz verilmemiş veya SMTP parolası girilmemiş.<br>' +
+                        '<div class="mt-2 d-flex gap-2 align-items-center">' +
+                            '<button type="button" class="btn btn-warning btn-sm fw-bold text-dark" onclick="authGoogleNow()"><i class="fa-brands fa-google me-1"></i> Google Hesabını Şimdi Yetkilendir</button>' +
+                            '<span class="text-muted" style="font-size:11px;">(veya proje klasöründen <code>GOOGLE_GMAIL_BAGLA.bat</code> çalıştırınız)</span>' +
+                        '</div>'
+                    );
+                    $('#btnStartBulk').prop('disabled', true);
+                }
+
+                // Devam eden bir işlem var mı kontrol et
+                checkActiveBulkJob();
+            }).fail(function() {
+                $('#bulkEmailLoading').addClass('d-none');
+                $('#bulkEmailContent').removeClass('d-none');
+                $('#bulkAuthAlert').removeClass('alert-success alert-warning').addClass('alert-danger').html(
+                    '<b><i class="fa-solid fa-circle-xmark me-1"></i> Hata:</b> Önizleme bilgileri sunucudan alınamadı.'
+                );
+            });
+        }
+
+        function checkActiveBulkJob() {
+            $.get('/api/email/bulk_status', function(st) {
+                if (st && st.is_running) {
+                    $('#bulkProgressBox').removeClass('d-none');
+                    $('#btnStartBulk').prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Gönderim Devam Ediyor...');
+                    $('#btnBulkClose').prop('disabled', true);
+                    $('#btnBulkHeaderClose').prop('disabled', true);
+                    updateBulkUI(st);
+                    if (!bulkPollInterval) {
+                        bulkPollInterval = setInterval(pollBulkStatus, 1500);
+                    }
+                }
+            });
+        }
+
+        function startBulkEmail() {
+            var toSend = $('#bulkStatToSend').text();
+            var conf = confirm(toSend + ' adet kuruma kişiselleştirilmiş Word teklifi (.docx) ekli e-posta gönderilecek.\\n\\nSpam koruması için her gönderim arası 2.5 saniye beklenir (Tahmini süre: ~3.5 dk).\\n\\nİşlemi başlatmak istiyor musunuz?');
+            if (!conf) return;
+
+            var skipSent = $('#bulkSkipAlreadySent').is(':checked');
+
+            $('#btnStartBulk').prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Gönderim Başlatılıyor...');
+            $('#btnBulkClose').prop('disabled', true);
+            $('#btnBulkHeaderClose').prop('disabled', true);
+            $('#bulkProgressBox').removeClass('d-none');
+            $('#bulkLogConsole').empty().append('<div>[SİSTEM] Gönderim kuyruğu başlatılıyor...</div>');
+
+            $.ajax({
+                url: '/api/email/send_bulk',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    skip_already_sent: skipSent,
+                    delay_sec: 2.5
+                }),
+                success: function(res) {
+                    $('#btnStartBulk').html('<span class="spinner-border spinner-border-sm me-1"></span> Gönderim Sürüyor...');
+                    if (bulkPollInterval) clearInterval(bulkPollInterval);
+                    bulkPollInterval = setInterval(pollBulkStatus, 1500);
+                },
+                error: function(err) {
+                    var msg = err.responseJSON ? err.responseJSON.error : 'İşlem başlatılamadı.';
+                    alert('Hata: ' + msg);
+                    $('#btnStartBulk').prop('disabled', false).html('<i class="fa-solid fa-paper-plane me-1"></i> Toplu Gönderimi Başlat');
+                    $('#btnBulkClose').prop('disabled', false);
+                    $('#btnBulkHeaderClose').prop('disabled', false);
+                }
+            });
+        }
+
+        function pollBulkStatus() {
+            $.get('/api/email/bulk_status', function(st) {
+                updateBulkUI(st);
+                if (st.completed || !st.is_running) {
+                    clearInterval(bulkPollInterval);
+                    bulkPollInterval = null;
+                    $('#btnStartBulk').prop('disabled', true).html('<i class="fa-solid fa-check-double me-1"></i> Gönderim Tamamlandı');
+                    $('#btnBulkClose').prop('disabled', false);
+                    $('#btnBulkHeaderClose').prop('disabled', false);
+                    $('#bulkCurrentAction').html('<span class="text-success fw-bold"><i class="fa-solid fa-circle-check me-1"></i> Tüm gönderim işlemi başarıyla tamamlandı!</span>');
+                }
+            });
+        }
+
+        function updateBulkUI(st) {
+            var total = st.total || 81;
+            var current = st.current || 0;
+            var pct = total > 0 ? Math.round((current / total) * 100) : 0;
+            if (pct > 100) pct = 100;
+
+            $('#bulkProgressBar').css('width', pct + '%');
+            $('#bulkProgressPercent').text(pct + '%');
+            $('#bulkCountSent').text(st.sent_count || 0);
+            $('#bulkCountFailed').text(st.failed_count || 0);
+            $('#bulkCountSkipped').text(st.skipped_count || 0);
+            $('#bulkCountProgress').text(current + ' / ' + total);
+
+            if (st.current_target) {
+                $('#bulkCurrentAction').text('İşleniyor: ' + st.current_target);
+            }
+
+            if (st.logs && st.logs.length > 0) {
+                var logHtml = '';
+                st.logs.forEach(function(l) {
+                    var color = l.status === 'SUCCESS' ? '#4ade80' : (l.status === 'FAILED' ? '#f87171' : '#94a3b8');
+                    var icon = l.status === 'SUCCESS' ? '✓' : (l.status === 'FAILED' ? '✗' : 'ℹ');
+                    logHtml += '<div><span style="color:#64748b;">[' + l.time + ']</span> <span style="color:' + color + ';">' + icon + ' ' + l.name + '</span>: ' + l.msg + '</div>';
+                });
+                var consoleEl = $('#bulkLogConsole');
+                consoleEl.html(logHtml);
+                consoleEl.scrollTop(consoleEl[0].scrollHeight);
+            }
         }
 
         // ==========================================

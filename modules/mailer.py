@@ -416,3 +416,77 @@ def send_proposal_email(lead_data, proposals_dir, recipient_email=None, custom_s
         err = f"E-posta gönderiminde hata: {str(e)}"
         log_sent_email(kurum_adi, target_email, subject, "FAILED", str(e))
         return {"success": False, "message": err}
+
+def send_bulk_proposal_emails(leads, proposals_dir, delay_sec=2.5, skip_already_sent=True, status_callback=None):
+    """
+    Tüm kurumlara kontrollü, spam korumalı (gecikmeli) toplu e-posta gönderimi yapar.
+    """
+    import time
+    results = {
+        "total": len(leads),
+        "sent_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "details": []
+    }
+    
+    sent_logs = load_sent_logs()
+    
+    for idx, lead in enumerate(leads):
+        name = lead.get("kurum_adi", f"Kurum #{idx+1}")
+        email = lead.get("eposta")
+        
+        # 1. E-posta adresi geçerli mi?
+        if not email or email == "N/A" or "@" not in email:
+            results["skipped_count"] += 1
+            results["details"].append({
+                "kurum_adi": name,
+                "email": "N/A",
+                "status": "SKIPPED",
+                "reason": "E-posta adresi yok"
+            })
+            if status_callback:
+                status_callback(idx + 1, len(leads), name, "SKIPPED", "E-posta adresi yok")
+            continue
+            
+        # 2. Önceden başarıyla gönderilmiş mi?
+        if skip_already_sent and name in sent_logs and "SUCCESS" in sent_logs[name].get("status", ""):
+            results["skipped_count"] += 1
+            results["details"].append({
+                "kurum_adi": name,
+                "email": email,
+                "status": "ALREADY_SENT",
+                "reason": "Daha önce gönderildi"
+            })
+            if status_callback:
+                status_callback(idx + 1, len(leads), name, "ALREADY_SENT", "Daha önce gönderildi")
+            continue
+            
+        # 3. Gönder
+        res = send_proposal_email(lead, proposals_dir)
+        if res.get("success"):
+            results["sent_count"] += 1
+            results["details"].append({
+                "kurum_adi": name,
+                "email": email,
+                "status": "SUCCESS",
+                "message": res.get("message")
+            })
+            if status_callback:
+                status_callback(idx + 1, len(leads), name, "SUCCESS", res.get("message"))
+        else:
+            results["failed_count"] += 1
+            results["details"].append({
+                "kurum_adi": name,
+                "email": email,
+                "status": "FAILED",
+                "message": res.get("message")
+            })
+            if status_callback:
+                status_callback(idx + 1, len(leads), name, "FAILED", res.get("message"))
+                
+        # Spam koruma gecikmesi
+        if idx < len(leads) - 1:
+            time.sleep(delay_sec)
+            
+    return results
