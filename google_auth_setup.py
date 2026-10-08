@@ -8,7 +8,7 @@ import os
 import sys
 
 # Force UTF-8
-sys.stdout.reconfigure(encoding="utf-8")
+sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -23,12 +23,12 @@ TOKEN_FILE = os.path.join(CURRENT_DIR, "token.json")
 SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
 
 def authenticate_google_account():
-    print("=" * 65)
-    print(" NEXASCOUT - GOOGLE WORKSPACE (GMAIL API) HIZLI YETKİLENDİRME")
-    print("=" * 65)
+    print("=" * 65, flush=True)
+    print(" NEXASCOUT - GOOGLE WORKSPACE (GMAIL API) HIZLI YETKİLENDİRME", flush=True)
+    print("=" * 65, flush=True)
 
     if not os.path.exists(CLIENT_SECRET_FILE):
-        print(f"[HATA] {CLIENT_SECRET_FILE} bulunamadı!")
+        print(f"[HATA] {CLIENT_SECRET_FILE} bulunamadı!", flush=True)
         return None
 
     creds = None
@@ -40,17 +40,17 @@ def authenticate_google_account():
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            print("[BİLGİ] Mevcut oturum yenileniyor (Refresh Token)...")
+            print("[BİLGİ] Mevcut oturum yenileniyor (Refresh Token)...", flush=True)
             try:
                 creds.refresh(Request())
             except Exception:
                 creds = None
 
         if not creds:
-            print("[BİLGİ] Tarayıcınız açılıyor...")
-            print("[BİLGİ] Lütfen açılan Google sayfasında yigit.narin@cb.com.tr hesabınızı seçip 'İzin Ver' butonuna tıklayınız.\n")
+            print("[BİLGİ] Tarayıcınız açılıyor...", flush=True)
+            print("[BİLGİ] Lütfen açılan Google sayfasında yigit.narin@cb.com.tr hesabınızı seçip 'İzin Ver' butonuna tıklayınız.\n", flush=True)
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port=0, prompt="consent")
 
         # Token'ı kaydet
         with open(TOKEN_FILE, "w", encoding="utf-8") as token_f:
