@@ -56,14 +56,24 @@ def main():
     for adv in analysis["advantages"]:
         print(f"  ✔ {adv}")
 
-    print("\n🎯 EŞLEŞEN HEDEF ALICI SEKTÖRLERİ:")
+    vision = analysis.get("vision_analysis", {})
+    if vision:
+        print("\n🖼️ MİMARİ & GÖRSEL ANALİZ (VISION AGENT):")
+        print(f"  • Genel Kondisyon: {vision.get('overall_condition', 'Bakımlı')} (Skor: {vision.get('condition_score', 8)}/10)")
+        print(f"  • Ticari Uygunluk: {vision.get('commercial_suitability', 'Çok Yüksek')}")
+        if vision.get("positive_visuals"):
+            print(f"  • Görsel Değerler : {' • '.join(vision['positive_visuals'])}")
+
+    print("\n🎯 EŞLEŞEN ÖNCELİKLİ ALICI SEKTÖRLERİ (PROPFIT SKORLARI):")
     for sec in analysis["matched_sectors"]:
-        print(f"  • {sec['ad']}")
-        print(f"    └─ {sec['neden']}")
+        print(f"  • [{sec['fit_verdict']}] {sec['ad']} (PropFit: %{sec['propfit_score']})")
+        print(f"    └─ Gerekçe : {sec['neden']}")
+        print(f"    └─ Karar Verici: {sec.get('hedef_unvanlar', '')}")
 
     print("\n" + "=" * 80)
     print("📂 TÜM PAZARLAMA VE STRATEJİ DOSYALARI OLUŞTURULDU:")
     print(f"   Klasör: {res['folder_path']}")
+    print(f"   • PORTFOY_YATIRIM_VE_HEDEF_ALICI_DOSYASI.docx (Resmi Word Teklif Mektubu)")
     print("   • STRATEJIK_RAPOR.md")
     print("   • MESLEKTAS_IS_BIRLIGI_DUYURUSU.txt")
     print("   • VIP_WHATSAPP_TEASER.txt")

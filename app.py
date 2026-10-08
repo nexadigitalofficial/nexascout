@@ -273,6 +273,13 @@ def api_portfolio_pipeline():
     except Exception as e:
         return jsonify({"error": f"Portföy alıcı süreci işletilirken hata oluştu: {str(e)}"}), 500
 
+@app.route("/download/portfolio_docx/<path:folder_name>")
+def download_portfolio_docx(folder_name):
+    docx_path = os.path.join(APP_DIR, "data", "PORTFOYLER", folder_name, "PORTFOY_YATIRIM_VE_HEDEF_ALICI_DOSYASI.docx")
+    if os.path.exists(docx_path):
+        return send_file(docx_path, as_attachment=True, download_name="PORTFOY_YATIRIM_VE_HEDEF_ALICI_DOSYASI.docx")
+    return "Teklif dosyası bulunamadı", 404
+
 @app.route("/api/hunt_executives/<int:lead_index>")
 def api_hunt_executives(lead_index):
     leads = load_leads_from_excel()

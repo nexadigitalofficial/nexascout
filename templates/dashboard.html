@@ -895,13 +895,15 @@
                                     </div>
                                 </div>
 
+                                <div id="resVisionBox" class="mb-3"></div>
+
                                 <h6 class="fw-bold text-navy mb-2" style="font-size: 12px;">
                                     <i class="fa-solid fa-shield-halved text-success me-1"></i> Tespit Edilen Haksız Avantajlar (Alıcı Kozları):
                                 </h6>
                                 <div id="resAdvantagesList" class="d-flex flex-column gap-1 mb-3"></div>
 
                                 <h6 class="fw-bold text-navy mb-2" style="font-size: 12px;">
-                                    <i class="fa-solid fa-bullseye text-danger me-1"></i> Eşleşen Öncelikli Alıcı Sektörleri:
+                                    <i class="fa-solid fa-bullseye text-danger me-1"></i> Eşleşen Öncelikli Alıcı Sektörleri (8 Sektör PropFit Matrisi):
                                 </h6>
                                 <div id="resSectorsList" class="d-flex flex-column gap-2 mb-3"></div>
 
@@ -934,6 +936,11 @@
                                     <li class="nav-item">
                                         <button class="nav-link text-warning" data-bs-toggle="tab" data-bs-target="#tab-pipe-visual" type="button">
                                             <i class="fa-solid fa-image me-1"></i> 4. Afiş / Story Metni
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link text-info fw-bold" data-bs-toggle="tab" data-bs-target="#tab-pipe-docx" type="button">
+                                            <i class="fa-solid fa-file-word me-1"></i> 5. Word Teklif (.docx)
                                         </button>
                                     </li>
                                 </ul>
@@ -985,6 +992,24 @@
                                             </button>
                                         </div>
                                         <textarea class="form-control" id="pipeVisualText" rows="14" style="font-family: monospace; font-size: 12px; background: #FFFCF2;"></textarea>
+                                    </div>
+
+                                    <!-- 5. Word Docx Tab -->
+                                    <div class="tab-pane fade" id="tab-pipe-docx">
+                                        <div class="alert alert-success p-3 rounded-3 shadow-sm mb-3">
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                <div>
+                                                    <h6 class="fw-bold text-success mb-1"><i class="fa-solid fa-file-word me-2"></i> Resmi Yatırım & Alıcı Teklif Dosyası Hazır</h6>
+                                                    <p class="mb-0 text-muted" style="font-size: 12px;">Portföy fotoğrafları, haksız avantajlar ve 8 hedef sektör analizini içeren kurumsal Word dosyası (.docx) oluşturuldu.</p>
+                                                </div>
+                                                <a href="#" id="btnDownloadPipeDocx" class="btn btn-success btn-sm fw-bold px-3 shadow-sm">
+                                                    <i class="fa-solid fa-download me-1"></i> Word Dosyasını İndir (.docx)
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="border rounded p-3 bg-light" style="font-size: 12px;">
+                                            <b>Dosya Konumu:</b> <code id="resDocxPath"></code>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2058,16 +2083,40 @@ Kullanıcı herhangi bir kurum adı girdiğinde:
                             );
                         });
 
-                        // Matched Sectors
+                        // Vision Analysis Box
+                        if (analysis.vision_analysis) {
+                            var v = analysis.vision_analysis;
+                            var vHtml = '<div class="p-2 border rounded bg-light mb-2" style="font-size: 11px;">' +
+                                '<div class="d-flex justify-content-between align-items-center mb-1">' +
+                                    '<b class="text-navy"><i class="fa-solid fa-camera text-info me-1"></i> Mimari & Görsel Analiz (Vision):</b>' +
+                                    '<span class="badge bg-success">' + (v.overall_condition || 'Bakımlı') + ' (' + (v.condition_score || 8) + '/10)</span>' +
+                                '</div>' +
+                                '<div class="text-muted">' + (v.positive_visuals ? v.positive_visuals.join(' • ') : '') + '</div>' +
+                                '<small class="text-secondary">Model: ' + (v.analyzed_with || 'Nexa Vision Agent') + '</small>' +
+                            '</div>';
+                            $('#resVisionBox').html(vHtml);
+                        }
+
+                        // Matched Sectors (8-Sector PropFit Matrix)
                         $('#resSectorsList').empty();
                         analysis.matched_sectors.forEach(function(sec) {
+                            var badgeClass = sec.propfit_score >= 90 ? 'bg-danger' : (sec.propfit_score >= 80 ? 'bg-warning text-dark' : 'bg-primary');
                             $('#resSectorsList').append(
                                 '<div class="p-2 border rounded bg-white shadow-sm" style="font-size: 11px;">' +
-                                '<b class="text-navy">' + sec.ad + '</b><br>' +
-                                '<span class="text-muted">' + sec.neden + '</span>' +
+                                    '<div class="d-flex justify-content-between align-items-center mb-1">' +
+                                        '<b class="text-navy"><i class="fa-solid ' + (sec.icon || 'fa-building') + ' text-primary me-1"></i> ' + sec.ad + '</b>' +
+                                        '<span class="badge ' + badgeClass + '">%' + sec.propfit_score + ' ' + sec.fit_verdict + '</span>' +
+                                    '</div>' +
+                                    '<div class="text-muted mb-1">' + sec.neden + '</div>' +
+                                    '<div style="font-size: 10px; color: #0284C7;"><b><i class="fa-solid fa-user-tie me-1"></i>Hedef Karar Verici:</b> ' + (sec.hedef_unvanlar || '') + '</div>' +
                                 '</div>'
                             );
                         });
+
+                        // Docx Download Link
+                        var folderBase = res.folder_path.split('\\').pop().split('/').pop();
+                        $('#btnDownloadPipeDocx').attr('href', '/download/portfolio_docx/' + folderBase);
+                        $('#resDocxPath').text(res.docx_path || (res.folder_path + '\\PORTFOY_YATIRIM_VE_HEDEF_ALICI_DOSYASI.docx'));
 
                         // Fill Outreach Outputs
                         $('#pipeBrokerText').val(outputs.meslektas_metni);
